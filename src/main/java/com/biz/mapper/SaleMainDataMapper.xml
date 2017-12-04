@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.biz.mapper.SaleMainDataMapper" >
+  <resultMap id="BaseResultMap" type="com.biz.domain.SaleMainData" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="cus_name" property="cusName" jdbcType="VARCHAR" />
+    <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="seen_ policymaker" property="seenPolicymaker" jdbcType="CHAR" />
+    <result column="policymaker_position" property="policymakerPosition" jdbcType="VARCHAR" />
+    <result column="done_ policymaker" property="donePolicymaker" jdbcType="CHAR" />
+    <result column="done_ policymaker_position" property="donePolicymakerPosition" jdbcType="VARCHAR" />
+    <result column="is_real" property="isReal" jdbcType="CHAR" />
+    <result column="five_user_up" property="fiveUserUp" jdbcType="CHAR" />
+    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="contact_email" property="contactEmail" jdbcType="VARCHAR" />
+    <result column="cus_emp_num" property="cusEmpNum" jdbcType="INTEGER" />
+    <result column="cus_city" property="cusCity" jdbcType="VARCHAR" />
+    <result column="launch_time" property="launchTime" jdbcType="TIMESTAMP" />
+    <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.biz.domain.SaleMainDataWithBLOBs" extends="BaseResultMap" >
+    <result column="is_real_comment" property="isRealComment" jdbcType="LONGVARCHAR" />
+    <result column="five_user_up_comment" property="fiveUserUpComment" jdbcType="LONGVARCHAR" />
+    <result column="important_req" property="importantReq" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, cus_name, begin_date, update_date, "seen_ policymaker", policymaker_position, 
+    "done_ policymaker", "done_ policymaker_position", is_real, five_user_up, contact_name, 
+    contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    is_real_comment, five_user_up_comment, important_req
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.biz.domain.SaleMainDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sale_main_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.biz.domain.SaleMainDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sale_main_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sale_main_data
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sale_main_data
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.biz.domain.SaleMainDataExample" >
+    delete from sale_main_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
+    insert into sale_main_data (id, cus_name, begin_date, 
+      update_date, "seen_ policymaker", policymaker_position, 
+      "done_ policymaker", "done_ policymaker_position", 
+      is_real, five_user_up, contact_name, 
+      contact_phone, contact_email, cus_emp_num, 
+      cus_city, launch_time, close_time, 
+      is_real_comment, five_user_up_comment, 
+      important_req)
+    values (#{id,jdbcType=VARCHAR}, #{cusName,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{seenPolicymaker,jdbcType=CHAR}, #{policymakerPosition,jdbcType=VARCHAR}, 
+      #{donePolicymaker,jdbcType=CHAR}, #{donePolicymakerPosition,jdbcType=VARCHAR}, 
+      #{isReal,jdbcType=CHAR}, #{fiveUserUp,jdbcType=CHAR}, #{contactName,jdbcType=VARCHAR}, 
+      #{contactPhone,jdbcType=VARCHAR}, #{contactEmail,jdbcType=VARCHAR}, #{cusEmpNum,jdbcType=INTEGER}, 
+      #{cusCity,jdbcType=VARCHAR}, #{launchTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
+      #{isRealComment,jdbcType=LONGVARCHAR}, #{fiveUserUpComment,jdbcType=LONGVARCHAR}, 
+      #{importantReq,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
+    insert into sale_main_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cusName != null" >
+        cus_name,
+      </if>
+      <if test="beginDate != null" >
+        begin_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="seenPolicymaker != null" >
+        "seen_ policymaker",
+      </if>
+      <if test="policymakerPosition != null" >
+        policymaker_position,
+      </if>
+      <if test="donePolicymaker != null" >
+        "done_ policymaker",
+      </if>
+      <if test="donePolicymakerPosition != null" >
+        "done_ policymaker_position",
+      </if>
+      <if test="isReal != null" >
+        is_real,
+      </if>
+      <if test="fiveUserUp != null" >
+        five_user_up,
+      </if>
+      <if test="contactName != null" >
+        contact_name,
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone,
+      </if>
+      <if test="contactEmail != null" >
+        contact_email,
+      </if>
+      <if test="cusEmpNum != null" >
+        cus_emp_num,
+      </if>
+      <if test="cusCity != null" >
+        cus_city,
+      </if>
+      <if test="launchTime != null" >
+        launch_time,
+      </if>
+      <if test="closeTime != null" >
+        close_time,
+      </if>
+      <if test="isRealComment != null" >
+        is_real_comment,
+      </if>
+      <if test="fiveUserUpComment != null" >
+        five_user_up_comment,
+      </if>
+      <if test="importantReq != null" >
+        important_req,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cusName != null" >
+        #{cusName,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seenPolicymaker != null" >
+        #{seenPolicymaker,jdbcType=CHAR},
+      </if>
+      <if test="policymakerPosition != null" >
+        #{policymakerPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="donePolicymaker != null" >
+        #{donePolicymaker,jdbcType=CHAR},
+      </if>
+      <if test="donePolicymakerPosition != null" >
+        #{donePolicymakerPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="isReal != null" >
+        #{isReal,jdbcType=CHAR},
+      </if>
+      <if test="fiveUserUp != null" >
+        #{fiveUserUp,jdbcType=CHAR},
+      </if>
+      <if test="contactName != null" >
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactEmail != null" >
+        #{contactEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cusEmpNum != null" >
+        #{cusEmpNum,jdbcType=INTEGER},
+      </if>
+      <if test="cusCity != null" >
+        #{cusCity,jdbcType=VARCHAR},
+      </if>
+      <if test="launchTime != null" >
+        #{launchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRealComment != null" >
+        #{isRealComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fiveUserUpComment != null" >
+        #{fiveUserUpComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="importantReq != null" >
+        #{importantReq,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.biz.domain.SaleMainDataExample" resultType="java.lang.Integer" >
+    select count(*) from sale_main_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sale_main_data
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cusName != null" >
+        cus_name = #{record.cusName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginDate != null" >
+        begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null" >
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.seenPolicymaker != null" >
+        "seen_ policymaker" = #{record.seenPolicymaker,jdbcType=CHAR},
+      </if>
+      <if test="record.policymakerPosition != null" >
+        policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.donePolicymaker != null" >
+        "done_ policymaker" = #{record.donePolicymaker,jdbcType=CHAR},
+      </if>
+      <if test="record.donePolicymakerPosition != null" >
+        "done_ policymaker_position" = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isReal != null" >
+        is_real = #{record.isReal,jdbcType=CHAR},
+      </if>
+      <if test="record.fiveUserUp != null" >
+        five_user_up = #{record.fiveUserUp,jdbcType=CHAR},
+      </if>
+      <if test="record.contactName != null" >
+        contact_name = #{record.contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactPhone != null" >
+        contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactEmail != null" >
+        contact_email = #{record.contactEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cusEmpNum != null" >
+        cus_emp_num = #{record.cusEmpNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.cusCity != null" >
+        cus_city = #{record.cusCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.launchTime != null" >
+        launch_time = #{record.launchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.closeTime != null" >
+        close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isRealComment != null" >
+        is_real_comment = #{record.isRealComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.fiveUserUpComment != null" >
+        five_user_up_comment = #{record.fiveUserUpComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.importantReq != null" >
+        important_req = #{record.importantReq,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update sale_main_data
+    set id = #{record.id,jdbcType=VARCHAR},
+      cus_name = #{record.cusName,jdbcType=VARCHAR},
+      begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      "seen_ policymaker" = #{record.seenPolicymaker,jdbcType=CHAR},
+      policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
+      "done_ policymaker" = #{record.donePolicymaker,jdbcType=CHAR},
+      "done_ policymaker_position" = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
+      is_real = #{record.isReal,jdbcType=CHAR},
+      five_user_up = #{record.fiveUserUp,jdbcType=CHAR},
+      contact_name = #{record.contactName,jdbcType=VARCHAR},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      contact_email = #{record.contactEmail,jdbcType=VARCHAR},
+      cus_emp_num = #{record.cusEmpNum,jdbcType=INTEGER},
+      cus_city = #{record.cusCity,jdbcType=VARCHAR},
+      launch_time = #{record.launchTime,jdbcType=TIMESTAMP},
+      close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      is_real_comment = #{record.isRealComment,jdbcType=LONGVARCHAR},
+      five_user_up_comment = #{record.fiveUserUpComment,jdbcType=LONGVARCHAR},
+      important_req = #{record.importantReq,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sale_main_data
+    set id = #{record.id,jdbcType=VARCHAR},
+      cus_name = #{record.cusName,jdbcType=VARCHAR},
+      begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      "seen_ policymaker" = #{record.seenPolicymaker,jdbcType=CHAR},
+      policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
+      "done_ policymaker" = #{record.donePolicymaker,jdbcType=CHAR},
+      "done_ policymaker_position" = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
+      is_real = #{record.isReal,jdbcType=CHAR},
+      five_user_up = #{record.fiveUserUp,jdbcType=CHAR},
+      contact_name = #{record.contactName,jdbcType=VARCHAR},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      contact_email = #{record.contactEmail,jdbcType=VARCHAR},
+      cus_emp_num = #{record.cusEmpNum,jdbcType=INTEGER},
+      cus_city = #{record.cusCity,jdbcType=VARCHAR},
+      launch_time = #{record.launchTime,jdbcType=TIMESTAMP},
+      close_time = #{record.closeTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
+    update sale_main_data
+    <set >
+      <if test="cusName != null" >
+        cus_name = #{cusName,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seenPolicymaker != null" >
+        "seen_ policymaker" = #{seenPolicymaker,jdbcType=CHAR},
+      </if>
+      <if test="policymakerPosition != null" >
+        policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="donePolicymaker != null" >
+        "done_ policymaker" = #{donePolicymaker,jdbcType=CHAR},
+      </if>
+      <if test="donePolicymakerPosition != null" >
+        "done_ policymaker_position" = #{donePolicymakerPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="isReal != null" >
+        is_real = #{isReal,jdbcType=CHAR},
+      </if>
+      <if test="fiveUserUp != null" >
+        five_user_up = #{fiveUserUp,jdbcType=CHAR},
+      </if>
+      <if test="contactName != null" >
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactEmail != null" >
+        contact_email = #{contactEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cusEmpNum != null" >
+        cus_emp_num = #{cusEmpNum,jdbcType=INTEGER},
+      </if>
+      <if test="cusCity != null" >
+        cus_city = #{cusCity,jdbcType=VARCHAR},
+      </if>
+      <if test="launchTime != null" >
+        launch_time = #{launchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRealComment != null" >
+        is_real_comment = #{isRealComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fiveUserUpComment != null" >
+        five_user_up_comment = #{fiveUserUpComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="importantReq != null" >
+        important_req = #{importantReq,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
+    update sale_main_data
+    set cus_name = #{cusName,jdbcType=VARCHAR},
+      begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      "seen_ policymaker" = #{seenPolicymaker,jdbcType=CHAR},
+      policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
+      "done_ policymaker" = #{donePolicymaker,jdbcType=CHAR},
+      "done_ policymaker_position" = #{donePolicymakerPosition,jdbcType=VARCHAR},
+      is_real = #{isReal,jdbcType=CHAR},
+      five_user_up = #{fiveUserUp,jdbcType=CHAR},
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      contact_email = #{contactEmail,jdbcType=VARCHAR},
+      cus_emp_num = #{cusEmpNum,jdbcType=INTEGER},
+      cus_city = #{cusCity,jdbcType=VARCHAR},
+      launch_time = #{launchTime,jdbcType=TIMESTAMP},
+      close_time = #{closeTime,jdbcType=TIMESTAMP},
+      is_real_comment = #{isRealComment,jdbcType=LONGVARCHAR},
+      five_user_up_comment = #{fiveUserUpComment,jdbcType=LONGVARCHAR},
+      important_req = #{importantReq,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.biz.domain.SaleMainData" >
+    update sale_main_data
+    set cus_name = #{cusName,jdbcType=VARCHAR},
+      begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      "seen_ policymaker" = #{seenPolicymaker,jdbcType=CHAR},
+      policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
+      "done_ policymaker" = #{donePolicymaker,jdbcType=CHAR},
+      "done_ policymaker_position" = #{donePolicymakerPosition,jdbcType=VARCHAR},
+      is_real = #{isReal,jdbcType=CHAR},
+      five_user_up = #{fiveUserUp,jdbcType=CHAR},
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      contact_email = #{contactEmail,jdbcType=VARCHAR},
+      cus_emp_num = #{cusEmpNum,jdbcType=INTEGER},
+      cus_city = #{cusCity,jdbcType=VARCHAR},
+      launch_time = #{launchTime,jdbcType=TIMESTAMP},
+      close_time = #{closeTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
