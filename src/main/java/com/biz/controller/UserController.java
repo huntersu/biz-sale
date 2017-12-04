@@ -16,12 +16,17 @@ import java.util.Map;
 import java.util.UUID;
 
 @Controller
-@ResponseBody
+//@ResponseBody
 @RequestMapping("/api/user")
 public class UserController {
 
     @Resource
     private IUserClient userClient;
+
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
+    }
 
     /**
      * 用户注册

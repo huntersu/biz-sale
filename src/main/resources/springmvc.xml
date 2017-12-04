@@ -32,7 +32,7 @@
 	<!--<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			<mvc:exclude-mapping path="/wechetRedirect.html"/>
+			<mvc:exclude-mapping path="*.html"/>
 			<bean class="com.biz.interceptor.SpringInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>-->
@@ -60,10 +60,9 @@
 			</list>
 		</property>
 	</bean>
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<!-- 前缀 -->
-		<property name="prefix" value="/WEB-INF/html/"></property>
-		<!-- 后缀 -->
-		<property name="suffix" value=".html"></property>
-	</bean>
+
+	<!--放行静态资源-->
+	<mvc:default-servlet-handler/>
+	<!-- 放行静态资源  或者使用<mvc:default-servlet-handler/>-->
+	<mvc:resources location="/WEB-INF/" mapping="*.html"/>
 </beans>
