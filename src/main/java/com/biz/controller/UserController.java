@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Controller
 @ResponseBody
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Resource
@@ -25,7 +25,7 @@ public class UserController {
 
     /**
      * 用户注册
-     * /user/register
+     * api/user/register
      * @return
      */
     @RequestMapping("/register")
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     /**
-     * /user/login
+     * api/user/login
      * 用户登录
      */
     @RequestMapping("/login/{userId}")
