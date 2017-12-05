@@ -18,7 +18,7 @@
 						http://www.springframework.org/schema/util 
 						http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <context:component-scan base-package="com.biz.service"></context:component-scan>
+    <context:component-scan base-package="com.biz.service"/>
 
     <!-- 第三步：配置事务 -->
     <!-- 1.定义事务管理平台 -->

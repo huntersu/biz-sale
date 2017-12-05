@@ -16,6 +16,11 @@ public interface IUserClient {
     ResultDTO userRegister(SaleLoginUser saleLoginUser);
 
     /**
+     * 根据用户名查询用户信息
+     */
+    ResultDTO findUserInfoByUserName(String loginName);
+
+    /**
      * 用户登录
      */
     ResultDTO userLogin(String userId);

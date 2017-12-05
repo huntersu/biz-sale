@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * 返回结果集
  */
-public class ResultDTO implements Serializable{
+public class ResultDTO<T> implements Serializable{
 
-    private Boolean isSuccess;
-    private String errCode;
-    private String errMsg;
-    private Object data;
+    private Boolean isSuccess = true;
+    private String errCode = "0";
+    private String errMsg = "接口调用成功";
+    private T data;
 
     public ResultDTO(){}
 
@@ -38,11 +38,11 @@ public class ResultDTO implements Serializable{
         this.errMsg = errMsg;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

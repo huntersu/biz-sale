@@ -1,6 +1,7 @@
 package com.biz.service.impl;
 
 import com.biz.common.ResultDTO;
+import com.biz.common.ResultDTOBuilder;
 import com.biz.domain.SaleLoginUser;
 import com.biz.domain.SaleLoginUserExample;
 import org.apache.commons.lang3.StringUtils;
@@ -37,18 +38,35 @@ public class UserLoginImpl implements IUserClient {
 
         int insertNum = saleLoginUserMapper.insert(saleLoginUser);
 
-        Boolean isSuccess = false;
         if (insertNum == 1){
-            isSuccess = true;
+            return ResultDTOBuilder.success(true);
         }
 
-        ResultDTO result = new ResultDTO();
-        result.setSuccess(isSuccess);
-        result.setErrCode(isSuccess?"000000":"-1");
-        result.setErrMsg(isSuccess?"接口调用成功":"接口调用失败");
-        result.setData(insertNum);
+        return ResultDTOBuilder.failure("10003", "注册失败，请稍后重试");
+    }
 
-        return result;
+    /**
+     * 根据用户名查询用户信息
+     * @param loginName
+     * @return
+     */
+    public ResultDTO findUserInfoByUserName(String loginName) {
+
+        SaleLoginUserExample example = new SaleLoginUserExample();
+        example.createCriteria().andLoginnameEqualTo(loginName);
+
+        //查询用户信息
+        List<SaleLoginUser> saleLoginUsers = saleLoginUserMapper.selectByExample(example);
+
+        if(saleLoginUsers == null || saleLoginUsers.isEmpty() || saleLoginUsers.size() <= 0){
+            return ResultDTOBuilder.success(null);
+        }
+
+        if (saleLoginUsers.size() > 1){
+            return ResultDTOBuilder.failure("10000", "用户信息重复，请联系管理员");
+        }
+
+        return ResultDTOBuilder.success(saleLoginUsers.get(0));
     }
 
     /**
