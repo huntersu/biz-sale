@@ -1244,6 +1244,146 @@ public class SaleMainDataExample {
             addCriterion("close_time not between", value1, value2, "closeTime");
             return (Criteria) this;
         }
+
+        public Criteria andNextPolicymakerActionIsNull() {
+            addCriterion("next_policymaker_action is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionIsNotNull() {
+            addCriterion("next_policymaker_action is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionEqualTo(String value) {
+            addCriterion("next_policymaker_action =", value, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionNotEqualTo(String value) {
+            addCriterion("next_policymaker_action <>", value, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionGreaterThan(String value) {
+            addCriterion("next_policymaker_action >", value, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionGreaterThanOrEqualTo(String value) {
+            addCriterion("next_policymaker_action >=", value, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionLessThan(String value) {
+            addCriterion("next_policymaker_action <", value, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionLessThanOrEqualTo(String value) {
+            addCriterion("next_policymaker_action <=", value, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionLike(String value) {
+            addCriterion("next_policymaker_action like", value, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionNotLike(String value) {
+            addCriterion("next_policymaker_action not like", value, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionIn(List<String> values) {
+            addCriterion("next_policymaker_action in", values, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionNotIn(List<String> values) {
+            addCriterion("next_policymaker_action not in", values, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionBetween(String value1, String value2) {
+            addCriterion("next_policymaker_action between", value1, value2, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextPolicymakerActionNotBetween(String value1, String value2) {
+            addCriterion("next_policymaker_action not between", value1, value2, "nextPolicymakerAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionIsNull() {
+            addCriterion("next_req_action is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionIsNotNull() {
+            addCriterion("next_req_action is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionEqualTo(String value) {
+            addCriterion("next_req_action =", value, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionNotEqualTo(String value) {
+            addCriterion("next_req_action <>", value, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionGreaterThan(String value) {
+            addCriterion("next_req_action >", value, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionGreaterThanOrEqualTo(String value) {
+            addCriterion("next_req_action >=", value, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionLessThan(String value) {
+            addCriterion("next_req_action <", value, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionLessThanOrEqualTo(String value) {
+            addCriterion("next_req_action <=", value, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionLike(String value) {
+            addCriterion("next_req_action like", value, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionNotLike(String value) {
+            addCriterion("next_req_action not like", value, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionIn(List<String> values) {
+            addCriterion("next_req_action in", values, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionNotIn(List<String> values) {
+            addCriterion("next_req_action not in", values, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionBetween(String value1, String value2) {
+            addCriterion("next_req_action between", value1, value2, "nextReqAction");
+            return (Criteria) this;
+        }
+
+        public Criteria andNextReqActionNotBetween(String value1, String value2) {
+            addCriterion("next_req_action not between", value1, value2, "nextReqAction");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

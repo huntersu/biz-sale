@@ -19,6 +19,8 @@
     <result column="cus_city" property="cusCity" jdbcType="VARCHAR" />
     <result column="launch_time" property="launchTime" jdbcType="TIMESTAMP" />
     <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+    <result column="next_policymaker_action" property="nextPolicymakerAction" jdbcType="VARCHAR" />
+    <result column="next_req_action" property="nextReqAction" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.biz.domain.SaleMainDataWithBLOBs" extends="BaseResultMap" >
     <result column="is_real_comment" property="isRealComment" jdbcType="LONGVARCHAR" />
@@ -86,7 +88,8 @@
   <sql id="Base_Column_List" >
     id, cus_name, begin_date, update_date, "seen_ policymaker", policymaker_position, 
     "done_ policymaker", "done_ policymaker_position", is_real, five_user_up, contact_name, 
-    contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time
+    contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time, next_policymaker_action, 
+    next_req_action
   </sql>
   <sql id="Blob_Column_List" >
     is_real_comment, five_user_up_comment, important_req
@@ -146,16 +149,18 @@
       is_real, five_user_up, contact_name, 
       contact_phone, contact_email, cus_emp_num, 
       cus_city, launch_time, close_time, 
-      is_real_comment, five_user_up_comment, 
-      important_req)
+      next_policymaker_action, next_req_action, is_real_comment, 
+      five_user_up_comment, important_req
+      )
     values (#{id,jdbcType=VARCHAR}, #{cusName,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, 
       #{updateDate,jdbcType=TIMESTAMP}, #{seenPolicymaker,jdbcType=CHAR}, #{policymakerPosition,jdbcType=VARCHAR}, 
       #{donePolicymaker,jdbcType=CHAR}, #{donePolicymakerPosition,jdbcType=VARCHAR}, 
       #{isReal,jdbcType=CHAR}, #{fiveUserUp,jdbcType=CHAR}, #{contactName,jdbcType=VARCHAR}, 
       #{contactPhone,jdbcType=VARCHAR}, #{contactEmail,jdbcType=VARCHAR}, #{cusEmpNum,jdbcType=INTEGER}, 
       #{cusCity,jdbcType=VARCHAR}, #{launchTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
-      #{isRealComment,jdbcType=LONGVARCHAR}, #{fiveUserUpComment,jdbcType=LONGVARCHAR}, 
-      #{importantReq,jdbcType=LONGVARCHAR})
+      #{nextPolicymakerAction,jdbcType=VARCHAR}, #{nextReqAction,jdbcType=VARCHAR}, #{isRealComment,jdbcType=LONGVARCHAR}, 
+      #{fiveUserUpComment,jdbcType=LONGVARCHAR}, #{importantReq,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
     insert into sale_main_data
@@ -210,6 +215,12 @@
       </if>
       <if test="closeTime != null" >
         close_time,
+      </if>
+      <if test="nextPolicymakerAction != null" >
+        next_policymaker_action,
+      </if>
+      <if test="nextReqAction != null" >
+        next_req_action,
       </if>
       <if test="isRealComment != null" >
         is_real_comment,
@@ -272,6 +283,12 @@
       </if>
       <if test="closeTime != null" >
         #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nextPolicymakerAction != null" >
+        #{nextPolicymakerAction,jdbcType=VARCHAR},
+      </if>
+      <if test="nextReqAction != null" >
+        #{nextReqAction,jdbcType=VARCHAR},
       </if>
       <if test="isRealComment != null" >
         #{isRealComment,jdbcType=LONGVARCHAR},
@@ -344,6 +361,12 @@
       <if test="record.closeTime != null" >
         close_time = #{record.closeTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.nextPolicymakerAction != null" >
+        next_policymaker_action = #{record.nextPolicymakerAction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nextReqAction != null" >
+        next_req_action = #{record.nextReqAction,jdbcType=VARCHAR},
+      </if>
       <if test="record.isRealComment != null" >
         is_real_comment = #{record.isRealComment,jdbcType=LONGVARCHAR},
       </if>
@@ -377,6 +400,8 @@
       cus_city = #{record.cusCity,jdbcType=VARCHAR},
       launch_time = #{record.launchTime,jdbcType=TIMESTAMP},
       close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      next_policymaker_action = #{record.nextPolicymakerAction,jdbcType=VARCHAR},
+      next_req_action = #{record.nextReqAction,jdbcType=VARCHAR},
       is_real_comment = #{record.isRealComment,jdbcType=LONGVARCHAR},
       five_user_up_comment = #{record.fiveUserUpComment,jdbcType=LONGVARCHAR},
       important_req = #{record.importantReq,jdbcType=LONGVARCHAR}
@@ -402,7 +427,9 @@
       cus_emp_num = #{record.cusEmpNum,jdbcType=INTEGER},
       cus_city = #{record.cusCity,jdbcType=VARCHAR},
       launch_time = #{record.launchTime,jdbcType=TIMESTAMP},
-      close_time = #{record.closeTime,jdbcType=TIMESTAMP}
+      close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      next_policymaker_action = #{record.nextPolicymakerAction,jdbcType=VARCHAR},
+      next_req_action = #{record.nextReqAction,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -458,6 +485,12 @@
       <if test="closeTime != null" >
         close_time = #{closeTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="nextPolicymakerAction != null" >
+        next_policymaker_action = #{nextPolicymakerAction,jdbcType=VARCHAR},
+      </if>
+      <if test="nextReqAction != null" >
+        next_req_action = #{nextReqAction,jdbcType=VARCHAR},
+      </if>
       <if test="isRealComment != null" >
         is_real_comment = #{isRealComment,jdbcType=LONGVARCHAR},
       </if>
@@ -488,6 +521,8 @@
       cus_city = #{cusCity,jdbcType=VARCHAR},
       launch_time = #{launchTime,jdbcType=TIMESTAMP},
       close_time = #{closeTime,jdbcType=TIMESTAMP},
+      next_policymaker_action = #{nextPolicymakerAction,jdbcType=VARCHAR},
+      next_req_action = #{nextReqAction,jdbcType=VARCHAR},
       is_real_comment = #{isRealComment,jdbcType=LONGVARCHAR},
       five_user_up_comment = #{fiveUserUpComment,jdbcType=LONGVARCHAR},
       important_req = #{importantReq,jdbcType=LONGVARCHAR}
@@ -510,7 +545,9 @@
       cus_emp_num = #{cusEmpNum,jdbcType=INTEGER},
       cus_city = #{cusCity,jdbcType=VARCHAR},
       launch_time = #{launchTime,jdbcType=TIMESTAMP},
-      close_time = #{closeTime,jdbcType=TIMESTAMP}
+      close_time = #{closeTime,jdbcType=TIMESTAMP},
+      next_policymaker_action = #{nextPolicymakerAction,jdbcType=VARCHAR},
+      next_req_action = #{nextReqAction,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectAll" resultMap="ResultMapWithBLOBs">

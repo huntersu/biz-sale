@@ -35,6 +35,5 @@ public interface SaleMainDataMapper {
 
     int updateByPrimaryKey(SaleMainData record);
 
-    //无参数，查询所有
     List<SaleMainDataWithBLOBs> selectAll();
 }
