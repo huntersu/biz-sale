@@ -10,6 +10,4 @@ public class UUIDUtils {
         UUID ui = UUID.randomUUID();
         return ui.toString().replaceAll("-", "");
     }
-
-
 }

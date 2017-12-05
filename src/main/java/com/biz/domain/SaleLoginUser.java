@@ -1,8 +1,6 @@
 package com.biz.domain;
 
-import java.io.Serializable;
-
-public class SaleLoginUser implements Serializable{
+public class SaleLoginUser {
     private String id;
 
     private String name;
