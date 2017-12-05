@@ -11,15 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户登录测试类
  */
 @Service
-public class UserLoginImpl implements IUserClient {
+public class UserImpl implements IUserClient {
 
     @Resource
     private SaleLoginUserMapper saleLoginUserMapper;
@@ -34,6 +32,14 @@ public class UserLoginImpl implements IUserClient {
         if (StringUtils.isNotBlank(saleLoginUser.getPassword())){
             //DigestUtils是spring提供的工具类
             saleLoginUser.setPassword(DigestUtils.md5DigestAsHex(saleLoginUser.getPassword().getBytes()));
+        }
+
+        ResultDTO userInfo = this.findUserInfoByUserName(saleLoginUser.getLoginname());
+
+        if (userInfo.getSuccess() && userInfo.getData() != null) {
+            return ResultDTOBuilder.failure("10006", "用户名已存在");
+        } else if(!userInfo.getSuccess()){
+            return ResultDTOBuilder.failure(userInfo.getErrCode(), userInfo.getErrMsg());
         }
 
         int insertNum = saleLoginUserMapper.insert(saleLoginUser);
@@ -63,7 +69,7 @@ public class UserLoginImpl implements IUserClient {
         }
 
         if (saleLoginUsers.size() > 1){
-            return ResultDTOBuilder.failure("10000", "用户信息重复，请联系管理员");
+            return ResultDTOBuilder.failure("10005", "用户信息重复，请联系管理员");
         }
 
         return ResultDTOBuilder.success(saleLoginUsers.get(0));
@@ -71,30 +77,32 @@ public class UserLoginImpl implements IUserClient {
 
     /**
      * 用户登录
-     * @param userId
+     * @param loginName
+     * @param password
      * @return
      */
-    public ResultDTO userLogin(String userId) {
+    public ResultDTO userLogin(String loginName, String password) {
 
         SaleLoginUserExample example = new SaleLoginUserExample();
 
-        SaleLoginUserExample.Criteria criteria = example.createCriteria();
-
-        criteria.andIdEqualTo(userId);
+        example.createCriteria().andLoginnameEqualTo(loginName);
 
         List<SaleLoginUser> saleLoginUsers = saleLoginUserMapper.selectByExample(example);
 
-        Boolean isSuccess = true;
         if (saleLoginUsers == null || saleLoginUsers.size() < 1 || saleLoginUsers.isEmpty()){
-            isSuccess = false;
+            return ResultDTOBuilder.failure("10004", "用户名不存在，请核对后重试");
         }
 
-        ResultDTO result = new ResultDTO();
-        result.setSuccess(isSuccess);
-        result.setErrCode(isSuccess?"000000":"-1");
-        result.setErrMsg(isSuccess?"接口调用成功":"接口调用失败");
-        result.setData(saleLoginUsers);
+        if (saleLoginUsers.size() > 1) {
+            return ResultDTOBuilder.failure("10005", "用户信息重复，请联系管理员");
+        }
 
-        return result;
+        String userPass = DigestUtils.md5DigestAsHex(password.getBytes());
+
+        if (!saleLoginUsers.get(0).getPassword().equals(userPass)) {
+            return ResultDTOBuilder.failure("10004", "密码错误，请重新输入");
+        }
+
+        return ResultDTOBuilder.success(saleLoginUsers);
     }
 }

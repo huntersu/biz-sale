@@ -513,4 +513,7 @@
       close_time = #{closeTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectAll" resultMap="ResultMapWithBLOBs">
+    select * from sale_main_data
+  </select>
 </mapper>
