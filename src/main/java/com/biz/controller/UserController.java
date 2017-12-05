@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Controller
 @ResponseBody
-@RequestMapping("/api/user")
+@RequestMapping("/api/user/")
 public class UserController {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
@@ -29,11 +29,11 @@ public class UserController {
      * api/user/register
      * @return
      */
-    @GetMapping("/register")
+    @GetMapping("register")
     public Object userRegister(SaleLoginUser saleLoginUser){
 
        //手动设置id
-        saleLoginUser.setId((System.currentTimeMillis())+"");
+        saleLoginUser.setId("1512453083976");
 
         if (StringUtils.isBlank(saleLoginUser.getLoginname())){
             return ResultDTOBuilder.failure("10002", "用户名不能为空");
@@ -42,30 +42,24 @@ public class UserController {
             return ResultDTOBuilder.failure("10002", "密码不能为空");
         }
 
-        //注册前校验用户名是否已经存在
-        ResultDTO userInfoByUserName = userClient.findUserInfoByUserName(saleLoginUser.getLoginname());
+        //注册
+        ResultDTO registerResult = userClient.userRegister(saleLoginUser);
 
-        if (userInfoByUserName.getSuccess() && userInfoByUserName.getData() == null) {
-
-            ResultDTO registerResult = userClient.userRegister(saleLoginUser);
-            if (registerResult.getSuccess()){
-                return ResultDTOBuilder.success(registerResult);
-            }else {
-                return ResultDTOBuilder.failure(registerResult.getErrCode(), registerResult.getErrMsg());
-            }
+        if (registerResult.getSuccess()){
+            return ResultDTOBuilder.success(registerResult);
+        }else {
+            return ResultDTOBuilder.failure(registerResult.getErrCode(), registerResult.getErrMsg());
         }
-
-        return ResultDTOBuilder.failure(userInfoByUserName.getErrCode(), userInfoByUserName.getErrMsg());
     }
 
     /**
      * api/user/login
      * 用户登录
      */
-    @GetMapping("/login/{userId}")
-    public Object userLogin(@PathVariable String userId){
+    @GetMapping("login/{loginName}/{password}")
+    public Object userLogin(@PathVariable String loginName, @PathVariable String password){
 
-        ResultDTO selectResult = userClient.userLogin(userId);
+        ResultDTO selectResult = userClient.userLogin(loginName, password);
 
         return selectResult;
     }

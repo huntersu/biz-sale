@@ -1,9 +1,8 @@
 package com.biz.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class SaleMainData  implements Serializable {
+public class SaleMainData {
     private String id;
 
     private String cusName;
@@ -37,6 +36,10 @@ public class SaleMainData  implements Serializable {
     private Date launchTime;
 
     private Date closeTime;
+
+    private String nextPolicymakerAction;
+
+    private String nextReqAction;
 
     public String getId() {
         return id;
@@ -172,5 +175,21 @@ public class SaleMainData  implements Serializable {
 
     public void setCloseTime(Date closeTime) {
         this.closeTime = closeTime;
+    }
+
+    public String getNextPolicymakerAction() {
+        return nextPolicymakerAction;
+    }
+
+    public void setNextPolicymakerAction(String nextPolicymakerAction) {
+        this.nextPolicymakerAction = nextPolicymakerAction == null ? null : nextPolicymakerAction.trim();
+    }
+
+    public String getNextReqAction() {
+        return nextReqAction;
+    }
+
+    public void setNextReqAction(String nextReqAction) {
+        this.nextReqAction = nextReqAction == null ? null : nextReqAction.trim();
     }
 }
