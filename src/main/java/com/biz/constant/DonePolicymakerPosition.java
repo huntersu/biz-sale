@@ -1,9 +1,9 @@
 package com.biz.constant;
 
 /**
- * 标注决策人职位
+ * 标注搞定的决策人的职位
  */
-public enum PolicymakerPosition {
+public enum DonePolicymakerPosition {
     BOOS("1", "BOOS", "老板"),
     COMPANY_VP("2", "COMPANY_VP", "公司VP"),
     BUSINESS_VP("3", "BUSINESS_VP", "业务线VP"),
@@ -18,14 +18,14 @@ public enum PolicymakerPosition {
     private String value;
     private String desc;
 
-    PolicymakerPosition(String code, String value, String desc) {
+    DonePolicymakerPosition(String code, String value, String desc) {
         this.code = code;
         this.value = value;
         this.desc = desc;
     }
 
-    public static PolicymakerPosition getByCode(String code) {
-        for (PolicymakerPosition type : PolicymakerPosition.values()) {
+    public static DonePolicymakerPosition getByCode(String code) {
+        for (DonePolicymakerPosition type : DonePolicymakerPosition.values()) {
             if (type.code.equals(code)) {
                 return type;
             }
@@ -33,8 +33,8 @@ public enum PolicymakerPosition {
         return null;
     }
 
-    public static PolicymakerPosition getByValue(String value) {
-        for (PolicymakerPosition type : PolicymakerPosition.values()) {
+    public static DonePolicymakerPosition getByValue(String value) {
+        for (DonePolicymakerPosition type : DonePolicymakerPosition.values()) {
             if (type.value.equals(value)) {
                 return type;
             }
@@ -42,9 +42,13 @@ public enum PolicymakerPosition {
         return null;
     }
 
-    public String getCode() { return code; }
+    public String getCode() {
+        return code;
+    }
 
-    public void setCode(String code) { this.code = code; }
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getValue() {
         return value;

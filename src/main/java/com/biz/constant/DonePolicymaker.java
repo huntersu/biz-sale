@@ -1,9 +1,9 @@
 package com.biz.constant;
 
 /**
- * 标注是否见过决策人
+ * 标注是否搞定决策人
  */
-public enum SeenPolicymaker {
+public enum DonePolicymaker {
     YES("1", "Y", "是"),
     NO("0", "N", "否");
 
@@ -11,14 +11,14 @@ public enum SeenPolicymaker {
     private String value;
     private String desc;
 
-    SeenPolicymaker(String code, String value, String desc){
+    DonePolicymaker(String code, String value, String desc){
         this.code = code;
         this.value = value;
         this.desc = desc;
     }
 
-    public static SeenPolicymaker getByCode(String code) {
-        for (SeenPolicymaker type : SeenPolicymaker.values()) {
+    public static DonePolicymaker getByCode(String code) {
+        for (DonePolicymaker type : DonePolicymaker.values()) {
             if (type.code.equals(code)) {
                 return type;
             }
@@ -26,8 +26,8 @@ public enum SeenPolicymaker {
         return null;
     }
 
-    public static SeenPolicymaker getByValue(String value) {
-        for (SeenPolicymaker type : SeenPolicymaker.values()) {
+    public static DonePolicymaker getByValue(String value) {
+        for (DonePolicymaker type : DonePolicymaker.values()) {
             if (type.value.equals(value)) {
                 return type;
             }
