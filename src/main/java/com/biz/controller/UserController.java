@@ -1,5 +1,6 @@
 package com.biz.controller;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
 import com.biz.domain.SaleLoginUser;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
 import java.util.Random;
 import java.util.UUID;
 
@@ -24,6 +27,9 @@ public class UserController {
     @Resource
     private IUserClient userClient;
 
+    @Resource
+    private HttpSession session;
+
     /**
      * 用户注册
      * api/user/register
@@ -33,7 +39,7 @@ public class UserController {
     public Object userRegister(SaleLoginUser saleLoginUser){
 
        //手动设置id
-        saleLoginUser.setId("1512453083976");
+        saleLoginUser.setId(System.currentTimeMillis()+"");
 
         if (StringUtils.isBlank(saleLoginUser.getLoginname())){
             return ResultDTOBuilder.failure("10002", "用户名不能为空");
@@ -60,6 +66,14 @@ public class UserController {
     public Object userLogin(@PathVariable String loginName, @PathVariable String password){
 
         ResultDTO selectResult = userClient.userLogin(loginName, password);
+
+        //登录成功后将用户信息存入session中
+        if (selectResult.getSuccess() && selectResult.getData() != null) {
+
+            Cookie cookie = new Cookie("userInfo", JSONUtils.toJSONString(selectResult.getData()));
+            cookie.setPath("/user");
+            //session.setAttribute("userIfo", selectResult.getData());
+        }
 
         return selectResult;
     }
