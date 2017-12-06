@@ -100,10 +100,10 @@ public class SaleMainDataController {
 
         Map<String, Integer> finalMap = new LinkedHashMap<String, Integer>();
 
-        ResultDTO haveSeenPolicymakerResult = saleMainDataClient.countHaveSeenPolicymaker();
+        ResultDTO seenPolicymakerResult = saleMainDataClient.countHaveSeenPolicymaker();
 
-        if (haveSeenPolicymakerResult.getSuccess()) {
-            finalMap.put("haveSeenPolicymakerNum", (Integer) haveSeenPolicymakerResult.getData());
+        if (seenPolicymakerResult.getSuccess()) {
+            finalMap.put("seenPolicymakerNum", (Integer) seenPolicymakerResult.getData());
         }
 
         ResultDTO isRealResult = saleMainDataClient.countIsReal();
