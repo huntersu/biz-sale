@@ -542,10 +542,10 @@
 
                 <div class="page-header">
                     <h1>
-                        Form Elements
+                        表单
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
-                            Common form elements and layouts
+                            表单
                         </small>
                     </h1>
                 </div><!-- /.page-header -->
@@ -555,10 +555,10 @@
                         <!-- PAGE CONTENT BEGINS -->
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名： </label>
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户姓名： </label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="form-field-1" placeholder="用户名" class="col-xs-10 col-sm-5"/>
+                                    <input type="text" id="form-field-1" placeholder="客户姓名" class="col-xs-10 col-sm-5"/>
                                 </div>
                             </div>
 
@@ -575,46 +575,152 @@
                                     </span>&ndash;&gt;
                                 </div>
                             </div>-->
-
-
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 菜单： </label>
+                                <label class="col-sm-3 control-label no-padding-right"> 是否见到决策人： </label>
                                 <div class="btn-group" style="margin-left: 12px">
-                                    <button type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
+                                    <button id="seleCheckbox_0" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
                                             data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text">None selected</span> &nbsp;<b
+                                            class="multiselect-selected-text">请选择</span> &nbsp;<b
                                             class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu">
-                                        <li class="multiselect-item filter" value="0">
-                                            <div class="input-group"><span class="input-group-addon"><i
-                                                    class="fa fa-search"></i></span><input
-                                                    class="form-control multiselect-search" type="text"
-                                                    placeholder="Search"><span class="input-group-btn"><button
-                                                    class="btn btn-default btn-white btn-grey multiselect-clear-filter"
-                                                    type="button"><i class="fa fa-times-circle red2"></i></button></span>
-                                            </div>
-                                        </li>
-                                        <li><a tabindex="0"><label class="checkbox"><input type="checkbox" class="ace"
-                                                                                           value="cheese"><span
-                                                class="lbl"></span> Cheese</label></a></li>
-                                        <li><a tabindex="0"><label class="checkbox"><input type="checkbox" class="ace"
-                                                                                           value="tomatoes"><span
-                                                class="lbl"></span> Tomatoes</label></a></li>
-                                        <li><a tabindex="0"><label class="checkbox"><input type="checkbox" class="ace"
-                                                                                           value="mozarella"><span
-                                                class="lbl"></span> Mozzarella</label></a></li>
-                                        <li><a tabindex="0"><label class="checkbox"><input type="checkbox" class="ace"
-                                                                                           value="mushrooms"><span
-                                                class="lbl"></span> Mushrooms</label></a></li>
-                                        <li><a tabindex="0"><label class="checkbox"><input type="checkbox" class="ace"
-                                                                                           value="pepperoni"><span
-                                                class="lbl"></span> Pepperoni</label></a></li>
-                                    </ul>
+                                    <ul class="multiselect-container dropdown-menu" id="select_menu_jueceren"></ul>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 日期： </label>
+                                <label class="col-sm-3 control-label no-padding-right"> 决策人职位： </label>
+                                <div class="btn-group" style="margin-left: 12px">
+                                    <button id="seleCheckbox_1" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
+                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
+                                            class="multiselect-selected-text">请选择</span> &nbsp;<b
+                                            class="fa fa-caret-down"></b></button>
+                                    <ul class="multiselect-container dropdown-menu" id="select_menu_jcrzw"></ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 是否搞定决策人： </label>
+                                <div class="btn-group" style="margin-left: 12px">
+                                    <button id="seleCheckbox_2" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
+                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
+                                            class="multiselect-selected-text">请选择</span> &nbsp;<b
+                                            class="fa fa-caret-down"></b></button>
+                                    <ul class="multiselect-container dropdown-menu" id="select_menu_gdjcr"></ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 搞定的决策人是什么职位： </label>
+                                <div class="btn-group" style="margin-left: 12px">
+                                    <button id="seleCheckbox_3" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
+                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
+                                            class="multiselect-selected-text">请选择</span> &nbsp;<b
+                                            class="fa fa-caret-down"></b></button>
+                                    <ul class="multiselect-container dropdown-menu" id="select_menu_gdjcrzw"></ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 确有其事详情： </label>
+                                <div class="btn-group" style="margin-left: 12px">
+                                    <button id="seleCheckbox_4" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
+                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
+                                            class="multiselect-selected-text">请选择</span> &nbsp;<b
+                                            class="fa fa-caret-down"></b></button>
+                                    <ul class="multiselect-container dropdown-menu" id="select_menu_qs"></ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 确有其事的备注： </label>
+                                <div class="btn-group" style="margin-left: 12px">
+                                    <button id="seleCheckbox_5" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
+                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
+                                            class="multiselect-selected-text">请选择</span> &nbsp;<b
+                                            class="fa fa-caret-down"></b></button>
+                                    <ul class="multiselect-container dropdown-menu" id="select_menu_qyqsbz"></ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 5人以上使用产品效果： </label>
+                                <div class="btn-group" style="margin-left: 12px">
+                                    <button id="seleCheckbox_6" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
+                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
+                                            class="multiselect-selected-text">请选择</span> &nbsp;<b
+                                            class="fa fa-caret-down"></b></button>
+                                    <ul class="multiselect-container dropdown-menu" id="select_menu_sycp"></ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 未满足5人以上使用产品的原因： </label>
+                                <div class="btn-group" style="margin-left: 12px">
+                                    <button id="seleCheckbox_7" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
+                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
+                                            class="multiselect-selected-text">请选择</span> &nbsp;<b
+                                            class="fa fa-caret-down"></b></button>
+                                    <ul class="multiselect-container dropdown-menu" id="select_menu_sycpbz"></ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户联系姓名： </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-2" placeholder="客户联系姓名" class="col-xs-10 col-sm-5"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户联系电话： </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-3" placeholder="客户联系电话" class="col-xs-10 col-sm-5"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户联系邮箱： </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-4" placeholder="客户联系邮箱" class="col-xs-10 col-sm-5"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 客户重点需求： </label>
+
+                                <div class="col-sm-3">
+                                    <textarea class="form-control" placeholder="客户重点需求"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户雇员人数： </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-5" placeholder="客户雇员人数" class="col-xs-10 col-sm-5"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 客户所在城市： </label>
+
+                                <div class="col-sm-3">
+                                    <textarea class="form-control" placeholder="客户所在城市"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 产品预计上线时间： </label>
+
+                                <div class="col-sm-3">
+                                    <textarea class="form-control" placeholder="产品预计上线时间"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 销售关单预计时间： </label>
                                 <div class="col-sm-3">
                                     <div class="input-group input-group-sm">
                                         <input type="text" id="datepicker" class="form-control hasDatepicker">
@@ -623,14 +729,42 @@
 													</span>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 文本： </label>
+                                <label class="col-sm-3 control-label no-padding-right"> 下一步决策人动作： </label>
+                                <div class="btn-group" style="margin-left: 12px">
+                                    <button id="seleCheckbox_8" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
+                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
+                                            class="multiselect-selected-text">请选择</span> &nbsp;<b
+                                            class="fa fa-caret-down"></b></button>
+                                    <ul class="multiselect-container dropdown-menu" id="select_menu_jcrdz"></ul>
+                                </div>
+                            </div>
 
-                                <div class="col-sm-3">
-                                    <textarea class="form-control" id="form-field-8" placeholder="请输入文本"></textarea>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 下一步需求动作： </label>
+                                <div class="btn-group" style="margin-left: 12px">
+                                    <button id="seleCheckbox_9" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
+                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
+                                            class="multiselect-selected-text">请选择</span> &nbsp;<b
+                                            class="fa fa-caret-down"></b></button>
+                                    <ul class="multiselect-container dropdown-menu" id="select_menu_xqdz"></ul>
+                                </div>
+                            </div>
+
+                            <div class="clearfix form-actions">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn btn-info" type="button" id="submit_btn">
+                                        <i class="ace-icon fa fa-check bigger-110"></i>
+                                        提交
+                                    </button>
+
+                                    &nbsp; &nbsp; &nbsp;
+                                    <button class="btn" type="reset" id="reset_btn">
+                                        <i class="ace-icon fa fa-undo bigger-110"></i>
+                                        重置
+                                    </button>
                                 </div>
                             </div>
                             <!--<div class="hr hr-24"></div>-->
@@ -1325,5 +1459,7 @@
         });
     });
 </script>
+<!--数据-->
+<script src="../assets/data/from-data.js"></script>
 </body>
 </html>
