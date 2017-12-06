@@ -715,6 +715,76 @@ public class SaleMainDataExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsRealCommentIsNull() {
+            addCriterion("is_real_comment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentIsNotNull() {
+            addCriterion("is_real_comment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentEqualTo(String value) {
+            addCriterion("is_real_comment =", value, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentNotEqualTo(String value) {
+            addCriterion("is_real_comment <>", value, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentGreaterThan(String value) {
+            addCriterion("is_real_comment >", value, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentGreaterThanOrEqualTo(String value) {
+            addCriterion("is_real_comment >=", value, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentLessThan(String value) {
+            addCriterion("is_real_comment <", value, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentLessThanOrEqualTo(String value) {
+            addCriterion("is_real_comment <=", value, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentLike(String value) {
+            addCriterion("is_real_comment like", value, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentNotLike(String value) {
+            addCriterion("is_real_comment not like", value, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentIn(List<String> values) {
+            addCriterion("is_real_comment in", values, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentNotIn(List<String> values) {
+            addCriterion("is_real_comment not in", values, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentBetween(String value1, String value2) {
+            addCriterion("is_real_comment between", value1, value2, "isRealComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsRealCommentNotBetween(String value1, String value2) {
+            addCriterion("is_real_comment not between", value1, value2, "isRealComment");
+            return (Criteria) this;
+        }
+
         public Criteria andFiveUserUpIsNull() {
             addCriterion("five_user_up is null");
             return (Criteria) this;
@@ -782,6 +852,76 @@ public class SaleMainDataExample {
 
         public Criteria andFiveUserUpNotBetween(String value1, String value2) {
             addCriterion("five_user_up not between", value1, value2, "fiveUserUp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentIsNull() {
+            addCriterion("five_user_up_comment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentIsNotNull() {
+            addCriterion("five_user_up_comment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentEqualTo(String value) {
+            addCriterion("five_user_up_comment =", value, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentNotEqualTo(String value) {
+            addCriterion("five_user_up_comment <>", value, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentGreaterThan(String value) {
+            addCriterion("five_user_up_comment >", value, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentGreaterThanOrEqualTo(String value) {
+            addCriterion("five_user_up_comment >=", value, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentLessThan(String value) {
+            addCriterion("five_user_up_comment <", value, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentLessThanOrEqualTo(String value) {
+            addCriterion("five_user_up_comment <=", value, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentLike(String value) {
+            addCriterion("five_user_up_comment like", value, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentNotLike(String value) {
+            addCriterion("five_user_up_comment not like", value, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentIn(List<String> values) {
+            addCriterion("five_user_up_comment in", values, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentNotIn(List<String> values) {
+            addCriterion("five_user_up_comment not in", values, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentBetween(String value1, String value2) {
+            addCriterion("five_user_up_comment between", value1, value2, "fiveUserUpComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andFiveUserUpCommentNotBetween(String value1, String value2) {
+            addCriterion("five_user_up_comment not between", value1, value2, "fiveUserUpComment");
             return (Criteria) this;
         }
 

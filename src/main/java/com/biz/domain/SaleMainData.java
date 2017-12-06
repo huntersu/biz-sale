@@ -21,7 +21,11 @@ public class SaleMainData {
 
     private String isReal;
 
+    private String isRealComment;
+
     private String fiveUserUp;
+
+    private String fiveUserUpComment;
 
     private String contactName;
 
@@ -44,6 +48,8 @@ public class SaleMainData {
     private Date trueCloseTime;
 
     private String status;
+
+    private String importantReq;
 
     public String getId() {
         return id;
@@ -117,12 +123,28 @@ public class SaleMainData {
         this.isReal = isReal == null ? null : isReal.trim();
     }
 
+    public String getIsRealComment() {
+        return isRealComment;
+    }
+
+    public void setIsRealComment(String isRealComment) {
+        this.isRealComment = isRealComment == null ? null : isRealComment.trim();
+    }
+
     public String getFiveUserUp() {
         return fiveUserUp;
     }
 
     public void setFiveUserUp(String fiveUserUp) {
         this.fiveUserUp = fiveUserUp == null ? null : fiveUserUp.trim();
+    }
+
+    public String getFiveUserUpComment() {
+        return fiveUserUpComment;
+    }
+
+    public void setFiveUserUpComment(String fiveUserUpComment) {
+        this.fiveUserUpComment = fiveUserUpComment == null ? null : fiveUserUpComment.trim();
     }
 
     public String getContactName() {
@@ -211,5 +233,13 @@ public class SaleMainData {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getImportantReq() {
+        return importantReq;
+    }
+
+    public void setImportantReq(String importantReq) {
+        this.importantReq = importantReq == null ? null : importantReq.trim();
     }
 }

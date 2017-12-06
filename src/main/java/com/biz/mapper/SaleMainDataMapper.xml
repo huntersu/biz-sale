@@ -10,8 +10,10 @@
     <result column="policymaker_position" property="policymakerPosition" jdbcType="VARCHAR" />
     <result column="done_ policymaker" property="donePolicymaker" jdbcType="CHAR" />
     <result column="done_ policymaker_position" property="donePolicymakerPosition" jdbcType="VARCHAR" />
-    <result column="is_real" property="isReal" jdbcType="CHAR" />
-    <result column="five_user_up" property="fiveUserUp" jdbcType="CHAR" />
+    <result column="is_real" property="isReal" jdbcType="VARCHAR" />
+    <result column="is_real_comment" property="isRealComment" jdbcType="VARCHAR" />
+    <result column="five_user_up" property="fiveUserUp" jdbcType="VARCHAR" />
+    <result column="five_user_up_comment" property="fiveUserUpComment" jdbcType="VARCHAR" />
     <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
     <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
     <result column="contact_email" property="contactEmail" jdbcType="VARCHAR" />
@@ -24,9 +26,7 @@
     <result column="true_close_time" property="trueCloseTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.biz.domain.SaleMainDataWithBLOBs" extends="BaseResultMap" >
-    <result column="is_real_comment" property="isRealComment" jdbcType="LONGVARCHAR" />
-    <result column="five_user_up_comment" property="fiveUserUpComment" jdbcType="LONGVARCHAR" />
+  <resultMap id="ResultMapWithBLOBs" type="com.biz.domain.SaleMainData" extends="BaseResultMap" >
     <result column="important_req" property="importantReq" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -89,12 +89,13 @@
   </sql>
   <sql id="Base_Column_List" >
     id, cus_name, begin_date, update_date, "seen_ policymaker", policymaker_position, 
-    "done_ policymaker", "done_ policymaker_position", is_real, five_user_up, contact_name, 
-    contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time, next_policymaker_action, 
-    next_req_action, true_close_time, status
+    "done_ policymaker", "done_ policymaker_position", is_real, is_real_comment, five_user_up, 
+    five_user_up_comment, contact_name, contact_phone, contact_email, cus_emp_num, cus_city, 
+    launch_time, close_time, next_policymaker_action, next_req_action, true_close_time, 
+    status
   </sql>
   <sql id="Blob_Column_List" >
-    is_real_comment, five_user_up_comment, important_req
+    important_req
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.biz.domain.SaleMainDataExample" >
     select
@@ -144,27 +145,27 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
+  <insert id="insert" parameterType="com.biz.domain.SaleMainData" >
     insert into sale_main_data (id, cus_name, begin_date, 
       update_date, "seen_ policymaker", policymaker_position, 
       "done_ policymaker", "done_ policymaker_position", 
-      is_real, five_user_up, contact_name, 
-      contact_phone, contact_email, cus_emp_num, 
-      cus_city, launch_time, close_time, 
-      next_policymaker_action, next_req_action, true_close_time, 
-      status, is_real_comment, five_user_up_comment, 
+      is_real, is_real_comment, five_user_up, 
+      five_user_up_comment, contact_name, contact_phone, 
+      contact_email, cus_emp_num, cus_city, 
+      launch_time, close_time, next_policymaker_action, 
+      next_req_action, true_close_time, status, 
       important_req)
     values (#{id,jdbcType=VARCHAR}, #{cusName,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, 
       #{updateDate,jdbcType=TIMESTAMP}, #{seenPolicymaker,jdbcType=CHAR}, #{policymakerPosition,jdbcType=VARCHAR}, 
       #{donePolicymaker,jdbcType=CHAR}, #{donePolicymakerPosition,jdbcType=VARCHAR}, 
-      #{isReal,jdbcType=CHAR}, #{fiveUserUp,jdbcType=CHAR}, #{contactName,jdbcType=VARCHAR}, 
-      #{contactPhone,jdbcType=VARCHAR}, #{contactEmail,jdbcType=VARCHAR}, #{cusEmpNum,jdbcType=INTEGER}, 
-      #{cusCity,jdbcType=VARCHAR}, #{launchTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
-      #{nextPolicymakerAction,jdbcType=VARCHAR}, #{nextReqAction,jdbcType=VARCHAR}, #{trueCloseTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=VARCHAR}, #{isRealComment,jdbcType=LONGVARCHAR}, #{fiveUserUpComment,jdbcType=LONGVARCHAR}, 
+      #{isReal,jdbcType=VARCHAR}, #{isRealComment,jdbcType=VARCHAR}, #{fiveUserUp,jdbcType=VARCHAR}, 
+      #{fiveUserUpComment,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, 
+      #{contactEmail,jdbcType=VARCHAR}, #{cusEmpNum,jdbcType=INTEGER}, #{cusCity,jdbcType=VARCHAR}, 
+      #{launchTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{nextPolicymakerAction,jdbcType=VARCHAR}, 
+      #{nextReqAction,jdbcType=VARCHAR}, #{trueCloseTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
       #{importantReq,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
+  <insert id="insertSelective" parameterType="com.biz.domain.SaleMainData" >
     insert into sale_main_data
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -194,8 +195,14 @@
       <if test="isReal != null" >
         is_real,
       </if>
+      <if test="isRealComment != null" >
+        is_real_comment,
+      </if>
       <if test="fiveUserUp != null" >
         five_user_up,
+      </if>
+      <if test="fiveUserUpComment != null" >
+        five_user_up_comment,
       </if>
       <if test="contactName != null" >
         contact_name,
@@ -230,12 +237,6 @@
       <if test="status != null" >
         status,
       </if>
-      <if test="isRealComment != null" >
-        is_real_comment,
-      </if>
-      <if test="fiveUserUpComment != null" >
-        five_user_up_comment,
-      </if>
       <if test="importantReq != null" >
         important_req,
       </if>
@@ -266,10 +267,16 @@
         #{donePolicymakerPosition,jdbcType=VARCHAR},
       </if>
       <if test="isReal != null" >
-        #{isReal,jdbcType=CHAR},
+        #{isReal,jdbcType=VARCHAR},
+      </if>
+      <if test="isRealComment != null" >
+        #{isRealComment,jdbcType=VARCHAR},
       </if>
       <if test="fiveUserUp != null" >
-        #{fiveUserUp,jdbcType=CHAR},
+        #{fiveUserUp,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveUserUpComment != null" >
+        #{fiveUserUpComment,jdbcType=VARCHAR},
       </if>
       <if test="contactName != null" >
         #{contactName,jdbcType=VARCHAR},
@@ -303,12 +310,6 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="isRealComment != null" >
-        #{isRealComment,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="fiveUserUpComment != null" >
-        #{fiveUserUpComment,jdbcType=LONGVARCHAR},
       </if>
       <if test="importantReq != null" >
         #{importantReq,jdbcType=LONGVARCHAR},
@@ -349,10 +350,16 @@
         "done_ policymaker_position" = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
       </if>
       <if test="record.isReal != null" >
-        is_real = #{record.isReal,jdbcType=CHAR},
+        is_real = #{record.isReal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isRealComment != null" >
+        is_real_comment = #{record.isRealComment,jdbcType=VARCHAR},
       </if>
       <if test="record.fiveUserUp != null" >
-        five_user_up = #{record.fiveUserUp,jdbcType=CHAR},
+        five_user_up = #{record.fiveUserUp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fiveUserUpComment != null" >
+        five_user_up_comment = #{record.fiveUserUpComment,jdbcType=VARCHAR},
       </if>
       <if test="record.contactName != null" >
         contact_name = #{record.contactName,jdbcType=VARCHAR},
@@ -387,12 +394,6 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=VARCHAR},
       </if>
-      <if test="record.isRealComment != null" >
-        is_real_comment = #{record.isRealComment,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.fiveUserUpComment != null" >
-        five_user_up_comment = #{record.fiveUserUpComment,jdbcType=LONGVARCHAR},
-      </if>
       <if test="record.importantReq != null" >
         important_req = #{record.importantReq,jdbcType=LONGVARCHAR},
       </if>
@@ -411,8 +412,10 @@
       policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
       "done_ policymaker" = #{record.donePolicymaker,jdbcType=CHAR},
       "done_ policymaker_position" = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
-      is_real = #{record.isReal,jdbcType=CHAR},
-      five_user_up = #{record.fiveUserUp,jdbcType=CHAR},
+      is_real = #{record.isReal,jdbcType=VARCHAR},
+      is_real_comment = #{record.isRealComment,jdbcType=VARCHAR},
+      five_user_up = #{record.fiveUserUp,jdbcType=VARCHAR},
+      five_user_up_comment = #{record.fiveUserUpComment,jdbcType=VARCHAR},
       contact_name = #{record.contactName,jdbcType=VARCHAR},
       contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
       contact_email = #{record.contactEmail,jdbcType=VARCHAR},
@@ -424,8 +427,6 @@
       next_req_action = #{record.nextReqAction,jdbcType=VARCHAR},
       true_close_time = #{record.trueCloseTime,jdbcType=TIMESTAMP},
       status = #{record.status,jdbcType=VARCHAR},
-      is_real_comment = #{record.isRealComment,jdbcType=LONGVARCHAR},
-      five_user_up_comment = #{record.fiveUserUpComment,jdbcType=LONGVARCHAR},
       important_req = #{record.importantReq,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -441,8 +442,10 @@
       policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
       "done_ policymaker" = #{record.donePolicymaker,jdbcType=CHAR},
       "done_ policymaker_position" = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
-      is_real = #{record.isReal,jdbcType=CHAR},
-      five_user_up = #{record.fiveUserUp,jdbcType=CHAR},
+      is_real = #{record.isReal,jdbcType=VARCHAR},
+      is_real_comment = #{record.isRealComment,jdbcType=VARCHAR},
+      five_user_up = #{record.fiveUserUp,jdbcType=VARCHAR},
+      five_user_up_comment = #{record.fiveUserUpComment,jdbcType=VARCHAR},
       contact_name = #{record.contactName,jdbcType=VARCHAR},
       contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
       contact_email = #{record.contactEmail,jdbcType=VARCHAR},
@@ -458,7 +461,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.biz.domain.SaleMainData" >
     update sale_main_data
     <set >
       <if test="cusName != null" >
@@ -483,10 +486,16 @@
         "done_ policymaker_position" = #{donePolicymakerPosition,jdbcType=VARCHAR},
       </if>
       <if test="isReal != null" >
-        is_real = #{isReal,jdbcType=CHAR},
+        is_real = #{isReal,jdbcType=VARCHAR},
+      </if>
+      <if test="isRealComment != null" >
+        is_real_comment = #{isRealComment,jdbcType=VARCHAR},
       </if>
       <if test="fiveUserUp != null" >
-        five_user_up = #{fiveUserUp,jdbcType=CHAR},
+        five_user_up = #{fiveUserUp,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveUserUpComment != null" >
+        five_user_up_comment = #{fiveUserUpComment,jdbcType=VARCHAR},
       </if>
       <if test="contactName != null" >
         contact_name = #{contactName,jdbcType=VARCHAR},
@@ -521,19 +530,13 @@
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
-      <if test="isRealComment != null" >
-        is_real_comment = #{isRealComment,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="fiveUserUpComment != null" >
-        five_user_up_comment = #{fiveUserUpComment,jdbcType=LONGVARCHAR},
-      </if>
       <if test="importantReq != null" >
         important_req = #{importantReq,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.biz.domain.SaleMainData" >
     update sale_main_data
     set cus_name = #{cusName,jdbcType=VARCHAR},
       begin_date = #{beginDate,jdbcType=TIMESTAMP},
@@ -542,8 +545,10 @@
       policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
       "done_ policymaker" = #{donePolicymaker,jdbcType=CHAR},
       "done_ policymaker_position" = #{donePolicymakerPosition,jdbcType=VARCHAR},
-      is_real = #{isReal,jdbcType=CHAR},
-      five_user_up = #{fiveUserUp,jdbcType=CHAR},
+      is_real = #{isReal,jdbcType=VARCHAR},
+      is_real_comment = #{isRealComment,jdbcType=VARCHAR},
+      five_user_up = #{fiveUserUp,jdbcType=VARCHAR},
+      five_user_up_comment = #{fiveUserUpComment,jdbcType=VARCHAR},
       contact_name = #{contactName,jdbcType=VARCHAR},
       contact_phone = #{contactPhone,jdbcType=VARCHAR},
       contact_email = #{contactEmail,jdbcType=VARCHAR},
@@ -555,8 +560,6 @@
       next_req_action = #{nextReqAction,jdbcType=VARCHAR},
       true_close_time = #{trueCloseTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=VARCHAR},
-      is_real_comment = #{isRealComment,jdbcType=LONGVARCHAR},
-      five_user_up_comment = #{fiveUserUpComment,jdbcType=LONGVARCHAR},
       important_req = #{importantReq,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -569,8 +572,10 @@
       policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
       "done_ policymaker" = #{donePolicymaker,jdbcType=CHAR},
       "done_ policymaker_position" = #{donePolicymakerPosition,jdbcType=VARCHAR},
-      is_real = #{isReal,jdbcType=CHAR},
-      five_user_up = #{fiveUserUp,jdbcType=CHAR},
+      is_real = #{isReal,jdbcType=VARCHAR},
+      is_real_comment = #{isRealComment,jdbcType=VARCHAR},
+      five_user_up = #{fiveUserUp,jdbcType=VARCHAR},
+      five_user_up_comment = #{fiveUserUpComment,jdbcType=VARCHAR},
       contact_name = #{contactName,jdbcType=VARCHAR},
       contact_phone = #{contactPhone,jdbcType=VARCHAR},
       contact_email = #{contactEmail,jdbcType=VARCHAR},
@@ -584,7 +589,4 @@
       status = #{status,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <select id="findAll" resultMap="ResultMapWithBLOBs">
-    SELECT * FROM sale_main_data
-  </select>
 </mapper>

@@ -1,7 +1,8 @@
 package com.biz.controller;
 
 import com.biz.common.ResultDTO;
-import com.biz.domain.SaleMainDataWithBLOBs;
+import com.biz.common.ResultDTOBuilder;
+import com.biz.domain.SaleMainData;
 import com.biz.service.ISaleMainDataClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * sale_main_data表的对应操作
@@ -31,9 +34,9 @@ public class SaleMainDataController {
      * 新增
      */
     @GetMapping("insert")
-    public Object insert(SaleMainDataWithBLOBs saleMainDataWithBLOBs){
+    public Object insert(SaleMainData saleMainData){
 
-        ResultDTO result = saleMainDataClient.insert(saleMainDataWithBLOBs);
+        ResultDTO result = saleMainDataClient.insert(saleMainData);
 
         return result;
     }
@@ -55,9 +58,9 @@ public class SaleMainDataController {
      * 根据id修改数据
      */
     @GetMapping("updataById")
-    public Object updataById(SaleMainDataWithBLOBs saleMainDataWithBLOBs){
+    public Object updataById(SaleMainData saleMainData){
 
-        ResultDTO updataResult = saleMainDataClient.updata(saleMainDataWithBLOBs);
+        ResultDTO updataResult = saleMainDataClient.updata(saleMainData);
 
         return updataResult;
     }
@@ -86,6 +89,36 @@ public class SaleMainDataController {
         ResultDTO resultDTO = saleMainDataClient.findAll(page ,rows);
 
         return resultDTO;
+    }
+
+    /**
+     * /api/saleMainData/countQuery
+     * 统计查询
+     */
+    @GetMapping("countQuery")
+    public Object countQuery(){
+
+        Map<String, Integer> finalMap = new LinkedHashMap<String, Integer>();
+
+        ResultDTO haveSeenPolicymakerResult = saleMainDataClient.countHaveSeenPolicymaker();
+
+        if (haveSeenPolicymakerResult.getSuccess()) {
+            finalMap.put("haveSeenPolicymakerNum", (Integer) haveSeenPolicymakerResult.getData());
+        }
+
+        ResultDTO isRealResult = saleMainDataClient.countIsReal();
+
+        if (isRealResult.getSuccess()) {
+            finalMap.put("isRealNum", (Integer) isRealResult.getData());
+        }
+
+        ResultDTO statusIsNotCloseResult = saleMainDataClient.countStatusIsNotClose();
+
+        if (statusIsNotCloseResult.getSuccess()) {
+            finalMap.put("statusIsNotCloseNum", (Integer) statusIsNotCloseResult.getData());
+        }
+
+        return ResultDTOBuilder.success(finalMap);
     }
 
 }
