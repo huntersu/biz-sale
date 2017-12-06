@@ -552,11 +552,11 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">32</span>
-                                        <div class="infobox-content">comments + 2 reviews</div>
+                                        <span class="infobox-data-number" id="totalOrderNumELe">--</span>
+                                        <div class="infobox-content">待关单总数</div>
                                     </div>
 
-                                    <div class="stat stat-success">8%</div>
+                                    <div class="stat stat-success">--</div>
                                 </div>
 
                                 <div class="infobox infobox-blue">
@@ -565,12 +565,12 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">11</span>
-                                        <div class="infobox-content">new followers</div>
+                                        <span class="infobox-data-number" id="isTrueNumEle">--</span>
+                                        <div class="infobox-content">确有其事总数量</div>
                                     </div>
 
                                     <div class="badge badge-success">
-                                        +32%
+                                        --
                                         <i class="ace-icon fa fa-arrow-up"></i>
                                     </div>
                                 </div>
@@ -581,10 +581,10 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">8</span>
-                                        <div class="infobox-content">new orders</div>
+                                        <span class="infobox-data-number" id="seenPolNumELe">--</span>
+                                        <div class="infobox-content">见到决策人总数量</div>
                                     </div>
-                                    <div class="stat stat-important">4%</div>
+                                    <div class="stat stat-important">--</div>
                                 </div>
 
                                 <div class="infobox infobox-red">
@@ -593,8 +593,8 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">7</span>
-                                        <div class="infobox-content">experiments</div>
+                                        <span class="infobox-data-number" id="fiveUpNumEle">--</span>
+                                        <div class="infobox-content">五人以上试用总数量</div>
                                     </div>
                                 </div>
 
@@ -604,12 +604,12 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">6,251</span>
-                                        <div class="infobox-content">pageviews</div>
+                                        <span class="infobox-data-number">--</span>
+                                        <div class="infobox-content">Pipeline</div>
                                     </div>
 
                                     <div class="badge badge-success">
-                                        7.2%
+                                        --
                                         <i class="ace-icon fa fa-arrow-up"></i>
                                     </div>
                                 </div>
@@ -617,16 +617,16 @@
                                 <div class="infobox infobox-blue2">
                                     <div class="infobox-progress">
                                         <div class="easy-pie-chart percentage" data-percent="42" data-size="46">
-                                            <span class="percent">42</span>%
+                                            <span class="percent">Who</span>?
                                         </div>
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-text">traffic used</span>
+                                        <span class="infobox-text">High Light</span>
 
                                         <div class="infobox-content">
                                             <span class="bigger-110">~</span>
-                                            58GB remaining
+                                            Leads
                                         </div>
                                     </div>
                                 </div>
@@ -933,7 +933,34 @@
             repeatitems: false // 如果设为false，则jqGrid在解析json时，会根据name来搜索对应的数据元素（即可以json中元素可以不按顺序）；而所使用的name是来自于colModel中的name设定。
         },
         autoScroll: true,
-        height:325
+        height: 325
+
+    });
+
+
+    $(document).ready(function () {
+
+
+        $.ajax({
+            type: 'GET',
+            url: 'api/saleMainData/countQuery',
+            cache: false,
+            dataType: 'json',
+            success: function (datas) {
+                if (datas.success == true) {
+
+                    $("#totalOrderNumELe").text(datas.data.statusIsNotCloseNum);
+                    $("#seenPolNumELe").text(datas.data.seenPolicymakerNum);
+                    $("#isTrueNumEle").text(datas.data.isRealNum);
+                    $("#fiveUpNumEle").text(datas.data.fiveUserupNum);
+
+
+                } else {
+
+                }
+            }
+        });
+
 
     });
 

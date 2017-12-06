@@ -30,7 +30,7 @@ public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     //用户登录后的session过期时间(7天)
-    private  static final int SESSION_TIMEOUT = 604800;
+    private static final int SESSION_TIMEOUT = 604800;
 
     @Resource
     private IUserClient userClient;
@@ -44,27 +44,28 @@ public class UserController {
     /**
      * 用户注册
      * api/user/register
+     *
      * @return
      */
     @GetMapping("register")
-    public Object userRegister(SaleLoginUser saleLoginUser){
+    public Object userRegister(SaleLoginUser saleLoginUser) {
 
-       //手动设置id
-        saleLoginUser.setId(System.currentTimeMillis()+"");
+        //手动设置id
+        saleLoginUser.setId(System.currentTimeMillis() + "");
 
-        if (StringUtils.isBlank(saleLoginUser.getLoginname())){
+        if (StringUtils.isBlank(saleLoginUser.getLoginname())) {
             return ResultDTOBuilder.failure("10002", "用户名不能为空");
         }
-        if (StringUtils.isBlank(saleLoginUser.getPassword())){
+        if (StringUtils.isBlank(saleLoginUser.getPassword())) {
             return ResultDTOBuilder.failure("10002", "密码不能为空");
         }
 
         //注册
         ResultDTO registerResult = userClient.userRegister(saleLoginUser);
 
-        if (registerResult.getSuccess()){
+        if (registerResult.getSuccess()) {
             return ResultDTOBuilder.success(registerResult);
-        }else {
+        } else {
             return ResultDTOBuilder.failure(registerResult.getErrCode(), registerResult.getErrMsg());
         }
     }
@@ -74,20 +75,25 @@ public class UserController {
      * 用户登录
      */
     @GetMapping("login/{loginName}/{password}")
-    public Object userLogin(HttpServletResponse response, HttpServletRequest request, @PathVariable String loginName, @PathVariable String password){
+    public Object userLogin(HttpServletResponse response, HttpServletRequest request, @PathVariable String loginName, @PathVariable String password) throws Exception {
 
         ResultDTO selectResult = userClient.userLogin(loginName, password);
 
         //登录成功后将用户信息存入cookie中
         if (selectResult.getSuccess() && selectResult.getData() != null) {
-            SaleLoginUser saleLoginUser = (SaleLoginUser)selectResult.getData();
+            SaleLoginUser saleLoginUser = (SaleLoginUser) selectResult.getData();
 
             String userName = saleLoginUser.getLoginname();
 
-            String userFlag = AES.base64Encode(userName.getBytes());
+            String userFlag = null;
+
+            userFlag = AES.aesEncrypt(userName+"<split>"+saleLoginUser.getPassword(), "");
+
 
             //cookie过期时间7天
-            CookieUtils.setCookie(request, response, "userInfo", userFlag, SESSION_TIMEOUT, true);
+            CookieUtils.setCookie(request, response, "USN", userFlag, SESSION_TIMEOUT, true);
+
+
         }
 
         //String message = messageSource.getMessage("604", (Object[])null, Locale.getDefault());

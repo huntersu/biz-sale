@@ -100,7 +100,13 @@ public class UserImpl implements IUserClient {
 
         //String userPass = DigestUtils.md5DigestAsHex(password.getBytes());
 
-        String userPass = AES.base64Encode(password.getBytes());
+        String userPass = null;
+        try {
+            userPass = AES.aesEncrypt(password,"");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultDTOBuilder.failure("-99999", "系统出错");
+        }
 
         if (!saleLoginUsers.get(0).getPassword().equals(userPass)) {
             return ResultDTOBuilder.failure("10004", "密码错误，请重新输入");
