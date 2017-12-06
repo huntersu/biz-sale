@@ -6,10 +6,10 @@
     <result column="cus_name" property="cusName" jdbcType="VARCHAR" />
     <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
-    <result column="seen_ policymaker" property="seenPolicymaker" jdbcType="CHAR" />
+    <result column="seen_policymaker" property="seenPolicymaker" jdbcType="VARCHAR" />
     <result column="policymaker_position" property="policymakerPosition" jdbcType="VARCHAR" />
-    <result column="done_ policymaker" property="donePolicymaker" jdbcType="CHAR" />
-    <result column="done_ policymaker_position" property="donePolicymakerPosition" jdbcType="VARCHAR" />
+    <result column="done_policymaker" property="donePolicymaker" jdbcType="VARCHAR" />
+    <result column="done_policymaker_position" property="donePolicymakerPosition" jdbcType="VARCHAR" />
     <result column="is_real" property="isReal" jdbcType="VARCHAR" />
     <result column="is_real_comment" property="isRealComment" jdbcType="VARCHAR" />
     <result column="five_user_up" property="fiveUserUp" jdbcType="VARCHAR" />
@@ -88,11 +88,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, cus_name, begin_date, update_date, "seen_ policymaker", policymaker_position, 
-    "done_ policymaker", "done_ policymaker_position", is_real, is_real_comment, five_user_up, 
-    five_user_up_comment, contact_name, contact_phone, contact_email, cus_emp_num, cus_city, 
-    launch_time, close_time, next_policymaker_action, next_req_action, true_close_time, 
-    status
+    id, cus_name, begin_date, update_date, seen_policymaker, policymaker_position, done_policymaker, 
+    done_policymaker_position, is_real, is_real_comment, five_user_up, five_user_up_comment, 
+    contact_name, contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time, 
+    next_policymaker_action, next_req_action, true_close_time, status
   </sql>
   <sql id="Blob_Column_List" >
     important_req
@@ -147,8 +146,8 @@
   </delete>
   <insert id="insert" parameterType="com.biz.domain.SaleMainData" >
     insert into sale_main_data (id, cus_name, begin_date, 
-      update_date, "seen_ policymaker", policymaker_position, 
-      "done_ policymaker", "done_ policymaker_position", 
+      update_date, seen_policymaker, policymaker_position, 
+      done_policymaker, done_policymaker_position, 
       is_real, is_real_comment, five_user_up, 
       five_user_up_comment, contact_name, contact_phone, 
       contact_email, cus_emp_num, cus_city, 
@@ -156,8 +155,8 @@
       next_req_action, true_close_time, status, 
       important_req)
     values (#{id,jdbcType=VARCHAR}, #{cusName,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, 
-      #{updateDate,jdbcType=TIMESTAMP}, #{seenPolicymaker,jdbcType=CHAR}, #{policymakerPosition,jdbcType=VARCHAR}, 
-      #{donePolicymaker,jdbcType=CHAR}, #{donePolicymakerPosition,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{seenPolicymaker,jdbcType=VARCHAR}, #{policymakerPosition,jdbcType=VARCHAR}, 
+      #{donePolicymaker,jdbcType=VARCHAR}, #{donePolicymakerPosition,jdbcType=VARCHAR}, 
       #{isReal,jdbcType=VARCHAR}, #{isRealComment,jdbcType=VARCHAR}, #{fiveUserUp,jdbcType=VARCHAR}, 
       #{fiveUserUpComment,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, 
       #{contactEmail,jdbcType=VARCHAR}, #{cusEmpNum,jdbcType=INTEGER}, #{cusCity,jdbcType=VARCHAR}, 
@@ -181,16 +180,16 @@
         update_date,
       </if>
       <if test="seenPolicymaker != null" >
-        "seen_ policymaker",
+        seen_policymaker,
       </if>
       <if test="policymakerPosition != null" >
         policymaker_position,
       </if>
       <if test="donePolicymaker != null" >
-        "done_ policymaker",
+        done_policymaker,
       </if>
       <if test="donePolicymakerPosition != null" >
-        "done_ policymaker_position",
+        done_policymaker_position,
       </if>
       <if test="isReal != null" >
         is_real,
@@ -255,13 +254,13 @@
         #{updateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="seenPolicymaker != null" >
-        #{seenPolicymaker,jdbcType=CHAR},
+        #{seenPolicymaker,jdbcType=VARCHAR},
       </if>
       <if test="policymakerPosition != null" >
         #{policymakerPosition,jdbcType=VARCHAR},
       </if>
       <if test="donePolicymaker != null" >
-        #{donePolicymaker,jdbcType=CHAR},
+        #{donePolicymaker,jdbcType=VARCHAR},
       </if>
       <if test="donePolicymakerPosition != null" >
         #{donePolicymakerPosition,jdbcType=VARCHAR},
@@ -338,16 +337,16 @@
         update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.seenPolicymaker != null" >
-        "seen_ policymaker" = #{record.seenPolicymaker,jdbcType=CHAR},
+        seen_policymaker = #{record.seenPolicymaker,jdbcType=VARCHAR},
       </if>
       <if test="record.policymakerPosition != null" >
         policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
       </if>
       <if test="record.donePolicymaker != null" >
-        "done_ policymaker" = #{record.donePolicymaker,jdbcType=CHAR},
+        done_policymaker = #{record.donePolicymaker,jdbcType=VARCHAR},
       </if>
       <if test="record.donePolicymakerPosition != null" >
-        "done_ policymaker_position" = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
+        done_policymaker_position = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
       </if>
       <if test="record.isReal != null" >
         is_real = #{record.isReal,jdbcType=VARCHAR},
@@ -408,10 +407,10 @@
       cus_name = #{record.cusName,jdbcType=VARCHAR},
       begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      "seen_ policymaker" = #{record.seenPolicymaker,jdbcType=CHAR},
+      seen_policymaker = #{record.seenPolicymaker,jdbcType=VARCHAR},
       policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
-      "done_ policymaker" = #{record.donePolicymaker,jdbcType=CHAR},
-      "done_ policymaker_position" = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
+      done_policymaker = #{record.donePolicymaker,jdbcType=VARCHAR},
+      done_policymaker_position = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
       is_real = #{record.isReal,jdbcType=VARCHAR},
       is_real_comment = #{record.isRealComment,jdbcType=VARCHAR},
       five_user_up = #{record.fiveUserUp,jdbcType=VARCHAR},
@@ -438,10 +437,10 @@
       cus_name = #{record.cusName,jdbcType=VARCHAR},
       begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      "seen_ policymaker" = #{record.seenPolicymaker,jdbcType=CHAR},
+      seen_policymaker = #{record.seenPolicymaker,jdbcType=VARCHAR},
       policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
-      "done_ policymaker" = #{record.donePolicymaker,jdbcType=CHAR},
-      "done_ policymaker_position" = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
+      done_policymaker = #{record.donePolicymaker,jdbcType=VARCHAR},
+      done_policymaker_position = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
       is_real = #{record.isReal,jdbcType=VARCHAR},
       is_real_comment = #{record.isRealComment,jdbcType=VARCHAR},
       five_user_up = #{record.fiveUserUp,jdbcType=VARCHAR},
@@ -474,16 +473,16 @@
         update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="seenPolicymaker != null" >
-        "seen_ policymaker" = #{seenPolicymaker,jdbcType=CHAR},
+        seen_policymaker = #{seenPolicymaker,jdbcType=VARCHAR},
       </if>
       <if test="policymakerPosition != null" >
         policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
       </if>
       <if test="donePolicymaker != null" >
-        "done_ policymaker" = #{donePolicymaker,jdbcType=CHAR},
+        done_policymaker = #{donePolicymaker,jdbcType=VARCHAR},
       </if>
       <if test="donePolicymakerPosition != null" >
-        "done_ policymaker_position" = #{donePolicymakerPosition,jdbcType=VARCHAR},
+        done_policymaker_position = #{donePolicymakerPosition,jdbcType=VARCHAR},
       </if>
       <if test="isReal != null" >
         is_real = #{isReal,jdbcType=VARCHAR},
@@ -541,10 +540,10 @@
     set cus_name = #{cusName,jdbcType=VARCHAR},
       begin_date = #{beginDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
-      "seen_ policymaker" = #{seenPolicymaker,jdbcType=CHAR},
+      seen_policymaker = #{seenPolicymaker,jdbcType=VARCHAR},
       policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
-      "done_ policymaker" = #{donePolicymaker,jdbcType=CHAR},
-      "done_ policymaker_position" = #{donePolicymakerPosition,jdbcType=VARCHAR},
+      done_policymaker = #{donePolicymaker,jdbcType=VARCHAR},
+      done_policymaker_position = #{donePolicymakerPosition,jdbcType=VARCHAR},
       is_real = #{isReal,jdbcType=VARCHAR},
       is_real_comment = #{isRealComment,jdbcType=VARCHAR},
       five_user_up = #{fiveUserUp,jdbcType=VARCHAR},
@@ -568,10 +567,10 @@
     set cus_name = #{cusName,jdbcType=VARCHAR},
       begin_date = #{beginDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
-      "seen_ policymaker" = #{seenPolicymaker,jdbcType=CHAR},
+      seen_policymaker = #{seenPolicymaker,jdbcType=VARCHAR},
       policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
-      "done_ policymaker" = #{donePolicymaker,jdbcType=CHAR},
-      "done_ policymaker_position" = #{donePolicymakerPosition,jdbcType=VARCHAR},
+      done_policymaker = #{donePolicymaker,jdbcType=VARCHAR},
+      done_policymaker_position = #{donePolicymakerPosition,jdbcType=VARCHAR},
       is_real = #{isReal,jdbcType=VARCHAR},
       is_real_comment = #{isRealComment,jdbcType=VARCHAR},
       five_user_up = #{fiveUserUp,jdbcType=VARCHAR},
