@@ -1,5 +1,6 @@
 package com.biz.util;
 
+import com.biz.domain.SaleMainData;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -39,6 +40,15 @@ public class AESTest {
         System.out.println("解密后：" + decrypt);
 
         assertEquals("我爱你",decrypt);
+    }
+
+    @Test
+    public void someTest()throws Exception{
+
+
+        SaleMainData asd = new SaleMainData();
+        String asasdd="";
+
     }
 
 }
