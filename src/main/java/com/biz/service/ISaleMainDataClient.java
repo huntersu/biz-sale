@@ -44,4 +44,9 @@ public interface ISaleMainDataClient {
      * 统计is_real字段状态不是null的数据
      */
     ResultDTO countIsReal();
+
+    /**
+     * 统计five_user_up字段状态不是null的数据
+     */
+    ResultDTO countFiveUserupResult();
 }

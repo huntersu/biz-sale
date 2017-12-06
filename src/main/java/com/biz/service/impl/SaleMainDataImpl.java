@@ -164,4 +164,26 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
         return ResultDTOBuilder.success(isRealNum);
     }
+
+    /**
+     * 统计five_user_up字段状态不是null的数据
+     */
+    public ResultDTO countFiveUserupResult() {
+
+        SaleMainDataExample example = new SaleMainDataExample();
+        SaleMainDataExample.Criteria criteria = example.createCriteria();
+
+        criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+        criteria.andFiveUserUpIsNotNull();
+
+        List<SaleMainData> fiveUserupList = saleMainDataMapper.selectByExample(example);
+
+        int isRealNum = 0;
+
+        if (fiveUserupList != null) {
+            isRealNum = fiveUserupList.size();
+        }
+
+        return ResultDTOBuilder.success(isRealNum);
+    }
 }

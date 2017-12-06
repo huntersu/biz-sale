@@ -118,6 +118,12 @@ public class SaleMainDataController {
             finalMap.put("statusIsNotCloseNum", (Integer) statusIsNotCloseResult.getData());
         }
 
+        ResultDTO fiveUserupResult = saleMainDataClient.countFiveUserupResult();
+
+        if (fiveUserupResult.getSuccess()) {
+            finalMap.put("fiveUserupNum", (Integer) fiveUserupResult.getData());
+        }
+
         return ResultDTOBuilder.success(finalMap);
     }
 
