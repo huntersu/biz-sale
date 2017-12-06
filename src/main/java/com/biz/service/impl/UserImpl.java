@@ -4,6 +4,7 @@ import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
 import com.biz.domain.SaleLoginUser;
 import com.biz.domain.SaleLoginUserExample;
+import com.biz.util.AES;
 import org.apache.commons.lang3.StringUtils;
 import com.biz.mapper.SaleLoginUserMapper;
 import com.biz.service.IUserClient;
@@ -31,7 +32,7 @@ public class UserImpl implements IUserClient {
 
         if (StringUtils.isNotBlank(saleLoginUser.getPassword())){
             //DigestUtils是spring提供的工具类
-            saleLoginUser.setPassword(DigestUtils.md5DigestAsHex(saleLoginUser.getPassword().getBytes()));
+            saleLoginUser.setPassword(AES.base64Encode(saleLoginUser.getPassword().getBytes()));
         }
 
         ResultDTO userInfo = this.findUserInfoByUserName(saleLoginUser.getLoginname());
@@ -97,12 +98,14 @@ public class UserImpl implements IUserClient {
             return ResultDTOBuilder.failure("10005", "用户信息重复，请联系管理员");
         }
 
-        String userPass = DigestUtils.md5DigestAsHex(password.getBytes());
+        //String userPass = DigestUtils.md5DigestAsHex(password.getBytes());
+
+        String userPass = AES.base64Encode(password.getBytes());
 
         if (!saleLoginUsers.get(0).getPassword().equals(userPass)) {
             return ResultDTOBuilder.failure("10004", "密码错误，请重新输入");
         }
 
-        return ResultDTOBuilder.success(saleLoginUsers);
+        return ResultDTOBuilder.success(saleLoginUsers.get(0));
     }
 }
