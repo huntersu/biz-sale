@@ -41,6 +41,10 @@ public class SaleMainData {
 
     private String nextReqAction;
 
+    private Date trueCloseTime;
+
+    private String status;
+
     public String getId() {
         return id;
     }
@@ -191,5 +195,21 @@ public class SaleMainData {
 
     public void setNextReqAction(String nextReqAction) {
         this.nextReqAction = nextReqAction == null ? null : nextReqAction.trim();
+    }
+
+    public Date getTrueCloseTime() {
+        return trueCloseTime;
+    }
+
+    public void setTrueCloseTime(Date trueCloseTime) {
+        this.trueCloseTime = trueCloseTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 }
