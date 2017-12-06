@@ -11,26 +11,12 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-
-
 public class SpringInterceptor implements HandlerInterceptor {
-
-
-
 
     @Autowired
     private UserComponent userComponent;
 
-
-
-
-
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-
-
-
 
         SaleLoginUser user = userComponent.checkUser(httpServletRequest);
 
@@ -40,8 +26,6 @@ public class SpringInterceptor implements HandlerInterceptor {
 
             return false;
         }
-
-
 
 
         return true;
