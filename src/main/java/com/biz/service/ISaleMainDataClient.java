@@ -2,14 +2,13 @@ package com.biz.service;
 
 import com.biz.common.ResultDTO;
 import com.biz.domain.SaleMainData;
-import com.biz.domain.SaleMainDataWithBLOBs;
 
 public interface ISaleMainDataClient {
 
     /**
      * 新增
      */
-    ResultDTO insert(SaleMainDataWithBLOBs saleMainDataWithBLOBs);
+    ResultDTO insert(SaleMainData saleMainData);
 
     /**
      * 根据id删除数据
@@ -19,7 +18,7 @@ public interface ISaleMainDataClient {
     /**
      * 根据id修改数据
      */
-    ResultDTO updata(SaleMainDataWithBLOBs saleMainDataWithBLOBs);
+    ResultDTO updata(SaleMainData saleMainData);
 
     /**
      * 根据id查询

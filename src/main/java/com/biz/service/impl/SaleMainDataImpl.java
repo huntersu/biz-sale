@@ -6,7 +6,6 @@ import com.biz.constant.SaleMainStatus;
 import com.biz.constant.SeenPolicymaker;
 import com.biz.domain.SaleMainData;
 import com.biz.domain.SaleMainDataExample;
-import com.biz.domain.SaleMainDataWithBLOBs;
 import com.biz.mapper.SaleMainDataMapper;
 import com.biz.service.ISaleMainDataClient;
 import com.github.pagehelper.PageHelper;
@@ -24,12 +23,12 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
     /**
      * 插入
-     * @param saleMainDataWithBLOBs
+     * @param saleMainData
      * @return
      */
-    public ResultDTO insert(SaleMainDataWithBLOBs saleMainDataWithBLOBs) {
+    public ResultDTO insert(SaleMainData saleMainData) {
 
-        int insert = saleMainDataMapper.insert(saleMainDataWithBLOBs);
+        int insert = saleMainDataMapper.insert(saleMainData);
 
         if (insert != 1) {
             return ResultDTOBuilder.failure("10007", "数据添加失败，请稍后重试");
@@ -56,12 +55,12 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
     /**
      * 修改
-     * @param saleMainDataWithBLOBs
+     * @param saleMainData
      * @return
      */
-    public ResultDTO updata(SaleMainDataWithBLOBs saleMainDataWithBLOBs) {
+    public ResultDTO updata(SaleMainData saleMainData) {
 
-        int isUpdata = saleMainDataMapper.updateByPrimaryKeyWithBLOBs(saleMainDataWithBLOBs);
+        int isUpdata = saleMainDataMapper.updateByPrimaryKey(saleMainData);
 
         if (isUpdata != 1) {
             return ResultDTOBuilder.failure("10007", "修改失败，请稍后重试");
@@ -77,9 +76,9 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      */
     public ResultDTO findById(String id) {
 
-        SaleMainDataWithBLOBs saleMainDataWithBLOBs = saleMainDataMapper.selectByPrimaryKey(id);
+        SaleMainData saleMainData = saleMainDataMapper.selectByPrimaryKey(id);
 
-        return ResultDTOBuilder.success(saleMainDataWithBLOBs);
+        return ResultDTOBuilder.success(saleMainData);
     }
 
     /**
@@ -87,33 +86,39 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @return
      */
     public ResultDTO findAll(int page, int rows) {
+        SaleMainDataExample example = new SaleMainDataExample();
 
         //查询前设置分页信息
         PageHelper.startPage(page, rows);
 
-        List<SaleMainDataWithBLOBs> saleMainDatas = saleMainDataMapper.findAll();
+        List<SaleMainData> saleMainDatas = saleMainDataMapper.selectByExample(example);
 
         //创建PageInfo对象
-        PageInfo<SaleMainDataWithBLOBs> pageInfo = new PageInfo<SaleMainDataWithBLOBs>(saleMainDatas);
+        PageInfo<SaleMainData> pageInfo = new PageInfo<SaleMainData>(saleMainDatas);
 
         return ResultDTOBuilder.success(pageInfo);
     }
 
     /**
-     * 统计状态不是close的数据
-     * @return
+     * 统计status字段状态不是close的数据
      */
     public ResultDTO countStatusIsNotClose() {
         SaleMainDataExample example = new SaleMainDataExample();
         example.createCriteria().andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
 
-        List<SaleMainData> saleMainData = saleMainDataMapper.selectByExample(example);
+        List<SaleMainData> countStatusIsNotCloseResult = saleMainDataMapper.selectByExample(example);
 
-        return ResultDTOBuilder.success(saleMainData);
+        int countStatusIsNotCloseNum = 0;
+
+        if (countStatusIsNotCloseResult != null) {
+            countStatusIsNotCloseNum = countStatusIsNotCloseResult.size();
+        }
+
+        return ResultDTOBuilder.success(countStatusIsNotCloseNum);
     }
 
     /**
-     * 统计状态是已经见到决策人的数据的数据
+     * 统计seen_policy_maker状态是已经见到决策人的数据
      */
     public ResultDTO countHaveSeenPolicymaker() {
 
@@ -124,12 +129,36 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
         criteria.andSeenPolicymakerEqualTo(SeenPolicymaker.YES.getValue());
         criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
 
-        List<SaleMainData> saleMainData = saleMainDataMapper.selectByExample(example);
+        List<SaleMainData> haveSeenPolicymakerList = saleMainDataMapper.selectByExample(example);
 
-        return ResultDTOBuilder.success(saleMainData);
+        int haveSeenPolicymakerNum = 0;
+
+        if (haveSeenPolicymakerList != null) {
+            haveSeenPolicymakerNum = haveSeenPolicymakerList.size();
+        }
+
+        return ResultDTOBuilder.success(haveSeenPolicymakerNum);
     }
 
+    /**
+     * 统计is_real字段状态不是null的数据
+     */
     public ResultDTO countIsReal() {
-        return null;
+
+        SaleMainDataExample example = new SaleMainDataExample();
+        SaleMainDataExample.Criteria criteria = example.createCriteria();
+
+        criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+        criteria.andIsRealIsNotNull();
+
+        List<SaleMainData> countIsRealList = saleMainDataMapper.selectByExample(example);
+
+        int isRealNum = 0;
+
+        if (countIsRealList != null) {
+            isRealNum = countIsRealList.size();
+        }
+
+        return ResultDTOBuilder.success(isRealNum);
     }
 }
