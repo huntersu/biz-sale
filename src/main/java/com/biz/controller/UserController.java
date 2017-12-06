@@ -67,7 +67,7 @@ public class UserController {
 
         ResultDTO selectResult = userClient.userLogin(loginName, password);
 
-        //登录成功后将用户信息存入session中
+        //登录成功后将用户信息存入cookie中
         if (selectResult.getSuccess() && selectResult.getData() != null) {
 
             Cookie cookie = new Cookie("userInfo", JSONUtils.toJSONString(selectResult.getData()));
