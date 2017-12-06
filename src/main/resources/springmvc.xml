@@ -44,8 +44,10 @@
 		<property name="maxInMemorySize" value="8192" /><!-- 1024 * 8 = 8k -->
 	</bean>
 
+
+	<bean id="_jacksonObjectMapper" class="com.biz.common.JacksonObjectMapperFactory"></bean>
+
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<!-- <property name="customArgumentResolvers"></property> -->
 		<property name="messageConverters">
 			<list>
 				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
@@ -56,6 +58,10 @@
 							<value>text/plain;charset=utf-8</value>
 						</list>
 					</property>
+				</bean>
+				<!--json转换工具-->
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="objectMapper" ref="_jacksonObjectMapper" />
 				</bean>
 			</list>
 		</property>

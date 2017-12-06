@@ -1,6 +1,6 @@
 package com.biz.controller;
 
-import com.alibaba.druid.support.json.JSONUtils;
+import com.biz.common.JsonUtil;
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
 import com.biz.domain.SaleLoginUser;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
-import java.util.Random;
-import java.util.UUID;
 
 @Controller
 @ResponseBody
@@ -67,12 +65,13 @@ public class UserController {
 
         ResultDTO selectResult = userClient.userLogin(loginName, password);
 
+        String usernfo = JsonUtil.toJson(selectResult.getData());
+
         //登录成功后将用户信息存入cookie中
         if (selectResult.getSuccess() && selectResult.getData() != null) {
 
-            Cookie cookie = new Cookie("userInfo", JSONUtils.toJSONString(selectResult.getData()));
+            Cookie cookie = new Cookie("userInfo", usernfo);
             cookie.setPath("/user");
-            //session.setAttribute("userIfo", selectResult.getData());
         }
 
         return selectResult;

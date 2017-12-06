@@ -103,6 +103,6 @@ public class UserImpl implements IUserClient {
             return ResultDTOBuilder.failure("10004", "密码错误，请重新输入");
         }
 
-        return ResultDTOBuilder.success(saleLoginUsers);
+        return ResultDTOBuilder.success(saleLoginUsers.get(0));
     }
 }
