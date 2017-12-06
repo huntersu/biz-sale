@@ -21,7 +21,7 @@
 							http://code.alibabatech.com/schema/dubbo
 							http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<context:property-placeholder location="classpath:resources.properties"/>
+	<context:property-placeholder location="classpath:resources.properties"  file-encoding="UTF-8"/>
 
 	<context:component-scan base-package="com.biz.controller"></context:component-scan>
 
@@ -66,6 +66,14 @@
 			</list>
 		</property>
 	</bean>
+	<!--读取meaages.properties-->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>messages</value>
+            </list>
+        </property>
+    </bean>
 
 	<!--放行静态资源-->
 	<mvc:default-servlet-handler/>
