@@ -366,72 +366,72 @@ public class SaleMainDataExample {
         }
 
         public Criteria andSeenPolicymakerIsNull() {
-            addCriterion("\"seen_ policymaker\" is null");
+            addCriterion("seen_policymaker is null");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerIsNotNull() {
-            addCriterion("\"seen_ policymaker\" is not null");
+            addCriterion("seen_policymaker is not null");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerEqualTo(String value) {
-            addCriterion("\"seen_ policymaker\" =", value, "seenPolicymaker");
+            addCriterion("seen_policymaker =", value, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerNotEqualTo(String value) {
-            addCriterion("\"seen_ policymaker\" <>", value, "seenPolicymaker");
+            addCriterion("seen_policymaker <>", value, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerGreaterThan(String value) {
-            addCriterion("\"seen_ policymaker\" >", value, "seenPolicymaker");
+            addCriterion("seen_policymaker >", value, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerGreaterThanOrEqualTo(String value) {
-            addCriterion("\"seen_ policymaker\" >=", value, "seenPolicymaker");
+            addCriterion("seen_policymaker >=", value, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerLessThan(String value) {
-            addCriterion("\"seen_ policymaker\" <", value, "seenPolicymaker");
+            addCriterion("seen_policymaker <", value, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerLessThanOrEqualTo(String value) {
-            addCriterion("\"seen_ policymaker\" <=", value, "seenPolicymaker");
+            addCriterion("seen_policymaker <=", value, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerLike(String value) {
-            addCriterion("\"seen_ policymaker\" like", value, "seenPolicymaker");
+            addCriterion("seen_policymaker like", value, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerNotLike(String value) {
-            addCriterion("\"seen_ policymaker\" not like", value, "seenPolicymaker");
+            addCriterion("seen_policymaker not like", value, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerIn(List<String> values) {
-            addCriterion("\"seen_ policymaker\" in", values, "seenPolicymaker");
+            addCriterion("seen_policymaker in", values, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerNotIn(List<String> values) {
-            addCriterion("\"seen_ policymaker\" not in", values, "seenPolicymaker");
+            addCriterion("seen_policymaker not in", values, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerBetween(String value1, String value2) {
-            addCriterion("\"seen_ policymaker\" between", value1, value2, "seenPolicymaker");
+            addCriterion("seen_policymaker between", value1, value2, "seenPolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andSeenPolicymakerNotBetween(String value1, String value2) {
-            addCriterion("\"seen_ policymaker\" not between", value1, value2, "seenPolicymaker");
+            addCriterion("seen_policymaker not between", value1, value2, "seenPolicymaker");
             return (Criteria) this;
         }
 
@@ -506,142 +506,142 @@ public class SaleMainDataExample {
         }
 
         public Criteria andDonePolicymakerIsNull() {
-            addCriterion("\"done_ policymaker\" is null");
+            addCriterion("done_policymaker is null");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerIsNotNull() {
-            addCriterion("\"done_ policymaker\" is not null");
+            addCriterion("done_policymaker is not null");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerEqualTo(String value) {
-            addCriterion("\"done_ policymaker\" =", value, "donePolicymaker");
+            addCriterion("done_policymaker =", value, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerNotEqualTo(String value) {
-            addCriterion("\"done_ policymaker\" <>", value, "donePolicymaker");
+            addCriterion("done_policymaker <>", value, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerGreaterThan(String value) {
-            addCriterion("\"done_ policymaker\" >", value, "donePolicymaker");
+            addCriterion("done_policymaker >", value, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerGreaterThanOrEqualTo(String value) {
-            addCriterion("\"done_ policymaker\" >=", value, "donePolicymaker");
+            addCriterion("done_policymaker >=", value, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerLessThan(String value) {
-            addCriterion("\"done_ policymaker\" <", value, "donePolicymaker");
+            addCriterion("done_policymaker <", value, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerLessThanOrEqualTo(String value) {
-            addCriterion("\"done_ policymaker\" <=", value, "donePolicymaker");
+            addCriterion("done_policymaker <=", value, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerLike(String value) {
-            addCriterion("\"done_ policymaker\" like", value, "donePolicymaker");
+            addCriterion("done_policymaker like", value, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerNotLike(String value) {
-            addCriterion("\"done_ policymaker\" not like", value, "donePolicymaker");
+            addCriterion("done_policymaker not like", value, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerIn(List<String> values) {
-            addCriterion("\"done_ policymaker\" in", values, "donePolicymaker");
+            addCriterion("done_policymaker in", values, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerNotIn(List<String> values) {
-            addCriterion("\"done_ policymaker\" not in", values, "donePolicymaker");
+            addCriterion("done_policymaker not in", values, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerBetween(String value1, String value2) {
-            addCriterion("\"done_ policymaker\" between", value1, value2, "donePolicymaker");
+            addCriterion("done_policymaker between", value1, value2, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerNotBetween(String value1, String value2) {
-            addCriterion("\"done_ policymaker\" not between", value1, value2, "donePolicymaker");
+            addCriterion("done_policymaker not between", value1, value2, "donePolicymaker");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionIsNull() {
-            addCriterion("\"done_ policymaker_position\" is null");
+            addCriterion("done_policymaker_position is null");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionIsNotNull() {
-            addCriterion("\"done_ policymaker_position\" is not null");
+            addCriterion("done_policymaker_position is not null");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionEqualTo(String value) {
-            addCriterion("\"done_ policymaker_position\" =", value, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position =", value, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionNotEqualTo(String value) {
-            addCriterion("\"done_ policymaker_position\" <>", value, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position <>", value, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionGreaterThan(String value) {
-            addCriterion("\"done_ policymaker_position\" >", value, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position >", value, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionGreaterThanOrEqualTo(String value) {
-            addCriterion("\"done_ policymaker_position\" >=", value, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position >=", value, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionLessThan(String value) {
-            addCriterion("\"done_ policymaker_position\" <", value, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position <", value, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionLessThanOrEqualTo(String value) {
-            addCriterion("\"done_ policymaker_position\" <=", value, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position <=", value, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionLike(String value) {
-            addCriterion("\"done_ policymaker_position\" like", value, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position like", value, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionNotLike(String value) {
-            addCriterion("\"done_ policymaker_position\" not like", value, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position not like", value, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionIn(List<String> values) {
-            addCriterion("\"done_ policymaker_position\" in", values, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position in", values, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionNotIn(List<String> values) {
-            addCriterion("\"done_ policymaker_position\" not in", values, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position not in", values, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionBetween(String value1, String value2) {
-            addCriterion("\"done_ policymaker_position\" between", value1, value2, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position between", value1, value2, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
         public Criteria andDonePolicymakerPositionNotBetween(String value1, String value2) {
-            addCriterion("\"done_ policymaker_position\" not between", value1, value2, "donePolicymakerPosition");
+            addCriterion("done_policymaker_position not between", value1, value2, "donePolicymakerPosition");
             return (Criteria) this;
         }
 
