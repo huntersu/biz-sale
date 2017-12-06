@@ -34,4 +34,7 @@ public interface SaleMainDataMapper {
     int updateByPrimaryKeyWithBLOBs(SaleMainDataWithBLOBs record);
 
     int updateByPrimaryKey(SaleMainData record);
+
+    //查询所有
+    List<SaleMainDataWithBLOBs> findAll();
 }

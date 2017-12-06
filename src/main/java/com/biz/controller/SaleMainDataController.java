@@ -77,7 +77,7 @@ public class SaleMainDataController {
     }
 
     /**
-     * /api/saleMainData/findAll
+     * /api/saleMainData/findAll/1/10
      * 查询所有
      */
     @GetMapping("findAll/{page}/{rows}")

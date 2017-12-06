@@ -2,6 +2,8 @@ package com.biz.service.impl;
 
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
+import com.biz.constant.SaleMainStatus;
+import com.biz.constant.SeenPolicymaker;
 import com.biz.domain.SaleMainData;
 import com.biz.domain.SaleMainDataExample;
 import com.biz.domain.SaleMainDataWithBLOBs;
@@ -81,21 +83,53 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
     }
 
     /**
-     * 查询
+     * 查询全部
      * @return
      */
     public ResultDTO findAll(int page, int rows) {
 
-        SaleMainDataExample example = new SaleMainDataExample();
-
         //查询前设置分页信息
         PageHelper.startPage(page, rows);
 
-        List<SaleMainData> saleMainDatas = saleMainDataMapper.selectByExample(example);
+        List<SaleMainDataWithBLOBs> saleMainDatas = saleMainDataMapper.findAll();
 
         //创建PageInfo对象
-        PageInfo<SaleMainData> pageInfo = new PageInfo<SaleMainData>(saleMainDatas);
+        PageInfo<SaleMainDataWithBLOBs> pageInfo = new PageInfo<SaleMainDataWithBLOBs>(saleMainDatas);
 
         return ResultDTOBuilder.success(pageInfo);
+    }
+
+    /**
+     * 统计状态不是close的数据
+     * @return
+     */
+    public ResultDTO countStatusIsNotClose() {
+        SaleMainDataExample example = new SaleMainDataExample();
+        example.createCriteria().andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+
+        List<SaleMainData> saleMainData = saleMainDataMapper.selectByExample(example);
+
+        return ResultDTOBuilder.success(saleMainData);
+    }
+
+    /**
+     * 统计状态是已经见到决策人的数据的数据
+     */
+    public ResultDTO countHaveSeenPolicymaker() {
+
+        SaleMainDataExample example = new SaleMainDataExample();
+
+        SaleMainDataExample.Criteria criteria = example.createCriteria();
+
+        criteria.andSeenPolicymakerEqualTo(SeenPolicymaker.YES.getValue());
+        criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+
+        List<SaleMainData> saleMainData = saleMainDataMapper.selectByExample(example);
+
+        return ResultDTOBuilder.success(saleMainData);
+    }
+
+    public ResultDTO countIsReal() {
+        return null;
     }
 }
