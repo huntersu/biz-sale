@@ -550,7 +550,4 @@
       next_req_action = #{nextReqAction,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <select id="selectAll" resultMap="ResultMapWithBLOBs">
-    select * from sale_main_data
-  </select>
 </mapper>

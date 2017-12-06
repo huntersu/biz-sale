@@ -29,5 +29,5 @@ public interface ISaleMainDataClient {
     /**
      * 查询所有
      */
-    ResultDTO findAll();
+    ResultDTO findAll(int page, int rows);
 }

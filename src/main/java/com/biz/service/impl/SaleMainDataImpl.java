@@ -3,11 +3,13 @@ package com.biz.service.impl;
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
 import com.biz.domain.SaleMainData;
+import com.biz.domain.SaleMainDataExample;
 import com.biz.domain.SaleMainDataWithBLOBs;
 import com.biz.mapper.SaleMainDataMapper;
 import com.biz.service.ISaleMainDataClient;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -82,10 +84,18 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * 查询
      * @return
      */
-    public ResultDTO findAll() {
+    public ResultDTO findAll(int page, int rows) {
 
-        List<SaleMainDataWithBLOBs> lists = saleMainDataMapper.selectAll();
+        SaleMainDataExample example = new SaleMainDataExample();
 
-        return ResultDTOBuilder.success(lists);
+        //查询前设置分页信息
+        PageHelper.startPage(page, rows);
+
+        List<SaleMainData> saleMainDatas = saleMainDataMapper.selectByExample(example);
+
+        //创建PageInfo对象
+        PageInfo<SaleMainData> pageInfo = new PageInfo<SaleMainData>(saleMainDatas);
+
+        return ResultDTOBuilder.success(pageInfo);
     }
 }

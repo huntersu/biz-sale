@@ -80,10 +80,10 @@ public class SaleMainDataController {
      * /api/saleMainData/findAll
      * 查询所有
      */
-    @GetMapping("findAll")
-    public Object findAll(){
+    @GetMapping("findAll/{page}/{rows}")
+    public Object findAll(@PathVariable int page, @PathVariable int rows){
 
-        ResultDTO resultDTO = saleMainDataClient.findAll();
+        ResultDTO resultDTO = saleMainDataClient.findAll(page ,rows);
 
         return resultDTO;
     }
