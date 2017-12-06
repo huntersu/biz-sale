@@ -27,7 +27,7 @@ import org.apache.commons.lang3.StringUtils;
  * 8.AES加密为base 64 code 
  * 9.AES解密 
  * 10.将base 64 code AES解密 
- * @author uikoo9
+ * @author uikoo9 Fix bug by hunter
  * @version 0.0.7.20140601
  */
 public class AES {
