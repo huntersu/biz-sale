@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -67,18 +68,18 @@ public class UserController {
      * 用户登录
      */
     @GetMapping("login/{loginName}/{password}")
-    public Object userLogin(@PathVariable String loginName, @PathVariable String password){
+    public Object userLogin(HttpServletResponse response, @PathVariable String loginName, @PathVariable String password){
 
         ResultDTO selectResult = userClient.userLogin(loginName, password);
 
-        String usernfo = JsonUtil.toJson(selectResult.getData());
-
-        log.info("登录成功后的用户信息："+usernfo);
-
         //登录成功后将用户信息存入cookie中
         if (selectResult.getSuccess() && selectResult.getData() != null) {
+            String usernfo = JsonUtil.toJson(selectResult.getData());
+
+            log.info("登录成功后的用户信息："+usernfo);
 
             Cookie cookie = new Cookie("userInfo", usernfo);
+            response.addCookie(cookie);
         }
 
         //String message = messageSource.getMessage("604", (Object[])null, Locale.getDefault());
