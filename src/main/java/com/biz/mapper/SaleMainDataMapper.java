@@ -2,7 +2,6 @@ package com.biz.mapper;
 
 import com.biz.domain.SaleMainData;
 import com.biz.domain.SaleMainDataExample;
-import com.biz.domain.SaleMainDataWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,27 +12,27 @@ public interface SaleMainDataMapper {
 
     int deleteByPrimaryKey(String id);
 
-    int insert(SaleMainDataWithBLOBs record);
+    int insert(SaleMainData record);
 
-    int insertSelective(SaleMainDataWithBLOBs record);
+    int insertSelective(SaleMainData record);
 
-    List<SaleMainDataWithBLOBs> selectByExampleWithBLOBs(SaleMainDataExample example);
+    List<SaleMainData> selectByExampleWithBLOBs(SaleMainDataExample example);
 
     List<SaleMainData> selectByExample(SaleMainDataExample example);
 
-    SaleMainDataWithBLOBs selectByPrimaryKey(String id);
+    SaleMainData selectByPrimaryKey(String id);
 
-    int updateByExampleSelective(@Param("record") SaleMainDataWithBLOBs record, @Param("example") SaleMainDataExample example);
+    int updateByExampleSelective(@Param("record") SaleMainData record, @Param("example") SaleMainDataExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") SaleMainDataWithBLOBs record, @Param("example") SaleMainDataExample example);
+    int updateByExampleWithBLOBs(@Param("record") SaleMainData record, @Param("example") SaleMainDataExample example);
 
     int updateByExample(@Param("record") SaleMainData record, @Param("example") SaleMainDataExample example);
 
-    int updateByPrimaryKeySelective(SaleMainDataWithBLOBs record);
+    int updateByPrimaryKeySelective(SaleMainData record);
 
-    int updateByPrimaryKeyWithBLOBs(SaleMainDataWithBLOBs record);
+    int updateByPrimaryKeyWithBLOBs(SaleMainData record);
 
     int updateByPrimaryKey(SaleMainData record);
 
-    List<SaleMainDataWithBLOBs> selectAll();
+    List<SaleMainData> selectAll();
 }
