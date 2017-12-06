@@ -2,6 +2,7 @@ package com.biz.service.impl;
 
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
+import com.biz.common.UUIDUtils;
 import com.biz.constant.SaleMainStatus;
 import com.biz.constant.SeenPolicymaker;
 import com.biz.domain.SaleMainData;
@@ -13,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -27,6 +29,9 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @return
      */
     public ResultDTO insert(SaleMainData saleMainData) {
+        saleMainData.setId(UUIDUtils.genratorCode());
+        saleMainData.setBeginDate(new Date());
+        saleMainData.setUpdateDate(new Date());
 
         int insert = saleMainDataMapper.insert(saleMainData);
 
@@ -86,12 +91,10 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @return
      */
     public ResultDTO findAll(int page, int rows) {
-        SaleMainDataExample example = new SaleMainDataExample();
-
         //查询前设置分页信息
         PageHelper.startPage(page, rows);
 
-        List<SaleMainData> saleMainDatas = saleMainDataMapper.selectByExample(example);
+        List<SaleMainData> saleMainDatas = saleMainDataMapper.selectAll();
 
         //创建PageInfo对象
         PageInfo<SaleMainData> pageInfo = new PageInfo<SaleMainData>(saleMainDatas);

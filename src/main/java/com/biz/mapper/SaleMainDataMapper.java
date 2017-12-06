@@ -33,4 +33,6 @@ public interface SaleMainDataMapper {
     int updateByPrimaryKeyWithBLOBs(SaleMainData record);
 
     int updateByPrimaryKey(SaleMainData record);
+
+    List<SaleMainData> selectAll();
 }
