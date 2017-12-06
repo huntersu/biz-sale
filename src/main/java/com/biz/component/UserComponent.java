@@ -4,6 +4,7 @@ import com.biz.common.CookieUtils;
 import com.biz.common.ResultDTO;
 import com.biz.domain.SaleLoginUser;
 import com.biz.service.IUserClient;
+import com.biz.util.AES;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -25,22 +26,28 @@ public class UserComponent {
     public SaleLoginUser checkUser(HttpServletRequest request){
 
 
+        try {
 
-        String userSign = CookieUtils.getCookieValue(request,"USN",true);
+            String userSign = CookieUtils.getCookieValue(request, "USN", true);
 
 
-        if(StringUtils.isBlank(userSign)){
-            return null;
-        }
+            if (StringUtils.isBlank(userSign)) {
+                return null;
+            }
 
-        String[] userNameAndPass = userSign.split("<split>");
+            userSign = AES.aesDecrypt(userSign,"");
 
-        ResultDTO selectResult = userClient.userLogin(userNameAndPass[0], userNameAndPass[1]);
+            String[] userNameAndPass = userSign.split("<split>");
 
-        //登录成功后将用户信息存入cookie中
-        if (selectResult.getSuccess() && selectResult.getData() != null) {
+            ResultDTO selectResult = userClient.userLogin(userNameAndPass[0], AES.aesDecrypt(userNameAndPass[1],""));
 
-            return (SaleLoginUser)selectResult.getData();
+            //登录成功后将用户信息存入cookie中
+            if (selectResult.getSuccess() && selectResult.getData() != null) {
+
+                return (SaleLoginUser) selectResult.getData();
+
+            }
+        }catch(Exception e) {
 
         }
 
