@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="assets/css/bootstrap-colorpicker.min.css"/>
     <link rel="stylesheet" href="assets/css/select2.min.css" />
 
+
     <!-- text fonts -->
     <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css"/>
 
@@ -588,7 +589,7 @@
                                 <div class="btn-group" style="margin-left: 12px">
                                     <button id="seleCheckbox_1" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
                                             data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="policymakerPosition">请选择</span> &nbsp;<b
+                                            class="multiselect-selected-text" id="policymakerPosition" name="policymakerPosition">请选择</span> &nbsp;<b
                                             class="fa fa-caret-down"></b></button>
                                     <ul class="multiselect-container dropdown-menu" id="select_menu_jcrzw"></ul>
                                 </div>
@@ -1368,10 +1369,13 @@
             debug:true,
             rules: {
                 cusName: {
-                    required: true,
+                    required: true
                 },
                 contactName:{
-                    required: true,
+                    required: true
+                },
+                policymakerPosition:{
+                    required:true
                 }
             },
 
@@ -1381,6 +1385,9 @@
                 },
                 contactName:{
                     required: "asdnmbasdbajsbhdbhjahdbjsa"
+                },
+                policymakerPosition:{
+                    required:"asdjkasbdkjsajbkdjasbdjkaskdkaskdkasdkba"
                 },
                 email: {
                     required: "Please provide a valid email.",
