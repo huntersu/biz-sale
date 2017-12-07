@@ -694,7 +694,7 @@
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户雇员人数： </label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="cusEmpNum" placeholder="客户雇员人数" class="col-xs-10 col-sm-5"/>
+                                    <input type="text" id="cusEmpNum" onkeyup="value=value.replace(/[^\d]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="客户雇员人数" class="col-xs-10 col-sm-5"/>
                                 </div>
                             </div>
 
