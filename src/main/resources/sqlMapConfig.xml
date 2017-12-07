@@ -9,6 +9,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <setting name="logPrefix" value="mybatisSqlLog = = = = = ="/>
         <!--在控制台输出mybatis的sql语句，name取值固定-->
         <!--value取值：SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING-->
+        <!--log4j.properties要用LOG4J; logback.xml要用STDOUT_LOGGING-->
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
 

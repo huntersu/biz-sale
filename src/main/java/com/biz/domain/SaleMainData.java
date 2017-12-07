@@ -3,47 +3,108 @@ package com.biz.domain;
 import com.biz.util.JsonDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SaleMainData {
+public class SaleMainData implements Serializable{
+    /**
+     * 主键id：uuid
+     */
     private String id;
 
+    /**
+     * 客户姓名
+     */
     private String cusName;
 
+    /**
+     * 开始时间
+     */
     private Date beginDate;
 
+    /**
+     * 更新时间
+     */
     private Date updateDate;
 
+    /**
+     * 是否见到决策人? 1：见到、0：没有
+     */
     private String seenPolicymaker;
 
+    /**
+     * 决策人职位
+     */
     private String policymakerPosition;
 
+    /**
+     * 是否搞定决策人？1：是、0：否
+     */
     private String donePolicymaker;
 
+    /**
+     * 搞定的决策人是什么职位
+     */
     private String donePolicymakerPosition;
 
+    /**
+     * 是否确有其事？1：是、0：否
+     */
     private String isReal;
 
+    /**
+     * 确有其事的备注
+     */
     private String isRealComment;
 
+    /**
+     * 是否有5人以上使用产品？1：是、0：否
+     */
     private String fiveUserUp;
 
+    /**
+     * 5人以上使用产品备注
+     */
     private String fiveUserUpComment;
 
+    /**
+     * 客户联系姓名
+     */
     private String contactName;
 
+    /**
+     * 客户联系电话
+     */
     private String contactPhone;
 
+    /**
+     * 客户联系邮箱
+     */
     private String contactEmail;
 
+    /**
+     * 客户雇员人数
+     */
     private Integer cusEmpNum;
 
+    /**
+     * 客户所在城市
+     */
     private String cusCity;
 
+    /**
+     * 产品预计上线时间
+     */
     private Date launchTime;
 
+    /**
+     * 销售关单预计时间
+     */
     private Date closeTime;
 
+    /**
+     * 下一个决策人
+     */
     private String nextPolicymakerAction;
 
     private String nextReqAction;
@@ -52,6 +113,9 @@ public class SaleMainData {
 
     private String status;
 
+    /**
+     * 客户重点需求
+     */
     private String importantReq;
 
     public String getId() {

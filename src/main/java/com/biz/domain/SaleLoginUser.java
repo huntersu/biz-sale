@@ -1,14 +1,31 @@
 package com.biz.domain;
 
-public class SaleLoginUser {
+import java.io.Serializable;
+
+public class SaleLoginUser implements Serializable{
+    /**
+     * 主键id：uuid
+     */
     private String id;
 
+    /**
+     * 用户姓名
+     */
     private String name;
 
+    /**
+     * 登录密码
+     */
     private String password;
 
+    /**
+     * 所属部门
+     */
     private String department;
 
+    /**
+     * 登录名称（邮箱）
+     */
     private String loginname;
 
     public String getId() {

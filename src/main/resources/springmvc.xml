@@ -91,7 +91,7 @@
 			</set>
 		</property>
 	</bean>
-	<!-- 第一步:  创建自定义日期转换规则 -->
+	<!-- 创建自定义日期转换规则 -->
 	<bean id="StringToDate" class="com.biz.util.StringToDate"></bean>
 	<bean id="DateToString" class="com.biz.util.DateToString"></bean>
 
