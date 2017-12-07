@@ -41,14 +41,7 @@
   		<param-name>contextConfigLocation</param-name>
   		<param-value>classpath:applicationContext-*.xml</param-value>
   	</context-param>
-	<!--
-	<listener>
-		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
-	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-	</listener>
-  -->
+
   	<!-- springmvc前端控制器：servlet -->
   	<servlet>
   		<servlet-name>springmvc</servlet-name>
