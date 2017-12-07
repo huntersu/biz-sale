@@ -1,5 +1,8 @@
 package com.biz.domain;
 
+import com.biz.util.JsonDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.Date;
 
 public class SaleMainData {
@@ -67,6 +70,7 @@ public class SaleMainData {
         this.cusName = cusName == null ? null : cusName.trim();
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class)
     public Date getBeginDate() {
         return beginDate;
     }
@@ -75,6 +79,7 @@ public class SaleMainData {
         this.beginDate = beginDate;
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class)
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -187,6 +192,7 @@ public class SaleMainData {
         this.cusCity = cusCity == null ? null : cusCity.trim();
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class)
     public Date getLaunchTime() {
         return launchTime;
     }
@@ -195,6 +201,7 @@ public class SaleMainData {
         this.launchTime = launchTime;
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class)
     public Date getCloseTime() {
         return closeTime;
     }
@@ -219,6 +226,7 @@ public class SaleMainData {
         this.nextReqAction = nextReqAction == null ? null : nextReqAction.trim();
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class)
     public Date getTrueCloseTime() {
         return trueCloseTime;
     }

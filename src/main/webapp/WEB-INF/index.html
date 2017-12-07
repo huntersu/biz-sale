@@ -424,6 +424,16 @@
                     <span class="menu-text"> 首页 </span>
                 </a>
 
+
+                <b class="arrow"></b>
+            </li>
+            <li class="">
+                <a href="add-sale-data.html">
+                    <i class="menu-icon fa fa-plus-square"></i>
+                    <span class="menu-text"> 新增数据 </span>
+                </a>
+
+
                 <b class="arrow"></b>
             </li>
         </ul><!-- /.nav-list -->
@@ -902,7 +912,7 @@
     }
 
     jQuery("#list2").jqGrid({
-        url: '/api/saleMainData/findAll/1/10',
+        url: '/api/saleMainData/findAll/1/100',
         datatype: "json",
         colNames: ['客户名称', '开始推进日期', '更新信息日期',
             '是否见到决策人', '决策人职位', '是否搞定决策人',
