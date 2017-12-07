@@ -76,9 +76,11 @@ function select_menu_jueceren() {
         $("#select_menu_jueceren").append('<li onclick="selectchange_jcr(this)" data-number="' + x + '"><a><label class="checkbox">' + juecerenObj[x] + '</label></a></li>')
     }
 }
+
 function selectchange_jcr(el) {
     $("#seleCheckbox_0 span").text($(el).text());
 }
+
 //决策人职位
 function select_menu_jcrzw() {
 
@@ -86,6 +88,7 @@ function select_menu_jcrzw() {
         $("#select_menu_jcrzw").append('<li onclick="selectchange_jcrzw(this)" data-number="' + x + '"><a><label class="checkbox">' + juecerenzhiweiObj[x] + '</label></a></li>')
     }
 }
+
 function selectchange_jcrzw(el) {
     $("#seleCheckbox_1 span").text($(el).text());
 }
@@ -96,15 +99,18 @@ function select_menu_gdjcr() {
         $("#select_menu_gdjcr").append('<li onclick="selectchange_gdjcr(this)" data-number="' + x + '"><a><label class="checkbox">' + juecerenObj[x] + '</label></a></li>')
     }
 }
+
 function selectchange_gdjcr(el) {
     $("#seleCheckbox_2 span").text($(el).text());
 }
+
 //搞定决策人的职位
 function select_menu_gdjcrzw() {
     for (x in juecerenzhiweiObj) {
         $("#select_menu_gdjcrzw").append('<li onclick="selectchange_gdjcrzw(this)" data-number="' + x + '"><a><label class="checkbox">' + juecerenzhiweiObj[x] + '</label></a></li>')
     }
 }
+
 function selectchange_gdjcrzw(el) {
     $("#seleCheckbox_3 span").text($(el).text());
 }
@@ -115,6 +121,7 @@ function select_menu_qs() {
         $("#select_menu_qs").append('<li onclick="selectchange_qs(this)" data-number="' + x + '"><a><label class="checkbox">' + queyouqishixqObj[x] + '</label></a></li>')
     }
 }
+
 function selectchange_qs(el) {
     $("#seleCheckbox_4 span").text($(el).text());
 }
@@ -125,6 +132,7 @@ function select_menu_qyqsbz() {
         $("#select_menu_qyqsbz").append('<li onclick="selectchange_qyqsbz(this)" data-number="' + x + '"><a><label class="checkbox">' + yiwaishiqxqObj[x] + '</label></a></li>')
     }
 }
+
 function selectchange_qyqsbz(el) {
     $("#seleCheckbox_5 span").text($(el).text());
 }
@@ -135,15 +143,18 @@ function select_menu_sycp() {
         $("#select_menu_sycp").append('<li onclick="selectchange_sycp(this)" data-number="' + x + '"><a><label class="checkbox">' + shiyongcpxgObj[x] + '</label></a></li>')
     }
 }
+
 function selectchange_sycp(el) {
     $("#seleCheckbox_6 span").text($(el).text());
 }
+
 //为满足5人以上使用产品效果
 function select_menu_sycpbz() {
     for (x in shiyongcpwmyObj) {
         $("#select_menu_sycpbz").append('<li onclick="selectchange_sycpbz(this)" data-number="' + x + '"><a><label class="checkbox">' + shiyongcpwmyObj[x] + '</label></a></li>')
     }
 }
+
 function selectchange_sycpbz(el) {
     $("#seleCheckbox_7 span").text($(el).text());
 }
@@ -154,6 +165,7 @@ function select_menu_jcrdz() {
         $("#select_menu_jcrdz").append('<li onclick="selectchange_jcrdz(this)" data-number="' + x + '"><a><label class="checkbox">' + xiayibujcrxdObj[x] + '</label></a></li>')
     }
 }
+
 function selectchange_jcrdz(el) {
     $("#seleCheckbox_8 span").text($(el).text());
 }
@@ -164,55 +176,94 @@ function select_menu_xqdz() {
         $("#select_menu_xqdz").append('<li onclick="selectchange_xqdz(this)" data-number="' + x + '"><a><label class="checkbox">' + xuqiuxdObj[x] + '</label></a></li>')
     }
 }
+
 function selectchange_xqdz(el) {
     $("#seleCheckbox_9 span").text($(el).text());
 }
 
+
 function from_btns() {//提交表单
     $("#submit_btn").click(function () {
 
+        $('#addForm').validate();
+        var result = $('#addForm').valid();
 
 
-        $( '#addForm' ).submit();
-        return;
+        if (result) {
 
-        newMainData = new Object();
+            newMainData = new Object();
 
-        newMainData.cusName = $("#cusName").val();
-
-
-        newMainData.seenPolicymaker = $("#seenPolicymaker").text();
-        newMainData.policymakerPosition = $("#policymakerPosition").text();
-        newMainData.donePolicymaker = $("#donePolicymaker").text();
-        newMainData.donePolicymakerPosition = $("#donePolicymakerPosition").text();
-        newMainData.isReal = $("#isReal").text();
-        newMainData.isRealComment = $("#isRealComment").text();
-        newMainData.fiveUserUp = $("#fiveUserUp").text();
-        newMainData.fiveUserUpComment = $("#fiveUserUpComment").text();
-        newMainData.contactName = $("#contactName").val();
-        newMainData.contactPhone = $("#contactPhone").val();
-        newMainData.contactEmail = $("#contactEmail").val();
-        newMainData.cusEmpNum = $("#cusEmpNum").val();
-        newMainData.cusCity = $("#cusCity").val();
-        newMainData.launchTime = $("#launchTime").val();
-        newMainData.closeTime = $("#closeTime").val();
-        newMainData.nextPolicymakerAction = $("#nextPolicymakerAction").text();
-        newMainData.nextReqAction = $("#nextReqAction").text();
-        newMainData.importantReq = $("#importantReq").val();
+            newMainData.cusName = $("#cusName").val();
 
 
-        $.ajax({
-            type: 'GET',
-            url: 'api/saleMainData/insert',
-            cache: false,
-            dataType: 'json',
-            data:newMainData,
-            success: function (datas) {
-                console.log(datas);
-            }
-        });
+            newMainData.seenPolicymaker = $("#seenPolicymaker").val();
+            newMainData.policymakerPosition = $("#policymakerPosition").val();
+            newMainData.donePolicymaker = $("#donePolicymaker").val();
+            newMainData.donePolicymakerPosition = $("#donePolicymakerPosition").val();
+            newMainData.isReal = $("#isReal").val();
+            newMainData.isRealComment = $("#isRealComment").val();
+            newMainData.fiveUserUp = $("#fiveUserUp").val();
+            newMainData.fiveUserUpComment = $("#fiveUserUpComment").val();
+            newMainData.contactName = $("#contactName").val();
+            newMainData.contactPhone = $("#contactPhone").val();
+            newMainData.contactEmail = $("#contactEmail").val();
+            newMainData.cusEmpNum = $("#cusEmpNum").val();
+            newMainData.cusCity = $("#cusCity").val();
+            newMainData.launchTime = $("#launchTime").val();
+            newMainData.closeTime = $("#closeTime").val();
+            newMainData.nextPolicymakerAction = $("#nextPolicymakerAction").val();
+            newMainData.nextReqAction = $("#nextReqAction").val();
+            newMainData.importantReq = $("#importantReq").val();
+
+
+
+
+            var loadingDialog = BootstrapDialog.show({
+                closable: false,
+                message: '传输中。。。',
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: 'api/saleMainData/insert',
+                cache: false,
+                dataType: 'json',
+                data: newMainData,
+                success: function (datas) {
+                    loadingDialog.close();
+
+                    BootstrapDialog.show({
+                        closable: false,
+                        message: '要去哪里啊',
+                        buttons: [{
+                            label: 'Close',
+                            action: function (dialogItself) {
+                                dialogItself.close();
+                            }
+                        }]
+                    });
+                },
+                error:function (errorData) {
+                    loadingDialog.close();
+                    BootstrapDialog.show({
+                        closable: false,
+                        message: errorData,
+                        buttons: [{
+                            label: 'Close',
+                            action: function (dialogItself) {
+                                dialogItself.close();
+                            }
+                        }]
+                    });
+                }
+            });
+
+        }
+
+
     });
 }
+
 function reset_btns() {//重置表单
     $("#reset_btn").click(function () {
         $(".btn-group button span").text("请选择");

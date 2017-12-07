@@ -6,10 +6,7 @@ import com.biz.service.ISaleMainDataClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -80,8 +77,8 @@ public class SaleMainDataController {
      * /api/saleMainData/findAll/1/10
      * 查询所有
      */
-    @GetMapping("findAll/{page}/{rows}")
-    public Object findAll(@PathVariable int page, @PathVariable int rows){
+    @GetMapping("findAll")
+    public Object findAll(@RequestParam int page, @RequestParam int rows){
 
         ResultDTO resultDTO = saleMainDataClient.findAll(page ,rows);
 
