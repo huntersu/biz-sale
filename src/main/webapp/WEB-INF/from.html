@@ -705,7 +705,7 @@
                                 <label class="col-sm-3 control-label no-padding-right"> 产品预计上线时间： </label>
                                 <div class="col-sm-3">
                                     <div class="input-group input-group-sm">
-                                        <input type="text" id="launchTime" class="form-control hasDatepicker">
+                                        <input type="text" id="launchTime"  class="form-control hasDatepicker">
                                         <span class="input-group-addon">
 														<i class="ace-icon fa fa-calendar"></i>
 													</span>
@@ -1287,16 +1287,27 @@
 <script type="text/javascript">
     jQuery(function ($) {
 
+        $.fn.datepicker.dates['en'] = {
+            days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+            daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+            daysMin: ["日", "一", "二", "三", "四", "五", "六"],
+            months: ["一月份", "二月份", "三月份", "四月份", "五月份", "六月份", "七月份", "八月份", "九月份", "十月份", "十一月份", "十二月份"],
+            monthsShort: ["一月", "二月", "仨月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            today: "今天",
+            clear: "清除",
+            format: "yyyy-mm-dd",
+            titleFormat: "yyyy MM", /* Leverages same syntax as 'format' */
+            weekStart: 0
+        };
+
         $("#launchTime").datepicker({
             showOtherMonths: true,
             selectOtherMonths: false,
-            //isRTL:true,
-
-
-
+            isRTL:false,
             changeMonth: true,
             changeYear: true,
-            dateFormat:'yy-mm-dd',
+            todayBtn:'linked',
+            todayHighlight:true,
             showButtonPanel: true,
             beforeShow: function() {
                 //change button colors
@@ -1315,13 +1326,11 @@
         $("#closeTime").datepicker({
             showOtherMonths: true,
             selectOtherMonths: false,
-            //isRTL:true,
-
-
-
+            isRTL:false,
             changeMonth: true,
             changeYear: true,
-            dateFormat:'yy-mm-dd',
+            todayBtn:'linked',
+            todayHighlight:true,
             showButtonPanel: true,
             beforeShow: function() {
                 //change button colors

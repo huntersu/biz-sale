@@ -189,8 +189,8 @@ function from_btns() {//提交表单
         newMainData.contactEmail = $("#contactEmail").val();
         newMainData.cusEmpNum = $("#cusEmpNum").val();
         newMainData.cusCity = $("#cusCity").val();
-        /*newMainData.launchTime = $("#launchTime").val();
-        newMainData.closeTime = $("#closeTime").val();*/
+        newMainData.launchTime = $("#launchTime").val();
+        newMainData.closeTime = $("#closeTime").val();
         newMainData.nextPolicymakerAction = $("#nextPolicymakerAction").text();
         newMainData.nextReqAction = $("#nextReqAction").text();
         newMainData.importantReq = $("#importantReq").val();
