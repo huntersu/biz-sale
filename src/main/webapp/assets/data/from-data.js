@@ -171,6 +171,11 @@ function selectchange_xqdz(el) {
 function from_btns() {//提交表单
     $("#submit_btn").click(function () {
 
+
+
+        $( '#addForm' ).submit();
+        return;
+
         newMainData = new Object();
 
         newMainData.cusName = $("#cusName").val();
