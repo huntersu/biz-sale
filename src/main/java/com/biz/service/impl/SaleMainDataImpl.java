@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SaleMainDataImpl implements ISaleMainDataClient{
@@ -103,87 +105,45 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
     }
 
     /**
-     * 统计status字段状态不是close的数据
+     * 统计查询
      */
-    public ResultDTO countStatusIsNotClose() {
-        SaleMainDataExample example = new SaleMainDataExample();
-        example.createCriteria().andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+    public ResultDTO countQuery(){
+        Map<String, Integer> finalMap = new LinkedHashMap<String, Integer>();
 
-        List<SaleMainData> countStatusIsNotCloseResult = saleMainDataMapper.selectByExample(example);
+        //统计状态不是关闭的数据
+        SaleMainDataExample StatusExample = new SaleMainDataExample();
+        StatusExample.createCriteria().andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
 
-        int countStatusIsNotCloseNum = 0;
+        int StatusNum = saleMainDataMapper.countByExample(StatusExample);
+        finalMap.put("statusIsNotCloseNum", StatusNum);
 
-        if (countStatusIsNotCloseResult != null) {
-            countStatusIsNotCloseNum = countStatusIsNotCloseResult.size();
-        }
+        //统计seen_policy_maker状态是已经见到决策人,并且status!=cloes的数据
+        SaleMainDataExample seenPolicymakerExample = new SaleMainDataExample();
+        SaleMainDataExample.Criteria seenPolicymakerCriteria = seenPolicymakerExample.createCriteria();
+        seenPolicymakerCriteria.andSeenPolicymakerEqualTo(SeenPolicymaker.YES.getValue());
+        seenPolicymakerCriteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
 
-        return ResultDTOBuilder.success(countStatusIsNotCloseNum);
-    }
+        int seenPolicymakerNum = saleMainDataMapper.countByExample(seenPolicymakerExample);
+        finalMap.put("seenPolicymakerNum", seenPolicymakerNum);
 
-    /**
-     * 统计seen_policy_maker状态是已经见到决策人的数据
-     */
-    public ResultDTO countHaveSeenPolicymaker() {
+        //统计is_real字段状态不是null并且status!=cloes的数据
+        SaleMainDataExample isRealExample = new SaleMainDataExample();
+        SaleMainDataExample.Criteria isRealCriteria = isRealExample.createCriteria();
+        isRealCriteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+        isRealCriteria.andIsRealIsNotNull();
 
-        SaleMainDataExample example = new SaleMainDataExample();
+        int isRealNum = saleMainDataMapper.countByExample(isRealExample);
+        finalMap.put("isRealNum", isRealNum);
 
-        SaleMainDataExample.Criteria criteria = example.createCriteria();
+        //统计five_user_up字段状态不是null并且status!=cloes的数据
+        SaleMainDataExample fiveUserupExample = new SaleMainDataExample();
+        SaleMainDataExample.Criteria fiveUserupCriteria = fiveUserupExample.createCriteria();
+        fiveUserupCriteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+        fiveUserupCriteria.andFiveUserUpIsNotNull();
 
-        criteria.andSeenPolicymakerEqualTo(SeenPolicymaker.YES.getValue());
-        criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+        int fiveUserupIsRealNum = saleMainDataMapper.countByExample(fiveUserupExample);
+        finalMap.put("fiveUserupNum", fiveUserupIsRealNum);
 
-        List<SaleMainData> haveSeenPolicymakerList = saleMainDataMapper.selectByExample(example);
-
-        int haveSeenPolicymakerNum = 0;
-
-        if (haveSeenPolicymakerList != null) {
-            haveSeenPolicymakerNum = haveSeenPolicymakerList.size();
-        }
-
-        return ResultDTOBuilder.success(haveSeenPolicymakerNum);
-    }
-
-    /**
-     * 统计is_real字段状态不是null的数据
-     */
-    public ResultDTO countIsReal() {
-
-        SaleMainDataExample example = new SaleMainDataExample();
-        SaleMainDataExample.Criteria criteria = example.createCriteria();
-
-        criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
-        criteria.andIsRealIsNotNull();
-
-        List<SaleMainData> countIsRealList = saleMainDataMapper.selectByExample(example);
-
-        int isRealNum = 0;
-
-        if (countIsRealList != null) {
-            isRealNum = countIsRealList.size();
-        }
-
-        return ResultDTOBuilder.success(isRealNum);
-    }
-
-    /**
-     * 统计five_user_up字段状态不是null的数据
-     */
-    public ResultDTO countFiveUserupResult() {
-
-        SaleMainDataExample example = new SaleMainDataExample();
-        SaleMainDataExample.Criteria criteria = example.createCriteria();
-
-        criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
-        criteria.andFiveUserUpIsNotNull();
-
-        List<SaleMainData> fiveUserupList = saleMainDataMapper.selectByExample(example);
-
-        int isRealNum = 0;
-
-        if (fiveUserupList != null) {
-            isRealNum = fiveUserupList.size();
-        }
-
-        return ResultDTOBuilder.success(isRealNum);
+        return ResultDTOBuilder.success(finalMap);
     }
 }
