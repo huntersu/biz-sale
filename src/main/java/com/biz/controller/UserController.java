@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Locale;
 
 @Controller
 @ResponseBody
@@ -42,9 +43,7 @@ public class UserController {
      * @return
      */
     @GetMapping("register")
-    public Object userRegister() {
-
-        SaleLoginUser saleLoginUser = new SaleLoginUser();
+    public Object userRegister(SaleLoginUser saleLoginUser) {
 
         ResultDTO registerResult = userClient.userRegister(saleLoginUser);
 
@@ -74,7 +73,7 @@ public class UserController {
             CookieUtils.setCookie(request, response, "USN", userFlag, COOKIE_TIMEOUT, true);
         }
 
-        //String message = messageSource.getMessage("604", (Object[])null, Locale.getDefault());
+        String message = messageSource.getMessage("1100", (Object[])null, Locale.getDefault());
 
         return selectResult;
     }
