@@ -1,8 +1,6 @@
 package com.biz.controller;
 
-import com.biz.common.JsonUtil;
 import com.biz.common.ResultDTO;
-import com.biz.common.ResultDTOBuilder;
 import com.biz.domain.SaleMainData;
 import com.biz.service.ISaleMainDataClient;
 import org.slf4j.Logger;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * sale_main_data表的对应操作
@@ -88,8 +84,6 @@ public class SaleMainDataController {
     public Object findAll(@PathVariable int page, @PathVariable int rows){
 
         ResultDTO resultDTO = saleMainDataClient.findAll(page ,rows);
-
-        String s = JsonUtil.toJson(resultDTO);
 
         return resultDTO;
     }

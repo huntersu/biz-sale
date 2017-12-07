@@ -1,5 +1,6 @@
 package com.biz.service.impl;
 
+import com.biz.common.JsonUtil;
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
 import com.biz.common.UUIDUtils;
@@ -9,8 +10,9 @@ import com.biz.util.AES;
 import org.apache.commons.lang3.StringUtils;
 import com.biz.mapper.SaleLoginUserMapper;
 import com.biz.service.IUserClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.List;
  */
 @Service
 public class UserImpl implements IUserClient {
-
+    private static final Logger log = LoggerFactory.getLogger(UserImpl.class);
     @Resource
     private SaleLoginUserMapper saleLoginUserMapper;
 
@@ -34,6 +36,7 @@ public class UserImpl implements IUserClient {
         //手动设置id
         saleLoginUser.setId(UUIDUtils.genratorCode());
 
+        log.info("impl - 用户注册法入参：" + JsonUtil.toJson(saleLoginUser));
         if (StringUtils.isBlank(saleLoginUser.getLoginname())) {
             return ResultDTOBuilder.failure("10002", "用户名不能为空");
         }
@@ -52,13 +55,19 @@ public class UserImpl implements IUserClient {
             return ResultDTOBuilder.failure(userInfo.getErrCode(), userInfo.getErrMsg());
         }
 
-        int insertNum = saleLoginUserMapper.insert(saleLoginUser);
+        try {
+            int insertNum = saleLoginUserMapper.insert(saleLoginUser);
+            log.info("impl - 用户注册返回结果：***" + insertNum + "***");
 
-        if (insertNum == 1){
+            if (insertNum != 1){
+                return ResultDTOBuilder.failure("10003", "注册失败，请稍后重试");
+            }
+
             return ResultDTOBuilder.success(true);
+        } catch (Exception e) {
+            log.error("impl - 用户注册(异常)：", e);
+            return ResultDTOBuilder.failure("10003", "服务异常，请稍后重试");
         }
-
-        return ResultDTOBuilder.failure("10003", "注册失败，请稍后重试");
     }
 
     /**
@@ -71,18 +80,20 @@ public class UserImpl implements IUserClient {
         SaleLoginUserExample example = new SaleLoginUserExample();
         example.createCriteria().andLoginnameEqualTo(loginName);
 
-        //查询用户信息
-        List<SaleLoginUser> saleLoginUsers = saleLoginUserMapper.selectByExample(example);
+        try {
+            //查询用户信息
+            List<SaleLoginUser> saleLoginUsers = saleLoginUserMapper.selectByExample(example);
+            log.info("impl - 根据用户名查询用户信息返回结果：" + JsonUtil.toJson(saleLoginUsers));
 
-        if(saleLoginUsers == null || saleLoginUsers.isEmpty() || saleLoginUsers.size() <= 0){
-            return ResultDTOBuilder.success(null);
+            if (saleLoginUsers.size() > 1){
+                return ResultDTOBuilder.failure("10005", "用户信息重复，请联系管理员");
+            }
+
+            return ResultDTOBuilder.success(saleLoginUsers.get(0));
+        } catch (Exception e) {
+            log.error("impl - 根据用户名查询过用户信息(异常)：", e);
+            return ResultDTOBuilder.failure("10003", "服务异常，请稍后重试");
         }
-
-        if (saleLoginUsers.size() > 1){
-            return ResultDTOBuilder.failure("10005", "用户信息重复，请联系管理员");
-        }
-
-        return ResultDTOBuilder.success(saleLoginUsers.get(0));
     }
 
     /**
@@ -93,21 +104,17 @@ public class UserImpl implements IUserClient {
      */
     public ResultDTO userLogin(String loginName, String password) {
 
-        SaleLoginUserExample example = new SaleLoginUserExample();
+        log.info("impl - 用户登录时的方法入参：loginName = " + loginName + "、password = " + password);
 
-        example.createCriteria().andLoginnameEqualTo(loginName);
+        ResultDTO saleLoginUsers = this.findUserInfoByUserName(loginName);
 
-        List<SaleLoginUser> saleLoginUsers = saleLoginUserMapper.selectByExample(example);
+        if (!saleLoginUsers.getSuccess()){
+            return saleLoginUsers;
+        }
 
-        if (saleLoginUsers == null || saleLoginUsers.size() < 1 || saleLoginUsers.isEmpty()){
+        if (saleLoginUsers == null){
             return ResultDTOBuilder.failure("10004", "用户名不存在，请核对后重试");
         }
-
-        if (saleLoginUsers.size() > 1) {
-            return ResultDTOBuilder.failure("10005", "用户信息重复，请联系管理员");
-        }
-
-        //String userPass = DigestUtils.md5DigestAsHex(password.getBytes());
 
         String userPass = null;
         try {
@@ -117,10 +124,12 @@ public class UserImpl implements IUserClient {
             return ResultDTOBuilder.failure("-99999", "系统出错");
         }
 
-        if (!saleLoginUsers.get(0).getPassword().equals(userPass)) {
+        SaleLoginUser saleLoginUser = (SaleLoginUser)saleLoginUsers.getData();
+
+        if (!saleLoginUser.getPassword().equals(userPass)) {
             return ResultDTOBuilder.failure("10004", "密码错误，请重新输入");
         }
 
-        return ResultDTOBuilder.success(saleLoginUsers.get(0));
+        return ResultDTOBuilder.success(saleLoginUser);
     }
 }

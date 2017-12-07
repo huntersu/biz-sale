@@ -28,9 +28,6 @@ public class UserController {
     private IUserClient userClient;
 
     @Resource
-    private HttpSession session;
-
-    @Resource
     private MessageSource messageSource;
 
     @Value("${COOKIE_TIMEOUT}")
@@ -59,6 +56,8 @@ public class UserController {
 
         ResultDTO selectResult = userClient.userLogin(loginName, password);
 
+        log.info("登陆后的用户信息：" + JsonUtil.toJson(selectResult));
+
         //登录成功后将用户信息存入cookie中
         if (selectResult.getSuccess() && selectResult.getData() != null) {
             SaleLoginUser saleLoginUser = (SaleLoginUser) selectResult.getData();
@@ -73,7 +72,7 @@ public class UserController {
             CookieUtils.setCookie(request, response, "USN", userFlag, COOKIE_TIMEOUT, true);
         }
 
-        String message = messageSource.getMessage("1100", (Object[])null, Locale.getDefault());
+        //String message = messageSource.getMessage("1100", (Object[])null, Locale.getDefault());
 
         return selectResult;
     }

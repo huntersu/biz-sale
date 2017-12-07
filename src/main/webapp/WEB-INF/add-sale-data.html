@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="assets/css/bootstrap-colorpicker.min.css"/>
     <link rel="stylesheet" href="assets/css/select2.min.css" />
 
-
     <!-- text fonts -->
     <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css"/>
 
@@ -574,90 +573,123 @@
                             <div class="space-4"></div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 是否见到决策人： </label>
-                                <div class="btn-group" style="margin-left: 12px">
-                                    <button id="seleCheckbox_0" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
-                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="seenPolicymaker">请选择</span> &nbsp;<b
-                                            class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu" id="select_menu_jueceren"></ul>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">是否见到决策人</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <select class="select2 " style="width: 200px;">
+                                        <option value="">请选择</option>
+                                        <option value="1">是</option>
+                                        <option value="0">否</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 决策人职位： </label>
-                                <div class="btn-group" style="margin-left: 12px">
-                                    <button id="seleCheckbox_1" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
-                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="policymakerPosition" name="policymakerPosition">请选择</span> &nbsp;<b
-                                            class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu" id="select_menu_jcrzw"></ul>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">决策人职位：</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <select class="select2 " style="width: 200px;">
+                                        <option value="">请选择</option>
+                                        <option value="BOSS">老板</option>
+                                        <option value="COMPANY_VP">公司</option>
+                                        <option value="BUSINESS_VP">业务线VP</option>
+                                        <option value="HR_VP">HRVP</option>
+                                        <option value="HRD">HRD</option>
+                                        <option value="COMPANY_COL_PREX">企业大学校长</option>
+                                        <option value="T_DIRECTOR">培训总监</option>
+                                        <option value="HR_MANAGER">人力资源经理</option>
+                                        <option value="T_MANAGER">培训经理</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 是否搞定决策人： </label>
-                                <div class="btn-group" style="margin-left: 12px">
-                                    <button id="seleCheckbox_2" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
-                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="donePolicymaker">请选择</span> &nbsp;<b
-                                            class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu" id="select_menu_gdjcr"></ul>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">是否搞定决策人：</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <select class="select2 " style="width: 200px;">
+                                        <option value="">请选择</option>
+                                        <option value="1">是</option>
+                                        <option value="0">否</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 搞定的决策人是什么职位： </label>
-                                <div class="btn-group" style="margin-left: 12px">
-                                    <button id="seleCheckbox_3" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
-                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="donePolicymakerPosition">请选择</span> &nbsp;<b
-                                            class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu" id="select_menu_gdjcrzw"></ul>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">搞定的决策人是什么职位：</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <select class="select2 " style="width: 200px;">
+                                        <option value="">请选择</option>
+                                        <option value="BOSS">老板</option>
+                                        <option value="COMPANY_VP">公司</option>
+                                        <option value="BUSINESS_VP">业务线VP</option>
+                                        <option value="HR_VP">HRVP</option>
+                                        <option value="HRD">HRD</option>
+                                        <option value="COMPANY_COL_PREX">企业大学校长</option>
+                                        <option value="T_DIRECTOR">培训总监</option>
+                                        <option value="HR_MANAGER">人力资源经理</option>
+                                        <option value="T_MANAGER">培训经理</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 确有其事详情： </label>
-                                <div class="btn-group" style="margin-left: 12px">
-                                    <button id="seleCheckbox_4" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
-                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="isReal">请选择</span> &nbsp;<b
-                                            class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu" id="select_menu_qs"></ul>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">确有其事详情：</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <select class="select2 " style="width: 200px;">
+                                        <option value="">请选择</option>
+                                        <option value="BID">竞标</option>
+                                        <option value="NFG">竞争性谈判</option>
+                                        <option value="PRE_BID">筹备竞标中</option>
+                                        <option value="MONOPOLY">就和兜行一家谈判</option>
+                                        <option value="INFO_COLLECTION">供应商信息收集中</option>
+                                        <option value="PROPOSAL">给决策者制作方案中</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 确有其事的备注： </label>
-                                <div class="btn-group" style="margin-left: 12px">
-                                    <button id="seleCheckbox_5" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
-                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="isRealComment">请选择</span> &nbsp;<b
-                                            class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu" id="select_menu_qyqsbz"></ul>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">确有其事的备注：</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <select class="select2 " style="width: 200px;">
+                                        <option value="">请选择</option>
+                                        <option value="BUS_NO_FEEL">业务部门无感</option>
+                                        <option value="NO_PLAT_DOUBT_RESULT">企业没上过平台担心效果</option>
+                                        <option value="HAVE_PLAT_NO_GOOD_BOUBT_RESULT">企业上过平台，效果不好，再上担心效果</option>
+                                        <option value="HR_NEED_BUS_MO">HR认为有需求，业务部门没有</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 5人以上使用产品效果： </label>
-                                <div class="btn-group" style="margin-left: 12px">
-                                    <button id="seleCheckbox_6" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
-                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="fiveUserUp">请选择</span> &nbsp;<b
-                                            class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu" id="select_menu_sycp"></ul>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">5人以上使用产品效果：</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <select class="select2 " style="width: 200px;">
+                                        <option value="">请选择</option>
+                                        <option value="PLEASED">决策者已经试用且满意</option>
+                                        <option value="POL_TRIED_NORESULT">决策者已经试用，态度不知道</option>
+                                        <option value="OPN_TRIED">运营负责人试用</option>
+                                        <option value="ACC_TRIED">助理试用了</option>
+                                        <option value="EMP_TRIED">一部分员工参与了试用</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 未满足5人以上使用产品的原因： </label>
-                                <div class="btn-group" style="margin-left: 12px">
-                                    <button id="seleCheckbox_7" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
-                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="fiveUserUpComment">请选择</span> &nbsp;<b
-                                            class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu" id="select_menu_sycpbz"></ul>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">未满足5人以上使用产品的原因：</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <select class="select2 " style="width: 200px;">
+                                        <option value="">请选择</option>
+                                        <option value="BUS_NO_FEEL">业务部门无感</option>
+                                        <option value="NO_PLAT_DOUBT_RESULT">企业没上过平台担心效果不好</option>
+                                        <option value="HAVE_PLAT_NO_GOOD_BOUBT_RESULT">企业上过平台，效果不好，再上担心效果</option>
+                                        <option value="HR_NEED_BUS_NO">HR认为有需求，业务部门没有</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -673,7 +705,7 @@
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户联系电话： </label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="contactPhone" placeholder="客户联系电话" class="col-xs-10 col-sm-5"/>
+                                    <input type="text" id="contactPhone" name="contactPhone" placeholder="客户联系电话" class="col-xs-10 col-sm-5"/>
                                 </div>
                             </div>
 
@@ -681,7 +713,7 @@
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户联系邮箱： </label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="contactEmail" placeholder="客户联系邮箱" class="col-xs-10 col-sm-5"/>
+                                    <input type="text" id="contactEmail" name="contactEmail" placeholder="客户联系邮箱" class="col-xs-10 col-sm-5"/>
                                 </div>
                             </div>
 
@@ -689,7 +721,7 @@
                                 <label class="col-sm-3 control-label no-padding-right"> 客户重点需求： </label>
 
                                 <div class="col-sm-3">
-                                    <textarea class="form-control" id="importantReq" placeholder="客户重点需求"></textarea>
+                                    <textarea class="form-control" id="importantReq" name="importantReq" placeholder="客户重点需求"></textarea>
                                 </div>
                             </div>
 
@@ -697,7 +729,7 @@
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户雇员人数： </label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="cusEmpNum" onkeyup="value=value.replace(/[^\d]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="客户雇员人数" class="col-xs-10 col-sm-5"/>
+                                    <input type="text" id="cusEmpNum" name="cusEmpNum" onkeyup="value=value.replace(/[^\d]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="客户雇员人数" class="col-xs-10 col-sm-5"/>
                                 </div>
                             </div>
 
@@ -705,7 +737,7 @@
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户所在城市： </label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="cusCity" placeholder="客户雇员人数" class="col-xs-10 col-sm-5"/>
+                                    <input type="text" id="cusCity" name="cusCity" placeholder="客户雇员人数" class="col-xs-10 col-sm-5"/>
                                 </div>
                             </div>
 
@@ -735,27 +767,33 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 下一步决策人动作： </label>
-                                <div class="btn-group" style="margin-left: 12px">
-                                    <button id="seleCheckbox_8" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
-                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="nextPolicymakerAction">请选择</span> &nbsp;<b
-                                            class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu" id="select_menu_jcrdz"></ul>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">下一步决策人动作：</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <select class="select2 " style="width: 200px;">
+                                        <option value="">请选择</option>
+                                        <option value="FINDING_POL">判断谁是决策人中</option>
+                                        <option value="FINDING_POL_PROBLEM">判断谁是决策人中遇到了困难</option>
+                                        <option value="DATEING_POL">约见决策人中</option>
+                                        <option value="DATEING_POL_PROBLEM">约见决策人中遇到了困难</option>
+                                        <option value="DOING_POL">搞定决策人中</option>
+                                        <option value="DOING_POL_PROBELM">搞定决策人过程中遇到了困难</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"> 下一步需求动作： </label>
-                                <div class="btn-group" style="margin-left: 12px">
-                                    <button id="seleCheckbox_9" type="button" class="multiselect dropdown-toggle btn btn-white btn-primary"
-                                            data-toggle="dropdown" title="None selected" aria-expanded="false"><span
-                                            class="multiselect-selected-text" id="nextReqAction">请选择</span> &nbsp;<b
-                                            class="fa fa-caret-down"></b></button>
-                                    <ul class="multiselect-container dropdown-menu" id="select_menu_xqdz"></ul>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">下一步需求动作：</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <select class="select2 " style="width: 200px;">
+                                        <option value="">请选择</option>
+                                        <option value="COMPANY_HAVE_REQ">企业有需求，待做实</option>
+                                        <option value="BUSINESS_HAVE_REQ">业务部门有需求，待做实</option>
+                                        <option value="HR_HAVE_REQ">HR部门有需求，待做实</option>
+                                    </select>
                                 </div>
                             </div>
-
                             <div class="clearfix form-actions">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button class="btn btn-info" type="button" id="submit_btn">
@@ -782,6 +820,8 @@
     <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
         <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
     </a>
+
+
 </div><!-- /.main-container -->
 
 <!-- basic scripts -->
@@ -1369,25 +1409,48 @@
             debug:true,
             rules: {
                 cusName: {
-                    required: true
+                    required: true,
                 },
                 contactName:{
-                    required: true
+                    required: true,
                 },
-                policymakerPosition:{
-                    required:true
+                contactPhone:{
+                    required: true,
+                },
+                contactEmail:{
+                    required: true,
+                },
+                importantReq:{
+                    required: true,
+                },
+                cusEmpNum:{
+                    required: true,
+                },
+                cusCity:{
+                    required: true,
                 }
             },
-
             messages: {
                 cusName: {
                     required: "客户名称不能为空"
                 },
                 contactName:{
-                    required: "asdnmbasdbajsbhdbhjahdbjsa"
+                    required: "客户联系姓名不能为空"
                 },
-                policymakerPosition:{
-                    required:"asdjkasbdkjsajbkdjasbdjkaskdkaskdkasdkba"
+                contactPhone:{
+                    required: "客户联系电话不能为空"
+                },
+                contactEmail:{
+                    required: "客户联系邮箱不能为空"
+                },
+                importantReq:{
+                    required: "客户重点需求不能为空"
+                },
+                cusEmpNum:{
+                    required: "客户雇员人数不能为空"
+                },
+                cusCity:{
+                    required: "客户所在城市不能为空"
                 },
                 email: {
                     required: "Please provide a valid email.",
@@ -1574,6 +1637,17 @@
             values: [75, 300]
         });
     });
+</script>
+<script type="text/javascript">
+    jQuery(function($) {
+
+        $('[data-rel=tooltip]').tooltip();
+        $('.select2-search').hide();
+        $('.select2').css('width','200px').select2({allowClear:false})
+            .on('change', function(){
+                //$(this).closest('form').validate().element($(this));
+            });
+    })
 </script>
 <!--数据-->
 <script src="../assets/data/from-data.js"></script>
