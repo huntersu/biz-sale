@@ -4,13 +4,6 @@
 	<property name="LOG_DIR" value="${user.home}/bizsaas/logs/biz-sale" />
 	<property name="APP_LOGLEVEL" value="${app.logLevel:-DEBUG}" />
 
-	<!--<conversionRule conversionWord="L" converterClass="com.bizcloud.framework.logging.slf4j.LineOfCallerConverter" />
-	<conversionRule conversionWord="line" converterClass="com.bizcloud.framework.logging.slf4j.LineOfCallerConverter" />
-	<conversionRule conversionWord="F" converterClass="com.bizcloud.framework.logging.slf4j.FileOfCallerConverter" />
-	<conversionRule conversionWord="file" converterClass="com.bizcloud.framework.logging.slf4j.FileOfCallerConverter" />
-	<conversionRule conversionWord="M" converterClass="com.bizcloud.framework.logging.slf4j.MethodOfCallerConverter" />
-	<conversionRule conversionWord="method" converterClass="com.bizcloud.framework.logging.slf4j.MethodOfCallerConverter" />
--->
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] %logger{50}.%M\(%file:%line\) - %msg%n</pattern>
