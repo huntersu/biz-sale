@@ -2,6 +2,7 @@ package com.biz.service.impl;
 
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
+import com.biz.common.UUIDUtils;
 import com.biz.domain.SaleLoginUser;
 import com.biz.domain.SaleLoginUserExample;
 import com.biz.util.AES;
@@ -30,10 +31,18 @@ public class UserImpl implements IUserClient {
      */
     public ResultDTO userRegister(SaleLoginUser saleLoginUser) {
 
-        if (StringUtils.isNotBlank(saleLoginUser.getPassword())){
-            //DigestUtils是spring提供的工具类
-            saleLoginUser.setPassword(AES.base64Encode(saleLoginUser.getPassword().getBytes()));
+        //手动设置id
+        saleLoginUser.setId(UUIDUtils.genratorCode());
+
+        if (StringUtils.isBlank(saleLoginUser.getLoginname())) {
+            return ResultDTOBuilder.failure("10002", "用户名不能为空");
         }
+        if (StringUtils.isBlank(saleLoginUser.getPassword())) {
+            return ResultDTOBuilder.failure("10002", "密码不能为空");
+        }
+
+        //DigestUtils是spring提供的工具类
+        saleLoginUser.setPassword(AES.base64Encode(saleLoginUser.getPassword().getBytes()));
 
         ResultDTO userInfo = this.findUserInfoByUserName(saleLoginUser.getLoginname());
 
