@@ -2,10 +2,10 @@
 <!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<!-- mybatis全局配置文件：数据源，事务，引入外部映射文件 -->
 <configuration>
     <settings>
-        <!--指定mybatis输出在控制台的日志前缀-->
+        <!--Mybatis是用Mapper类的全路径名，作为logger的名称的-->
+        <!--指定mybatis输出在控制台的日志前缀  就是在全路径名称前加的前缀-->
         <setting name="logPrefix" value="mybatisSqlLog = = = = = ="/>
         <!--在控制台输出mybatis的sql语句，name取值固定-->
         <!--value取值：SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING-->
