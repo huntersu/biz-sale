@@ -1,5 +1,6 @@
 package com.biz.controller;
 
+import com.biz.common.JsonUtil;
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
 import com.biz.domain.SaleMainData;
@@ -88,6 +89,8 @@ public class SaleMainDataController {
 
         ResultDTO resultDTO = saleMainDataClient.findAll(page ,rows);
 
+        String s = JsonUtil.toJson(resultDTO);
+
         return resultDTO;
     }
 
@@ -98,33 +101,8 @@ public class SaleMainDataController {
     @GetMapping("countQuery")
     public Object countQuery(){
 
-        Map<String, Integer> finalMap = new LinkedHashMap<String, Integer>();
+        ResultDTO seenPolicymakerResult = saleMainDataClient.countQuery();
 
-        ResultDTO seenPolicymakerResult = saleMainDataClient.countHaveSeenPolicymaker();
-
-        if (seenPolicymakerResult.getSuccess()) {
-            finalMap.put("seenPolicymakerNum", (Integer) seenPolicymakerResult.getData());
-        }
-
-        ResultDTO isRealResult = saleMainDataClient.countIsReal();
-
-        if (isRealResult.getSuccess()) {
-            finalMap.put("isRealNum", (Integer) isRealResult.getData());
-        }
-
-        ResultDTO statusIsNotCloseResult = saleMainDataClient.countStatusIsNotClose();
-
-        if (statusIsNotCloseResult.getSuccess()) {
-            finalMap.put("statusIsNotCloseNum", (Integer) statusIsNotCloseResult.getData());
-        }
-
-        ResultDTO fiveUserupResult = saleMainDataClient.countFiveUserupResult();
-
-        if (fiveUserupResult.getSuccess()) {
-            finalMap.put("fiveUserupNum", (Integer) fiveUserupResult.getData());
-        }
-
-        return ResultDTOBuilder.success(finalMap);
+        return seenPolicymakerResult;
     }
-
 }

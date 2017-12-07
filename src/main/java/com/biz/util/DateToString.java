@@ -7,11 +7,8 @@ import java.util.Date;
 
 public class DateToString implements Converter<Date, String> {
 
-
-    @Override
     public String convert(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
 
         try {
 

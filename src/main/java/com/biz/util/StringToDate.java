@@ -15,7 +15,6 @@ import java.util.Date;
  */
 public class StringToDate implements Converter<String, Date> {
 
-    @Override
     public Date convert(String stringDate) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
