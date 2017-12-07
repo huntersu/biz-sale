@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="assets/css/daterangepicker.min.css"/>
     <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" href="assets/css/bootstrap-colorpicker.min.css"/>
+    <link rel="stylesheet" href="assets/css/select2.min.css" />
 
     <!-- text fonts -->
     <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css"/>
@@ -47,6 +48,7 @@
     <!--[if lte IE 8]>
     <script src="assets/js/html5shiv.min.js"></script>
     <script src="assets/js/respond.min.js"></script>
+
     <![endif]-->
 </head>
 
@@ -559,12 +561,12 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <form class="form-horizontal" role="form">
+                        <form id="addForm" class="form-horizontal" role="form">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户姓名： </label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="cusName" placeholder="客户姓名" class="col-xs-10 col-sm-5"/>
+                                    <input type="text" id="cusName"  name="cusName" placeholder="客户姓名" class="col-xs-10 col-sm-5"/>
                                 </div>
                             </div>
 
@@ -662,7 +664,7 @@
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 客户联系姓名： </label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="contactName" placeholder="客户联系姓名" class="col-xs-10 col-sm-5"/>
+                                    <input type="text" id="contactName" name="contactName" placeholder="客户联系姓名" class="col-xs-10 col-sm-5"/>
                                 </div>
                             </div>
 
@@ -816,7 +818,12 @@
 <script src="assets/js/jquery.inputlimiter.min.js"></script>
 <script src="assets/js/jquery.maskedinput.min.js"></script>
 <script src="assets/js/bootstrap-tag.min.js"></script>
-
+<script src="assets/js/wizard.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/jquery-additional-methods.min.js"></script>
+<script src="assets/js/bootbox.js"></script>
+<script src="assets/js/jquery.maskedinput.min.js"></script>
+<script src="assets/js/select2.min.js"></script>
 <!-- ace scripts -->
 <script src="assets/js/ace-elements.min.js"></script>
 <script src="assets/js/ace.min.js"></script>
@@ -1350,6 +1357,74 @@
                 }, 0);
             }
 
+        });
+
+
+        $('#addForm').validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            debug:true,
+            rules: {
+                cusName: {
+                    required: true,
+                },
+                contactName:{
+                    required: true,
+                }
+            },
+
+            messages: {
+                cusName: {
+                    required: "客户名称不能为空"
+                },
+                contactName:{
+                    required: "asdnmbasdbajsbhdbhjahdbjsa"
+                },
+                email: {
+                    required: "Please provide a valid email.",
+                    email: "Please provide a valid email."
+                },
+                password: {
+                    required: "Please specify a password.",
+                    minlength: "Please specify a secure password."
+                },
+                state: "Please choose state",
+                subscription: "Please choose at least one option",
+                gender: "Please choose gender",
+                agree: "Please accept our policy"
+            },
+
+
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                    else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if(element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if(element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else error.insertAfter(element);
+            },
+
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
         });
 
 
