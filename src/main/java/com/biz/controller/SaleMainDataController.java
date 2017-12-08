@@ -76,7 +76,7 @@ public class SaleMainDataController {
 
             SaleMainData saleMainData = findResult.getData();
 
-            /*if (saleMainData.getDonePolicymaker() != null) {
+            if (saleMainData.getDonePolicymaker() != null) {
                 DonePolicymaker donePolicymaker = DonePolicymaker.getByValue(saleMainData.getDonePolicymaker());
                 if (donePolicymaker != null) {
                     saleMainData.setDonePolicymaker(donePolicymaker.getDesc());
@@ -88,7 +88,7 @@ public class SaleMainDataController {
                 if (donePolicymakerPosition != null) {
                     saleMainData.setDonePolicymaker(donePolicymakerPosition.getDesc());
                 }
-            }*/
+            }
 
             /*saleMainData.setDonePolicymaker(?"":saleMainData.getDonePolicymaker());
             saleMainData.setDonePolicymakerPosition(saleMainData.getDonePolicymakerPosition() == null?"":saleMainData.getDonePolicymakerPosition());
