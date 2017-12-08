@@ -1,10 +1,10 @@
 package com.biz.controller;
 
 import com.biz.common.ResultDTO;
-import com.biz.constant.DonePolicymaker;
-import com.biz.constant.DonePolicymakerPosition;
+import com.biz.constant.*;
 import com.biz.domain.SaleMainData;
 import com.biz.service.ISaleMainDataClient;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -73,34 +73,8 @@ public class SaleMainDataController {
         ResultDTO<SaleMainData> findResult = saleMainDataClient.findById(id);
 
         if (findResult.isSuccess() && findResult.getData() != null) {
-
-            SaleMainData saleMainData = findResult.getData();
-
-            if (saleMainData.getDonePolicymaker() != null) {
-                DonePolicymaker donePolicymaker = DonePolicymaker.getByValue(saleMainData.getDonePolicymaker());
-                if (donePolicymaker != null) {
-                    saleMainData.setDonePolicymaker(donePolicymaker.getDesc());
-                }
-            }
-
-            if (saleMainData.getDonePolicymakerPosition() != null) {
-                DonePolicymakerPosition donePolicymakerPosition = DonePolicymakerPosition.getByValue(saleMainData.getDonePolicymakerPosition());
-                if (donePolicymakerPosition != null) {
-                    saleMainData.setDonePolicymaker(donePolicymakerPosition.getDesc());
-                }
-            }
-
-            /*saleMainData.setDonePolicymaker(?"":saleMainData.getDonePolicymaker());
-            saleMainData.setDonePolicymakerPosition(saleMainData.getDonePolicymakerPosition() == null?"":saleMainData.getDonePolicymakerPosition());
-            saleMainData.setFiveUserUp();
-            saleMainData.setFiveUserUpComment();
-            saleMainData.setIsReal();
-            saleMainData.setIsRealComment();
-            saleMainData.setNextPolicymakerAction();
-            saleMainData.setNextReqAction();
-            saleMainData.setPolicymakerPosition();
-            saleMainData.setStatus();
-            saleMainData.setSeenPolicymaker();*/
+            //将对应value值转成对应的描述
+            this.transfer(findResult.getData());
         }
 
         return findResult;
@@ -113,8 +87,14 @@ public class SaleMainDataController {
     @GetMapping("findAll")
     public Object findAll(@RequestParam int page, @RequestParam int rows){
 
-        ResultDTO resultDTO = saleMainDataClient.findAll(page ,rows);
+        ResultDTO<PageInfo<SaleMainData>> resultDTO = saleMainDataClient.findAll(page ,rows);
 
+        if (resultDTO.isSuccess() && resultDTO.getData() != null && resultDTO.getData().getList() != null && resultDTO.getData().getList().size() > 0) {
+            for (SaleMainData saleMainData : resultDTO.getData().getList()) {
+                //将对应value值转成对应的描述
+                this.transfer(saleMainData);
+            }
+        }
         return resultDTO;
     }
 
@@ -128,5 +108,87 @@ public class SaleMainDataController {
         ResultDTO seenPolicymakerResult = saleMainDataClient.countQuery();
 
         return seenPolicymakerResult;
+    }
+
+    //将对应的枚举类型的value值转成对应的描述
+    private void transfer(SaleMainData saleMainData) {
+        if (saleMainData.getDonePolicymaker() != null) {
+            DonePolicymaker donePolicymaker = DonePolicymaker.getByValue(saleMainData.getDonePolicymaker());
+            if (donePolicymaker != null) {
+                saleMainData.setDonePolicymaker(donePolicymaker.getDesc());
+            }
+        }
+
+        if (saleMainData.getDonePolicymakerPosition() != null) {
+            DonePolicymakerPosition donePolicymakerPosition = DonePolicymakerPosition.getByValue(saleMainData.getDonePolicymakerPosition());
+            if (donePolicymakerPosition != null) {
+                saleMainData.setDonePolicymakerPosition(donePolicymakerPosition.getDesc());
+            }
+        }
+
+        if (saleMainData.getFiveUserUp() != null) {
+            FiveUserupResult fiveUserup = FiveUserupResult.getByValue(saleMainData.getFiveUserUp());
+            if (fiveUserup != null) {
+                saleMainData.setFiveUserUp(fiveUserup.getDesc());
+            }
+        }
+
+        if (saleMainData.getFiveUserUpComment() != null) {
+            FiveUserdownResult fiveUserUpComment = FiveUserdownResult.getByValue(saleMainData.getFiveUserUpComment());
+            if (fiveUserUpComment != null) {
+                saleMainData.setFiveUserUpComment(fiveUserUpComment.getDesc());
+            }
+        }
+
+        if (saleMainData.getIsReal() != null) {
+            IsReal isReal = IsReal.getByValue(saleMainData.getIsReal());
+            if (isReal != null) {
+                saleMainData.setIsReal(isReal.getDesc());
+            }
+        }
+
+        if (saleMainData.getIsRealComment() != null) {
+            IsRealComment isRealComment = IsRealComment.getByValue(saleMainData.getIsRealComment());
+            if (isRealComment != null) {
+                saleMainData.setIsRealComment(isRealComment.getDesc());
+            }
+        }
+
+        if (saleMainData.getNextPolicymakerAction() != null) {
+            NextPolicymakerAction nextPolicymakerAction = NextPolicymakerAction.getByValue(saleMainData.getNextPolicymakerAction());
+            if (nextPolicymakerAction != null) {
+                saleMainData.setNextPolicymakerAction(nextPolicymakerAction.getDesc());
+            }
+        }
+
+        if (saleMainData.getNextReqAction() != null) {
+            NextReqAction nextReqAction = NextReqAction.getByValue(saleMainData.getNextReqAction());
+            if (nextReqAction != null) {
+                saleMainData.setNextReqAction(nextReqAction.getDesc());
+            }
+        }
+
+        if (saleMainData.getPolicymakerPosition() != null) {
+            PolicymakerPosition policymakerPosition = PolicymakerPosition.getByValue(saleMainData.getPolicymakerPosition());
+            if (policymakerPosition != null) {
+                saleMainData.setPolicymakerPosition(policymakerPosition.getDesc());
+            }
+        }
+
+        if (saleMainData.getStatus() != null) {
+            SaleMainStatus saleMainStatus = SaleMainStatus.getByValue(saleMainData.getStatus());
+            if (saleMainStatus != null) {
+                saleMainData.setStatus(saleMainStatus.getDesc());
+            }
+        }
+
+        if (saleMainData.getSeenPolicymaker() != null) {
+            SeenPolicymaker seenPolicymaker = SeenPolicymaker.getByValue(saleMainData.getSeenPolicymaker());
+            if (seenPolicymaker != null) {
+                saleMainData.setSeenPolicymaker(seenPolicymaker.getDesc());
+            }
+        }
+
+
     }
 }

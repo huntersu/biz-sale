@@ -3,6 +3,7 @@ package com.biz.service;
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
 import com.biz.domain.SaleMainData;
+import com.github.pagehelper.PageInfo;
 
 public interface ISaleMainDataClient {
 
@@ -29,7 +30,7 @@ public interface ISaleMainDataClient {
     /**
      * 查询所有
      */
-    ResultDTO findAll(int page, int rows);
+    ResultDTO<PageInfo<SaleMainData>> findAll(int page, int rows);
 
     /**
      * 统计查询

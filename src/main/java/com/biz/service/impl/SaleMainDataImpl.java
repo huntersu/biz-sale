@@ -39,6 +39,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
         saleMainData.setId(UUIDUtils.genratorCode());
         saleMainData.setBeginDate(new Date());
         saleMainData.setUpdateDate(new Date());
+        saleMainData.setStatus(SaleMainStatus.OPEN.getValue());
 
         log.info("impl — 保存sale_main_data对象数据内容：" + JsonUtil.toJson(saleMainData));
         try {
@@ -124,7 +125,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * 分页查询全部
      * @return
      */
-    public ResultDTO findAll(int page, int rows) {
+    public ResultDTO<PageInfo<SaleMainData>> findAll(int page, int rows) {
         log.error("impl - 分页查询全部(sale_main_data表)的查询方法入参：page = " + page + "、rows = " + rows);
         try {
             //查询前设置分页信息
