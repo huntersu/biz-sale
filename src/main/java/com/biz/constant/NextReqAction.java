@@ -6,7 +6,8 @@ package com.biz.constant;
 public enum NextReqAction {
     COMPANY_HAVE_REQ("1", "COMPANY_HAVE_REQ", "企业有需求，待做实"),
     BUSINESS_HAVE_REQ("2", "BUSINESS_HAVE_REQ", "业务部门有需求，待做实"),
-    HR_HAVE_REQ("3", "HR_HAVE_REQ", "HR部门有需求，待做实");
+    HR_HAVE_REQ("3", "HR_HAVE_REQ", "HR部门有需求，待做实"),
+    OTHER("4", "OTHER", "其他");
 
 
     private String code;

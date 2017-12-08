@@ -12,7 +12,9 @@ public enum PolicymakerPosition {
     COMPANY_COL_PREX("6", "COMPANY_COL_PREX", "企业大学校长"),
     T_DIRECTOR("7", "T_DIRECTOR", "培训总监"),
     HR_MANAGER("8", "HR_MANAGER", "人力资源经理"),
-    T_MANAGER("9", "T_MANAGER", "培训经理");
+    T_MANAGER("9", "T_MANAGER", "培训经理"),
+    OTHER("10", "OTHER", "其他"),
+    UNKNOW("11", "UNKNOW", "未知");
 
     private String code;
     private String value;

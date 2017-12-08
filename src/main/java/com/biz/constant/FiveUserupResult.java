@@ -8,7 +8,8 @@ public enum FiveUserupResult {
     POL_TRIED_NORESULT("2", "POL_TRIED_NORESULT", "决策者已经试用，态度不知道"),
     OPN_TRIED("3", "OPN_TRIED", "运营负责人试用"),
     ACC_TRIED("4", "ACC_TRIED", "助理试用了"),
-    EMP_TRIED("5", "EMP_TRIED", "一部分员工参与了试用");
+    EMP_TRIED("5", "EMP_TRIED", "一部分员工参与了试用"),
+    NO("6", "NO", "未满足");
 
     private String code;
     private String value;
