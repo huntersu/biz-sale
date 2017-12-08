@@ -21,5 +21,5 @@ public interface IUserClient {
     /**
      * 用户登录
      */
-    ResultDTO userLogin(String loginName, String password);
+    ResultDTO<SaleLoginUser> userLogin(String loginName, String password);
 }

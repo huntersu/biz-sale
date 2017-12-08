@@ -39,12 +39,12 @@ public class UserComponent {
 
             String[] userNameAndPass = userSign.split("<split>");
 
-            ResultDTO selectResult = userClient.userLogin(userNameAndPass[0], AES.aesDecrypt(userNameAndPass[1],""));
+            ResultDTO<SaleLoginUser> selectResult = userClient.userLogin(userNameAndPass[0], AES.aesDecrypt(userNameAndPass[1],""));
 
             //登录成功后将用户信息存入cookie中
-            if (selectResult.getSuccess() && selectResult.getData() != null) {
+            if (selectResult.isSuccess() && selectResult.getData() != null) {
 
-                return (SaleLoginUser) selectResult.getData();
+                return selectResult.getData();
 
             }
         }catch(Exception e) {

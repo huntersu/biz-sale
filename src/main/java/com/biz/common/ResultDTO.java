@@ -14,7 +14,7 @@ public class ResultDTO<T> implements Serializable{
 
     public ResultDTO(){}
 
-    public Boolean getSuccess() {
+    public Boolean isSuccess() {
         return isSuccess;
     }
 

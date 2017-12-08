@@ -4,7 +4,7 @@ package com.biz.constant;
  * 标注决策人职位
  */
 public enum PolicymakerPosition {
-    BOOS("1", "BOOS", "老板"),
+    BOSS("1", "BOSS", "老板"),
     COMPANY_VP("2", "COMPANY_VP", "公司VP"),
     BUSINESS_VP("3", "BUSINESS_VP", "业务线VP"),
     HRVP("4", "HR_VP", "HRVP"),

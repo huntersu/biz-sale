@@ -589,6 +589,6 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectAll" resultMap="ResultMapWithBLOBs">
-    SELECT * FROM sale_main_data
+    SELECT * FROM sale_main_data order by begin_date desc
   </select>
 </mapper>

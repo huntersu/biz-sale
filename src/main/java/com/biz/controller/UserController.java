@@ -54,13 +54,13 @@ public class UserController {
     @GetMapping("login/{loginName}/{password}")
     public Object userLogin(HttpServletResponse response, HttpServletRequest request, @PathVariable String loginName, @PathVariable String password) throws Exception {
 
-        ResultDTO selectResult = userClient.userLogin(loginName, password);
+        ResultDTO<SaleLoginUser> selectResult = userClient.userLogin(loginName, password);
 
         log.info("登陆后的用户信息：" + JsonUtil.toJson(selectResult));
 
         //登录成功后将用户信息存入cookie中
-        if (selectResult.getSuccess() && selectResult.getData() != null) {
-            SaleLoginUser saleLoginUser = (SaleLoginUser) selectResult.getData();
+        if (selectResult.isSuccess() && selectResult.getData() != null) {
+            SaleLoginUser saleLoginUser = selectResult.getData();
 
             String userName = saleLoginUser.getLoginname();
 
