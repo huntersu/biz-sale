@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="false" scanPeriod="60 seconds" debug="false">
 
-	<property name="LOG_DIR" value="${user.home}/bizsaas/logs/biz-sale" />
+	<property name="LOG_DIR" value="${user.home}/logs/biz-sale" />
 	<property name="APP_LOGLEVEL" value="${app.logLevel:-DEBUG}" />
 
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
@@ -44,7 +44,7 @@
 		<appender-ref ref="appAppender" />
 		<appender-ref ref="consoleAppender" />
 	</root>
-	<logger name="com.bizcloud.astc" level="${APP_LOGLEVEL}">
+	<logger name="com.biz" level="${APP_LOGLEVEL}">
 	</logger>
 	<logger name="org.apache.zookeeper.ClientCnxn" level="INFO" additivity="false">
 		<appender-ref ref="heartbeatAppender" />
