@@ -47,11 +47,11 @@ public class UserImpl implements IUserClient {
         //DigestUtils是spring提供的工具类
         saleLoginUser.setPassword(AES.base64Encode(saleLoginUser.getPassword().getBytes()));
 
-        ResultDTO userInfo = this.findUserInfoByUserName(saleLoginUser.getLoginname());
+        ResultDTO<SaleLoginUser> userInfo = this.findUserInfoByUserName(saleLoginUser.getLoginname());
 
-        if (userInfo.getSuccess() && userInfo.getData() != null) {
+        if (userInfo.isSuccess() && userInfo.getData() != null) {
             return ResultDTOBuilder.failure("10006", "用户名已存在");
-        } else if(!userInfo.getSuccess()){
+        } else if(!userInfo.isSuccess()){
             return ResultDTOBuilder.failure(userInfo.getErrCode(), userInfo.getErrMsg());
         }
 
@@ -75,7 +75,7 @@ public class UserImpl implements IUserClient {
      * @param loginName
      * @return
      */
-    public ResultDTO findUserInfoByUserName(String loginName) {
+    public ResultDTO<SaleLoginUser> findUserInfoByUserName(String loginName) {
 
         SaleLoginUserExample example = new SaleLoginUserExample();
         example.createCriteria().andLoginnameEqualTo(loginName);
@@ -102,13 +102,13 @@ public class UserImpl implements IUserClient {
      * @param password
      * @return
      */
-    public ResultDTO userLogin(String loginName, String password) {
+    public ResultDTO<SaleLoginUser> userLogin(String loginName, String password) {
 
         log.info("impl - 用户登录时的方法入参：loginName = " + loginName + "、password = " + password);
 
-        ResultDTO saleLoginUsers = this.findUserInfoByUserName(loginName);
+        ResultDTO<SaleLoginUser> saleLoginUsers = this.findUserInfoByUserName(loginName);
 
-        if (!saleLoginUsers.getSuccess()){
+        if (!saleLoginUsers.isSuccess()){
             return saleLoginUsers;
         }
 
@@ -124,7 +124,7 @@ public class UserImpl implements IUserClient {
             return ResultDTOBuilder.failure("-99999", "系统出错");
         }
 
-        SaleLoginUser saleLoginUser = (SaleLoginUser)saleLoginUsers.getData();
+        SaleLoginUser saleLoginUser = saleLoginUsers.getData();
 
         if (!saleLoginUser.getPassword().equals(userPass)) {
             return ResultDTOBuilder.failure("10004", "密码错误，请重新输入");

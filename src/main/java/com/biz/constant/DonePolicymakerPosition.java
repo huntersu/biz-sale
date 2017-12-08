@@ -7,7 +7,7 @@ public enum DonePolicymakerPosition {
     BOOS("1", "BOOS", "老板"),
     COMPANY_VP("2", "COMPANY_VP", "公司VP"),
     BUSINESS_VP("3", "BUSINESS_VP", "业务线VP"),
-    HRVP("4", "HR_VP", "HRVP"),
+    HRVP("4", "HRVP", "HRVP!!!!!!!!"),
     HRD("5", "HRD", "HRD"),
     COMPANY_COL_PREX("6", "COMPANY_COL_PREX", "企业大学校长"),
     T_DIRECTOR("7", "T_DIRECTOR", "培训总监"),

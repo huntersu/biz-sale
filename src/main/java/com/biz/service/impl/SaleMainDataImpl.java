@@ -35,7 +35,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @param saleMainData
      * @return
      */
-    public ResultDTO insert(SaleMainData saleMainData) {
+    public ResultDTO<Boolean> insert(SaleMainData saleMainData) {
         saleMainData.setId(UUIDUtils.genratorCode());
         saleMainData.setBeginDate(new Date());
         saleMainData.setUpdateDate(new Date());
@@ -62,7 +62,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @param id
      * @return
      */
-    public ResultDTO deleteById(String id) {
+    public ResultDTO<Boolean> deleteById(String id) {
         log.info("impl - 根据ID删除sale_main_data表中数据时的ID：***" + id + "***");
         try {
             int isDetlete = saleMainDataMapper.deleteByPrimaryKey(id);
@@ -84,7 +84,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @param saleMainData
      * @return
      */
-    public ResultDTO updata(SaleMainData saleMainData) {
+    public ResultDTO<Boolean> updata(SaleMainData saleMainData) {
         log.info("impl - 根据ID修改sale_main_data表中数据时的参数：" + JsonUtil.toJson(saleMainData));
         try {
             int isUpdata = saleMainDataMapper.updateByPrimaryKey(saleMainData);
@@ -107,7 +107,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @param id
      * @return
      */
-    public ResultDTO findById(String id) {
+    public ResultDTO<SaleMainData> findById(String id) {
         log.info("impl - 根据ID查询sale_main_data表中单个数据时的方法入参ID：***" + id + "***");
         try {
             SaleMainData saleMainData = saleMainDataMapper.selectByPrimaryKey(id);

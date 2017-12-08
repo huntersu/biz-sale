@@ -1,6 +1,8 @@
 package com.biz.controller;
 
 import com.biz.common.ResultDTO;
+import com.biz.constant.DonePolicymaker;
+import com.biz.constant.DonePolicymakerPosition;
 import com.biz.domain.SaleMainData;
 import com.biz.service.ISaleMainDataClient;
 import org.slf4j.Logger;
@@ -30,7 +32,7 @@ public class SaleMainDataController {
     @GetMapping("insert")
     public Object insert(SaleMainData saleMainData){
 
-        ResultDTO result = saleMainDataClient.insert(saleMainData);
+        ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainData);
 
         return result;
     }
@@ -42,7 +44,7 @@ public class SaleMainDataController {
     @GetMapping("deleteById/{id}")
     public Object deleteById(@PathVariable String id){
 
-        ResultDTO deleteResult = saleMainDataClient.deleteById(id);
+        ResultDTO<Boolean> deleteResult = saleMainDataClient.deleteById(id);
 
         return deleteResult;
     }
@@ -54,7 +56,7 @@ public class SaleMainDataController {
     @GetMapping("updataById")
     public Object updataById(SaleMainData saleMainData){
 
-        ResultDTO updataResult = saleMainDataClient.updata(saleMainData);
+        ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainData);
 
         return updataResult;
     }
@@ -68,7 +70,38 @@ public class SaleMainDataController {
     @GetMapping("findById/{id}")
     public Object findById(@PathVariable String id){
 
-        ResultDTO findResult = saleMainDataClient.findById(id);
+        ResultDTO<SaleMainData> findResult = saleMainDataClient.findById(id);
+
+        if (findResult.isSuccess() && findResult.getData() != null) {
+
+            SaleMainData saleMainData = findResult.getData();
+
+            /*if (saleMainData.getDonePolicymaker() != null) {
+                DonePolicymaker donePolicymaker = DonePolicymaker.getByValue(saleMainData.getDonePolicymaker());
+                if (donePolicymaker != null) {
+                    saleMainData.setDonePolicymaker(donePolicymaker.getDesc());
+                }
+            }
+
+            if (saleMainData.getDonePolicymakerPosition() != null) {
+                DonePolicymakerPosition donePolicymakerPosition = DonePolicymakerPosition.getByValue(saleMainData.getDonePolicymakerPosition());
+                if (donePolicymakerPosition != null) {
+                    saleMainData.setDonePolicymaker(donePolicymakerPosition.getDesc());
+                }
+            }*/
+
+            /*saleMainData.setDonePolicymaker(?"":saleMainData.getDonePolicymaker());
+            saleMainData.setDonePolicymakerPosition(saleMainData.getDonePolicymakerPosition() == null?"":saleMainData.getDonePolicymakerPosition());
+            saleMainData.setFiveUserUp();
+            saleMainData.setFiveUserUpComment();
+            saleMainData.setIsReal();
+            saleMainData.setIsRealComment();
+            saleMainData.setNextPolicymakerAction();
+            saleMainData.setNextReqAction();
+            saleMainData.setPolicymakerPosition();
+            saleMainData.setStatus();
+            saleMainData.setSeenPolicymaker();*/
+        }
 
         return findResult;
     }
