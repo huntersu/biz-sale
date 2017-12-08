@@ -453,6 +453,76 @@ public class SaleLoginUserExample {
             addCriterion("loginname not between", value1, value2, "loginname");
             return (Criteria) this;
         }
+
+        public Criteria andDisplayimageIsNull() {
+            addCriterion("displayImage is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageIsNotNull() {
+            addCriterion("displayImage is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageEqualTo(String value) {
+            addCriterion("displayImage =", value, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageNotEqualTo(String value) {
+            addCriterion("displayImage <>", value, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageGreaterThan(String value) {
+            addCriterion("displayImage >", value, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageGreaterThanOrEqualTo(String value) {
+            addCriterion("displayImage >=", value, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageLessThan(String value) {
+            addCriterion("displayImage <", value, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageLessThanOrEqualTo(String value) {
+            addCriterion("displayImage <=", value, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageLike(String value) {
+            addCriterion("displayImage like", value, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageNotLike(String value) {
+            addCriterion("displayImage not like", value, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageIn(List<String> values) {
+            addCriterion("displayImage in", values, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageNotIn(List<String> values) {
+            addCriterion("displayImage not in", values, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageBetween(String value1, String value2) {
+            addCriterion("displayImage between", value1, value2, "displayimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayimageNotBetween(String value1, String value2) {
+            addCriterion("displayImage not between", value1, value2, "displayimage");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

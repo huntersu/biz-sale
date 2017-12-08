@@ -28,6 +28,11 @@ public class SaleLoginUser implements Serializable{
      */
     private String loginname;
 
+    /**
+     * 用户头像
+     */
+    private String displayimage;
+
     public String getId() {
         return id;
     }
@@ -66,5 +71,13 @@ public class SaleLoginUser implements Serializable{
 
     public void setLoginname(String loginname) {
         this.loginname = loginname == null ? null : loginname.trim();
+    }
+
+    public String getDisplayimage() {
+        return displayimage;
+    }
+
+    public void setDisplayimage(String displayimage) {
+        this.displayimage = displayimage == null ? null : displayimage.trim();
     }
 }
