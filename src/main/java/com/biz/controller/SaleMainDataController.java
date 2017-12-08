@@ -191,4 +191,16 @@ public class SaleMainDataController {
 
 
     }
+
+    /**
+     * /api/saleMainData/resetSaleMainDataStatus/021eda0a82b346e9bda511aac47d2d53/CLOSE
+     * 重置(关闭/重新打开)status状态
+     */
+    @GetMapping("resetSaleMainDataStatus/{id}/{status}")
+    public Object resetSaleMainDataStatus(@PathVariable String id, @PathVariable String status) {
+
+        ResultDTO resultDTO = saleMainDataClient.resetStatusById(id, status);
+
+        return resultDTO;
+    }
 }

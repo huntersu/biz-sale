@@ -36,4 +36,9 @@ public interface ISaleMainDataClient {
      * 统计查询
      */
     ResultDTO countQuery();
+
+    /**
+     * 关闭/重新打开status状态
+     */
+    ResultDTO resetStatusById(String id, String status);
 }

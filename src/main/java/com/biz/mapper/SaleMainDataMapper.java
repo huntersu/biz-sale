@@ -34,5 +34,9 @@ public interface SaleMainDataMapper {
 
     int updateByPrimaryKey(SaleMainData record);
 
+    //分页查询所有
     List<SaleMainData> selectAll();
+
+    //关闭/重新打开status状态
+    int resetSaleMainDataStatusById(String id, String status);
 }

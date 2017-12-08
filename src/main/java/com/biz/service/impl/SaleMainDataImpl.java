@@ -218,4 +218,25 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
         return ResultDTOBuilder.success(finalMap);
     }
+
+    /**
+     * 关闭/重新打开status状态
+     */
+    public ResultDTO resetStatusById(String id, String status) {
+        log.info("impl - 重置状态方法入参：id = " + id + "、status = " + status);
+
+        try {
+            int closeResult = saleMainDataMapper.resetSaleMainDataStatusById(id, status);
+            log.info("impl - 重置状态结果：***" + closeResult + "***");
+
+            if (closeResult != 1) {
+                return ResultDTOBuilder.failure("10007", status.equalsIgnoreCase("close")? "关闭":"打开" + "失败，请稍后重试");
+            }
+
+            return ResultDTOBuilder.success(closeResult);
+        } catch (Exception e) {
+            log.info("impl - 重置状态结果(异常)：", e);
+            return ResultDTOBuilder.failure("10009", "服务异常，请稍后重试");
+        }
+    }
 }
