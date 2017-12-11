@@ -81,6 +81,7 @@ public class SaleMainDataController {
     }
 
     /**
+     * http://localhost:8088/api/saleMainData/findAll.do?page=1&rows=50
      * /api/saleMainData/findAll/1/10
      * 查询所有
      */

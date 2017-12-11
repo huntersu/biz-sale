@@ -49,8 +49,10 @@ public class UserImpl implements IUserClient {
 
         ResultDTO<SaleLoginUser> userInfo = this.findUserInfoByUserName(saleLoginUser.getLoginname());
 
-        if (userInfo.isSuccess() && userInfo.getData() != null) {
-            return ResultDTOBuilder.failure("10006", "用户名已存在");
+        if (userInfo.isSuccess()) {
+            if (userInfo.getData() != null) {
+                return ResultDTOBuilder.failure("10006", "用户名已存在");
+            }
         } else if(!userInfo.isSuccess()){
             return ResultDTOBuilder.failure(userInfo.getErrCode(), userInfo.getErrMsg());
         }
@@ -89,7 +91,7 @@ public class UserImpl implements IUserClient {
                 return ResultDTOBuilder.failure("10005", "用户信息重复，请联系管理员");
             }
 
-            return ResultDTOBuilder.success(saleLoginUsers.get(0));
+            return ResultDTOBuilder.success(saleLoginUsers.size() < 1 ? null:saleLoginUsers.get(0));
         } catch (Exception e) {
             log.error("impl - 根据用户名查询过用户信息(异常)：", e);
             return ResultDTOBuilder.failure("10003", "服务异常，请稍后重试");
