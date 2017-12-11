@@ -9,7 +9,8 @@ public enum NextPolicymakerAction {
     DATEING_POL("3", "DATEING_POL", "约见决策人中"),
     DATEING_POL_PROBLEM("4", "DATEING_POL_PROBLEM", "约见决策人中遇到了困难"),
     DOING_POL("5","DOING_POL","搞定决策人中"),
-    DOING_POL_PROBLEM("6","DOING_POL_PROBLEM","搞定决策人过程中遇到了困难");
+    DOING_POL_PROBLEM("6","DOING_POL_PROBLEM","搞定决策人过程中遇到了困难"),
+    OTHER("7","OTHER","其他");
 
 
     private String code;
