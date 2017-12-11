@@ -970,14 +970,90 @@
 
             }, 0);
         }
-
     });
-
-
-
-
     $(document).ready(function () {
+        jQuery("#list2").jqGrid('navGrid','#pager',{ 	//navbar options
+            edit: true,
+            editicon : 'ace-icon fa fa-pencil blue',
+            add: true,
+            addicon : 'ace-icon fa fa-plus-circle purple',
+            del: true,
+            delicon : 'ace-icon fa fa-trash-o red',
+            search: true,
+            searchicon : 'ace-icon fa fa-search orange',
+            refresh: true,
+            refreshicon : 'ace-icon fa fa-refresh green',
+            view: true,
+            viewicon : 'ace-icon fa fa-search-plus grey',
+        },
+            {
+                //edit record form
+                //closeAfterEdit: true,
+                //width: 700,
+                recreateForm: true,
+                beforeShowForm : function(e) {
+                    var form = $(e[0]);
+                    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+                }
+            },
+            {
+                //new record form
+                //width: 700,
+                closeAfterAdd: true,
+                recreateForm: true,
+                viewPagerButtons: false,
+                beforeShowForm : function(e) {
+                    var form = $(e[0]);
+                    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
+                        .wrapInner('<div class="widget-header" />')
+                }
+            },
+            {
+                //delete record form
+                recreateForm: true,
+                beforeShowForm : function(e) {
+                    var form = $(e[0]);
+                    if(form.data('styled')) return false;
 
+                    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+
+                    form.data('styled', true);
+                },
+                onClick : function(e) {
+                    //alert(1);
+                }
+            },
+            {
+                //search form
+                recreateForm: true,
+                afterShowSearch: function(e){
+                    var form = $(e[0]);
+                    form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
+                },
+                afterRedraw: function(){
+                    style_search_filters($(this));
+                }
+                ,
+                multipleSearch: true,
+                /**
+                 multipleGroup:true,
+                 showQuery: true
+                 */
+            },
+            {
+                //view record form
+                recreateForm: true,
+                beforeShowForm: function(e){
+                    var form = $(e[0]);
+                    form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
+                }
+            }
+        );
+
+        $(document).one('ajaxloadstart.page', function(e) {
+            $.jgrid.gridDestroy('#list2');
+            $('.ui-jqdialog').remove();
+        });
 
         $.ajax({
             type: 'GET',
@@ -998,8 +1074,6 @@
                 }
             }
         });
-
-
     });
 
 </script>
