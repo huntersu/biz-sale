@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -75,5 +76,18 @@ public class UserController {
         //String message = messageSource.getMessage("1100", (Object[])null, Locale.getDefault());
 
         return selectResult;
+    }
+
+    /**
+     * api/user/findAllUserInfo
+     * 查询所有用户
+     * @return
+     */
+    @GetMapping("findAllUserInfo")
+    public Object findAllUserInfo(){
+
+        ResultDTO<List<SaleLoginUser>> userLists = userClient.findAllUser();
+
+        return userLists;
     }
 }

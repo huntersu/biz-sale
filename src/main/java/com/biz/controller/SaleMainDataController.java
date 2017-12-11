@@ -38,7 +38,7 @@ public class SaleMainDataController {
     }
 
     /**
-     * /api/saleMainData/deleteById
+     * /api/saleMainData/deleteById/123456789
      * 根据id删除数据
      */
     @GetMapping("deleteById/{id}")

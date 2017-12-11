@@ -27,4 +27,6 @@ public interface SaleLoginUserMapper {
     int updateByPrimaryKeySelective(SaleLoginUser record);
 
     int updateByPrimaryKey(SaleLoginUser record);
+
+    List<SaleLoginUser> findAllUser();
 }

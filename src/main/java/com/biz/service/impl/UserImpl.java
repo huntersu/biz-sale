@@ -134,4 +134,21 @@ public class UserImpl implements IUserClient {
 
         return ResultDTOBuilder.success(saleLoginUser);
     }
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+    public ResultDTO<List<SaleLoginUser>> findAllUser() {
+
+        try {
+            List<SaleLoginUser> userList = saleLoginUserMapper.findAllUser();
+            log.info("查询所有用户信息：" + JsonUtil.toJson(userList));
+
+            return ResultDTOBuilder.success(userList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultDTOBuilder.failure("10003", "服务异常，请稍后重试");
+        }
+    }
 }
