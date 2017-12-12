@@ -3,6 +3,7 @@ package com.biz.controller;
 import com.biz.common.ResultDTO;
 import com.biz.constant.*;
 import com.biz.domain.SaleMainData;
+import com.biz.domain.SaleMainDataWithBLOBs;
 import com.biz.service.ISaleMainDataClient;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -30,9 +31,9 @@ public class SaleMainDataController {
      * 新增
      */
     @GetMapping("insert")
-    public Object insert(SaleMainData saleMainData){
+    public Object insert(SaleMainDataWithBLOBs saleMainDataWith){
 
-        ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainData);
+        ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainDataWith);
 
         return result;
     }
@@ -54,9 +55,9 @@ public class SaleMainDataController {
      * 根据id修改数据
      */
     @GetMapping("updataById")
-    public Object updataById(SaleMainData saleMainData){
+    public Object updataById(SaleMainDataWithBLOBs saleMainDataWith){
 
-        ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainData);
+        ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainDataWith);
 
         return updataResult;
     }
@@ -70,7 +71,7 @@ public class SaleMainDataController {
     @GetMapping("findById/{id}")
     public Object findById(@PathVariable String id){
 
-        ResultDTO<SaleMainData> findResult = saleMainDataClient.findById(id);
+        ResultDTO<SaleMainDataWithBLOBs> findResult = saleMainDataClient.findById(id);
 
         if (findResult.isSuccess() && findResult.getData() != null) {
             //将对应value值转成对应的描述

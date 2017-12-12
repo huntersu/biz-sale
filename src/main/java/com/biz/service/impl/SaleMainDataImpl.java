@@ -10,6 +10,7 @@ import com.biz.constant.SaleMainStatus;
 import com.biz.constant.SeenPolicymaker;
 import com.biz.domain.SaleMainData;
 import com.biz.domain.SaleMainDataExample;
+import com.biz.domain.SaleMainDataWithBLOBs;
 import com.biz.mapper.SaleMainDataMapper;
 import com.biz.service.ISaleMainDataClient;
 import com.github.pagehelper.PageHelper;
@@ -34,18 +35,18 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
     /**
      * 插入
-     * @param saleMainData
+     * @param saleMainDataWith
      * @return
      */
-    public ResultDTO<Boolean> insert(SaleMainData saleMainData) {
-        saleMainData.setId(UUIDUtils.genratorCode());
-        saleMainData.setBeginDate(new Date());
-        saleMainData.setUpdateDate(new Date());
-        saleMainData.setStatus(SaleMainStatus.OPEN.getValue());
+    public ResultDTO<Boolean> insert(SaleMainDataWithBLOBs saleMainDataWith) {
+        saleMainDataWith.setId(UUIDUtils.genratorCode());
+        saleMainDataWith.setBeginDate(new Date());
+        saleMainDataWith.setUpdateDate(new Date());
+        saleMainDataWith.setStatus(SaleMainStatus.OPEN.getValue());
 
-        log.info("impl — 保存sale_main_data对象数据内容：" + JsonUtil.toJson(saleMainData));
+        log.info("impl — 保存sale_main_data对象数据内容：" + JsonUtil.toJson(saleMainDataWith));
         try {
-            int insert = saleMainDataMapper.insert(saleMainData);
+            int insert = saleMainDataMapper.insert(saleMainDataWith);
 
             log.info("保存sale_main_data对象数据 - 结果：******" + insert + "******");
 
@@ -84,13 +85,13 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
     /**
      * 修改
-     * @param saleMainData
+     * @param saleMainDataWith
      * @return
      */
-    public ResultDTO<Boolean> updata(SaleMainData saleMainData) {
-        log.info("impl - 根据ID修改sale_main_data表中数据时的参数：" + JsonUtil.toJson(saleMainData));
+    public ResultDTO<Boolean> updata(SaleMainDataWithBLOBs saleMainDataWith) {
+        log.info("impl - 根据ID修改sale_main_data表中数据时的参数：" + JsonUtil.toJson(saleMainDataWith));
         try {
-            int isUpdata = saleMainDataMapper.updateByPrimaryKey(saleMainData);
+            int isUpdata = saleMainDataMapper.updateByPrimaryKeyWithBLOBs(saleMainDataWith);
 
             log.info("impl - 根据ID修改sale_main_data表中数据时的返回结果：***" + isUpdata + "***");
 
@@ -110,13 +111,14 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @param id
      * @return
      */
-    public ResultDTO<SaleMainData> findById(String id) {
+    public ResultDTO<SaleMainDataWithBLOBs> findById(String id) {
         log.info("impl - 根据ID查询sale_main_data表中单个数据时的方法入参ID：***" + id + "***");
         try {
-            SaleMainData saleMainData = saleMainDataMapper.selectByPrimaryKey(id);
-            log.info("impl - 根据ID查询sale_main_data表中单个数据的查询结果：" + JsonUtil.toJson(saleMainData));
+            SaleMainDataWithBLOBs saleMainDataWith = saleMainDataMapper.selectByPrimaryKey(id);
 
-            return ResultDTOBuilder.success(saleMainData);
+            log.info("impl - 根据ID查询sale_main_data表中单个数据的查询结果：" + JsonUtil.toJson(saleMainDataWith));
+
+            return ResultDTOBuilder.success(saleMainDataWith);
         } catch (Exception e) {
             log.info("impl - 根据ID查询sale_main_data表中单个数据的查询结果(异常)：", e);
             return ResultDTOBuilder.failure("10007", "服务异常，请稍后重试");
