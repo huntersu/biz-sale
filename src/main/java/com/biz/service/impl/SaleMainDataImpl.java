@@ -4,6 +4,8 @@ import com.biz.common.JsonUtil;
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
 import com.biz.common.UUIDUtils;
+import com.biz.constant.FiveUserupResult;
+import com.biz.constant.IsReal;
 import com.biz.constant.SaleMainStatus;
 import com.biz.constant.SeenPolicymaker;
 import com.biz.domain.SaleMainData;
@@ -187,6 +189,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
             isRealCriteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
             isRealCriteria.andIsRealIsNotNull();
+            isRealCriteria.andIsRealNotEqualTo(IsReal.NO.getValue());
 
             isRealNum = saleMainDataMapper.countByExample(isRealExample);
 
@@ -201,6 +204,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
             fiveUserupCriteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
             fiveUserupCriteria.andFiveUserUpIsNotNull();
+            fiveUserupCriteria.andFiveUserUpNotEqualTo(FiveUserupResult.NO.getValue());
 
             fiveUserupIsRealNum = saleMainDataMapper.countByExample(fiveUserupExample);
 

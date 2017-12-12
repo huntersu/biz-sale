@@ -62,7 +62,7 @@ public class SaleMainDataController {
     }
 
     /**
-     * /api/saleMainData/findById
+     * /api/saleMainData/findById/{id}
      * 根据id查询单个
      * @param id
      * @return
