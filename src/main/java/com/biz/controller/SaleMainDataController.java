@@ -1,5 +1,6 @@
 package com.biz.controller;
 
+import com.biz.common.BeanUtil;
 import com.biz.common.ResultDTO;
 import com.biz.constant.*;
 import com.biz.domain.SaleMainData;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * sale_main_data表的对应操作
@@ -73,11 +76,6 @@ public class SaleMainDataController {
 
         ResultDTO<SaleMainDataWithBLOBs> findResult = saleMainDataClient.findById(id);
 
-        if (findResult.isSuccess() && findResult.getData() != null) {
-            //将对应value值转成对应的描述
-            this.transfer(findResult.getData());
-        }
-
         return findResult;
     }
 
@@ -91,7 +89,7 @@ public class SaleMainDataController {
 
         ResultDTO<PageInfo<SaleMainData>> resultDTO = saleMainDataClient.findAll(page ,rows);
 
-        if (resultDTO.isSuccess() && resultDTO.getData() != null && resultDTO.getData().getList() != null && resultDTO.getData().getList().size() > 0) {
+        if (resultDTO.getSuccess() && resultDTO.getData() != null && resultDTO.getData().getList() != null && resultDTO.getData().getList().size() > 0) {
             for (SaleMainData saleMainData : resultDTO.getData().getList()) {
                 //将对应value值转成对应的描述
                 this.transfer(saleMainData);
@@ -109,7 +107,13 @@ public class SaleMainDataController {
 
         ResultDTO seenPolicymakerResult = saleMainDataClient.countQuery();
 
-        return seenPolicymakerResult;
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        BeanUtil.copyProperties(seenPolicymakerResult, map);
+
+        map.put("wwwwww", "ceshi shuju");
+
+        return map;
     }
 
     //将对应的枚举类型的value值转成对应的描述
