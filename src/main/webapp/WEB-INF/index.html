@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css"/>
 
     <!-- page specific plugin styles -->
-    <link rel="stylesheet" href="assets/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="assets/css/bootstrap-datepicker3.min.css" />
-    <link rel="stylesheet" href="assets/css/ui.jqgrid.min.css" />
+    <link rel="stylesheet" href="assets/css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="assets/css/bootstrap-datepicker3.min.css"/>
+    <link rel="stylesheet" href="assets/css/ui.jqgrid.min.css"/>
     <!-- text fonts -->
     <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css"/>
 
@@ -34,7 +34,6 @@
     <![endif]-->
 
 
-
     <!-- inline styles related to this page -->
 
     <!-- ace settings handler -->
@@ -48,7 +47,9 @@
     <![endif]-->
 
     <style>
-        .ui-jqgrid tr.jqgrow td { text-overflow : ellipsis; }
+        .ui-jqgrid tr.jqgrow td {
+            text-overflow: ellipsis;
+        }
     </style>
 </head>
 
@@ -837,6 +838,7 @@
 
 
         $('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+
         function tooltip_placement(context, source) {
             var $source = $(source);
             var $parent = $source.closest('.tab-content')
@@ -862,7 +864,7 @@
         if (ace.vars['touch'] && ace.vars['android']) {
             $('#tasks').on('touchstart', function (e) {
                 var li = $(e.target).closest('#tasks li');
-                if (li.length == 0)return;
+                if (li.length == 0) return;
                 var label = li.find('label.inline').get(0);
                 if (label == e.target || $.contains(label, e.target)) e.stopImmediatePropagation();
             });
@@ -904,23 +906,23 @@
     function updatePagerIcons(table) {
         var replacement =
             {
-                'ui-icon-seek-first' : 'ace-icon fa fa-angle-double-left bigger-140',
-                'ui-icon-seek-prev' : 'ace-icon fa fa-angle-left bigger-140',
-                'ui-icon-seek-next' : 'ace-icon fa fa-angle-right bigger-140',
-                'ui-icon-seek-end' : 'ace-icon fa fa-angle-double-right bigger-140'
+                'ui-icon-seek-first': 'ace-icon fa fa-angle-double-left bigger-140',
+                'ui-icon-seek-prev': 'ace-icon fa fa-angle-left bigger-140',
+                'ui-icon-seek-next': 'ace-icon fa fa-angle-right bigger-140',
+                'ui-icon-seek-end': 'ace-icon fa fa-angle-double-right bigger-140'
             };
-        $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
+        $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
             var icon = $(this);
             var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
 
-            if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+            if ($class in replacement) icon.attr('class', 'ui-icon ' + replacement[$class]);
         })
     }
 
     jQuery("#list2").jqGrid({
         url: '/api/saleMainData/findAll',
         datatype: "json",
-        colNames: ['客户名称', '开始推进日期', '更新信息日期',
+        colNames: ['操作', 'ID', '客户名称', '开始推进日期', '更新信息日期',
             '是否见到决策人', '决策人职位', '是否搞定决策人',
             '搞定的决策人职位', '确有其事', '不确有其事',
             '没有5人以上试用', '有5人以上试用', '姓名',
@@ -928,6 +930,14 @@
             '预计上线时间', '预计关单时间', '下一步决策人计划',
             '下一步做需求计划'],
         colModel: [
+            {
+                name: 'Edit', width: 50, index: 'Edit', formatter: function (value, grid, rows, state) {
+                return "<button class=\"btn btn-danger btn-sm\" onclick=\"deleteData('"+rows.id+"')\">"
+                    +"<i class=\"ace-icon fa fa-trash-o icon-only\"></i>"
+                    +"</button>";
+            }
+            },
+            {name: 'id', index: 'id', hidden: true},
             {name: 'cusName', index: 'cusName'},
             {name: 'beginDate', index: 'beginDate'},
             {name: 'updateDate', index: 'updateDate'},
@@ -966,23 +976,27 @@
         },
         autoScroll: true,
         height: 325,
-        loadComplete : function() {
+        loadComplete: function () {
             var table = this;
-            setTimeout(function(){
-
+            setTimeout(function () {
 
 
                 updatePagerIcons(table);
                 $("#pager_left").hide();
-                $("#pager_right").css("text-align","left");
+                $("#pager_right").css("text-align", "left");
 
 
             }, 0);
+        },ondblClickRow: function(id){
+
+
+            alert(id);
+
         }
 
     });
 
-    function StrLenFormat(cellvalue, options, rowObject){
+    function StrLenFormat(cellvalue, options, rowObject) {
         return "111"
     }
 
@@ -1009,36 +1023,48 @@
                 }
             }
         });
-/*
 
-        $(window).triggerHandler('resize.jqGrid');
 
-        var parent_column = $("#list2").closest('[class*="col-"]');
 
-        //resize to fit page size
-        $(window).on('resize.jqGrid', function () {
-            $("#list2").jqGrid( 'setGridWidth', parent_column.width() );
-        })
 
-        //resize on sidebar collapse/expand
-        $(document).on('settings.ace.jqGrid' , function(ev, event_name, collapsed) {
-            if( event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed' ) {
-                //setTimeout is for webkit only to give time for DOM changes and then redraw!!!
-                setTimeout(function() {
+
+        /*
+
+                $(window).triggerHandler('resize.jqGrid');
+
+                var parent_column = $("#list2").closest('[class*="col-"]');
+
+                //resize to fit page size
+                $(window).on('resize.jqGrid', function () {
                     $("#list2").jqGrid( 'setGridWidth', parent_column.width() );
-                }, 20);
-            }
-        })
+                })
+
+                //resize on sidebar collapse/expand
+                $(document).on('settings.ace.jqGrid' , function(ev, event_name, collapsed) {
+                    if( event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed' ) {
+                        //setTimeout is for webkit only to give time for DOM changes and then redraw!!!
+                        setTimeout(function() {
+                            $("#list2").jqGrid( 'setGridWidth', parent_column.width() );
+                        }, 20);
+                    }
+                })
 
 
-        $(document).one('ajaxloadstart.page', function(e) {
-            $.jgrid.gridDestroy("#list2");
-            $('.ui-jqdialog').remove();
-        });
-*/
+                $(document).one('ajaxloadstart.page', function(e) {
+                    $.jgrid.gridDestroy("#list2");
+                    $('.ui-jqdialog').remove();
+                });
+        */
 
 
     });
+
+
+    function deleteData(id){
+
+
+
+    }
 
 </script>
 </body>
