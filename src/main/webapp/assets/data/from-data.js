@@ -12,6 +12,7 @@ $(function () {
     select_menu_jcrdz();//下一步决策人动作
     select_menu_xqdz();//下一步需求动作
     distribution();//可分配人
+    updateform();
 });
 
 var juecerenObj = {"0": "否", "1": "是"};//决策人
@@ -282,7 +283,48 @@ function distribution() {
             for (var i = 0; i < datas.data.length;i++) {
                 distribution_option += '<option value="">'+datas.data[i].name+'</option>';
             }
-            $("#distribution").append(distribution_option);
+            //$("#distribution").append(distribution_option);
+        }
+    })
+}
+
+
+// 更新列表数据
+function updateform() {
+    //判断是否是更新
+    /*if() {
+
+    }*/
+
+    $.ajax({
+        type: 'GET',
+        url: '/api/saleMainData/findById/097200a3262b42129153776f3b58efbc',
+        cache: false,
+        dataType: 'json',
+        success: function (datas) {
+            console.log(datas);
+            if (datas.success == true) {
+                $("#cusName").val(datas.data.cusName);
+                $("#contactName").val(datas.data.contactName);
+                $("#contactPhone").val(datas.data.contactPhone);
+                $("#contactEmail").val(datas.data.contactEmail);
+                $("#importantReq").val(datas.data.importantReq);
+                $("#cusEmpNum").val(datas.data.cusEmpNum);
+                $("#cusCity").val(datas.data.cusCity);
+                $("#launchTime").val(datas.data.launchTime);
+                $("#closeTime").val(datas.data.closeTime);
+                $("#seenPolicymaker").val(datas.data.seenPolicymaker).trigger("change");
+                $("#policymakerPosition").val(datas.data.policymakerPosition).trigger("change");
+                $("#donePolicymaker").val(datas.data.donePolicymaker).trigger("change");
+                $("#donePolicymakerPosition").val(datas.data.donePolicymakerPosition).trigger("change");
+                $("#isReal").val(datas.data.isReal).trigger("change");
+                $("#isRealComment").val(datas.data.isRealComment).trigger("change");
+                $("#fiveUserUpComment").val(datas.data.fiveUserUpComment).trigger("change");
+                $("#nextPolicymakerAction").val(datas.data.nextPolicymakerAction).trigger("change");
+                $("#nextReqAction").val(datas.data.nextReqAction).trigger("change");
+                $("#distribution").val(datas.data.assign).trigger("change");
+            }
+
         }
     })
 }
