@@ -126,11 +126,6 @@ public class SaleMainData implements Serializable{
      */
     private String assign;
 
-    /**
-     * 客户重点需求
-     */
-    private String importantReq;
-
     public String getId() {
         return id;
     }
@@ -334,13 +329,5 @@ public class SaleMainData implements Serializable{
 
     public void setAssign(String assign) {
         this.assign = assign == null ? null : assign.trim();
-    }
-
-    public String getImportantReq() {
-        return importantReq;
-    }
-
-    public void setImportantReq(String importantReq) {
-        this.importantReq = importantReq == null ? null : importantReq.trim();
     }
 }

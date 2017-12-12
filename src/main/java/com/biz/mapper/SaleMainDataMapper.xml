@@ -28,8 +28,9 @@
     <result column="uploads" property="uploads" jdbcType="VARCHAR" />
     <result column="assign" property="assign" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.biz.domain.SaleMainData" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.biz.domain.SaleMainDataWithBLOBs" extends="BaseResultMap" >
     <result column="important_req" property="importantReq" jdbcType="LONGVARCHAR" />
+    <result column="log_info" property="logInfo" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -96,7 +97,7 @@
     next_policymaker_action, next_req_action, true_close_time, status, uploads, assign
   </sql>
   <sql id="Blob_Column_List" >
-    important_req
+    important_req, log_info
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.biz.domain.SaleMainDataExample" >
     select
@@ -146,7 +147,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.biz.domain.SaleMainData" >
+  <insert id="insert" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
     insert into sale_main_data (id, cus_name, begin_date, 
       update_date, seen_policymaker, policymaker_position, 
       done_policymaker, done_policymaker_position, 
@@ -155,8 +156,8 @@
       contact_email, cus_emp_num, cus_city, 
       launch_time, close_time, next_policymaker_action, 
       next_req_action, true_close_time, status, 
-      uploads, assign, important_req
-      )
+      uploads, assign, important_req, 
+      log_info)
     values (#{id,jdbcType=VARCHAR}, #{cusName,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, 
       #{updateDate,jdbcType=TIMESTAMP}, #{seenPolicymaker,jdbcType=VARCHAR}, #{policymakerPosition,jdbcType=VARCHAR}, 
       #{donePolicymaker,jdbcType=VARCHAR}, #{donePolicymakerPosition,jdbcType=VARCHAR}, 
@@ -165,10 +166,10 @@
       #{contactEmail,jdbcType=VARCHAR}, #{cusEmpNum,jdbcType=INTEGER}, #{cusCity,jdbcType=VARCHAR}, 
       #{launchTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{nextPolicymakerAction,jdbcType=VARCHAR}, 
       #{nextReqAction,jdbcType=VARCHAR}, #{trueCloseTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
-      #{uploads,jdbcType=VARCHAR}, #{assign,jdbcType=VARCHAR}, #{importantReq,jdbcType=LONGVARCHAR}
-      )
+      #{uploads,jdbcType=VARCHAR}, #{assign,jdbcType=VARCHAR}, #{importantReq,jdbcType=LONGVARCHAR}, 
+      #{logInfo,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.biz.domain.SaleMainData" >
+  <insert id="insertSelective" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
     insert into sale_main_data
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -249,6 +250,9 @@
       <if test="importantReq != null" >
         important_req,
       </if>
+      <if test="logInfo != null" >
+        log_info,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -328,6 +332,9 @@
       </if>
       <if test="importantReq != null" >
         #{importantReq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logInfo != null" >
+        #{logInfo,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -418,6 +425,9 @@
       <if test="record.importantReq != null" >
         important_req = #{record.importantReq,jdbcType=LONGVARCHAR},
       </if>
+      <if test="record.logInfo != null" >
+        log_info = #{record.logInfo,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -450,7 +460,8 @@
       status = #{record.status,jdbcType=VARCHAR},
       uploads = #{record.uploads,jdbcType=VARCHAR},
       assign = #{record.assign,jdbcType=VARCHAR},
-      important_req = #{record.importantReq,jdbcType=LONGVARCHAR}
+      important_req = #{record.importantReq,jdbcType=LONGVARCHAR},
+      log_info = #{record.logInfo,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -486,7 +497,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.biz.domain.SaleMainData" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
     update sale_main_data
     <set >
       <if test="cusName != null" >
@@ -564,10 +575,13 @@
       <if test="importantReq != null" >
         important_req = #{importantReq,jdbcType=LONGVARCHAR},
       </if>
+      <if test="logInfo != null" >
+        log_info = #{logInfo,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.biz.domain.SaleMainData" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
     update sale_main_data
     set cus_name = #{cusName,jdbcType=VARCHAR},
       begin_date = #{beginDate,jdbcType=TIMESTAMP},
@@ -593,7 +607,8 @@
       status = #{status,jdbcType=VARCHAR},
       uploads = #{uploads,jdbcType=VARCHAR},
       assign = #{assign,jdbcType=VARCHAR},
-      important_req = #{importantReq,jdbcType=LONGVARCHAR}
+      important_req = #{importantReq,jdbcType=LONGVARCHAR},
+      log_info = #{logInfo,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.biz.domain.SaleMainData" >
