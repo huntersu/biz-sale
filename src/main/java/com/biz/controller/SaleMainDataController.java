@@ -2,6 +2,7 @@ package com.biz.controller;
 
 import com.biz.common.BeanUtil;
 import com.biz.common.ResultDTO;
+import com.biz.component.UserComponent;
 import com.biz.constant.*;
 import com.biz.domain.SaleMainData;
 import com.biz.domain.SaleMainDataWithBLOBs;
@@ -9,10 +10,13 @@ import com.biz.service.ISaleMainDataClient;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +30,9 @@ public class SaleMainDataController {
 
     private static final Logger LOG = LoggerFactory.getLogger(SaleMainDataController.class);
 
+    @Autowired
+    private UserComponent userComponent;
+
     @Resource
     private ISaleMainDataClient saleMainDataClient;
 
@@ -34,8 +41,8 @@ public class SaleMainDataController {
      * 新增
      */
     @GetMapping("insert")
-    public Object insert(SaleMainDataWithBLOBs saleMainDataWith){
-
+    public Object insert(SaleMainDataWithBLOBs saleMainDataWith, HttpServletRequest httpServletRequest){
+        saleMainDataWith.setUploads(userComponent.checkUser(httpServletRequest).getId());
         ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainDataWith);
 
         return result;
@@ -58,9 +65,11 @@ public class SaleMainDataController {
      * 根据id修改数据
      */
     @GetMapping("updataById")
-    public Object updataById(SaleMainDataWithBLOBs saleMainDataWith){
+    public Object updataById(SaleMainDataWithBLOBs saleMainDataWith, HttpServletRequest httpServletRequest){
 
+        saleMainDataWith.setUploads(userComponent.checkUser(httpServletRequest).getId());
         ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainDataWith);
+
 
         return updataResult;
     }

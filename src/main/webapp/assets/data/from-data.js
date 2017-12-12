@@ -1,3 +1,7 @@
+var dataid = undefined;
+
+dataid = getParameterByName("dataid");
+
 $(function () {
     from_btns();
     reset_btns();
@@ -11,8 +15,9 @@ $(function () {
     select_menu_sycpbz();//未满足5人以上效果
     select_menu_jcrdz();//下一步决策人动作
     select_menu_xqdz();//下一步需求动作
-    distribution();//可分配人
-    updateform();
+    assign();//可分配人
+
+
 });
 
 var juecerenObj = {"0": "否", "1": "是"};//决策人
@@ -216,54 +221,104 @@ function from_btns() {//提交表单
             newMainData.nextPolicymakerAction = $("#nextPolicymakerAction").val();
             newMainData.nextReqAction = $("#nextReqAction").val();
             newMainData.importantReq = $("#importantReq").val();
-
-
+            newMainData.assign = $("#assign").val();
+            newMainData.logInfo = $("#logInfo").val();
 
 
             var loadingDialog = BootstrapDialog.show({
                 closable: false,
                 message: '传输中。。。',
+                title:'提示'
             });
 
-            $.ajax({
-                type: 'GET',
-                url: 'api/saleMainData/insert',
-                cache: false,
-                dataType: 'json',
-                data: newMainData,
-                success: function (datas) {
-                    loadingDialog.close();
+            if (dataid != undefined && dataid !="") {
 
-                    BootstrapDialog.show({
-                        closable: false,
-                        message: '传输完成，继续添加还是回到首页？',
-                        buttons: [{
-                            label: '继续添加',
-                            action: function (dialogItself) {
-                                location.reload();
-                            }
-                        },{
-                            label: '回到首页',
-                            action: function (dialogItself) {
-                                window.location="index.html";
-                            }
-                        }]
-                    });
-                },
-                error:function (errorData) {
-                    loadingDialog.close();
-                    BootstrapDialog.show({
-                        closable: false,
-                        message: errorData,
-                        buttons: [{
-                            label: 'Close',
-                            action: function (dialogItself) {
-                                dialogItself.close();
-                            }
-                        }]
-                    });
-                }
-            });
+                newMainData.id = dataid;
+
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/saleMainData/updataById',
+                    cache: false,
+                    dataType: 'json',
+                    data: newMainData,
+                    success: function (datas) {
+                        loadingDialog.close();
+
+                        BootstrapDialog.show({
+                            closable: false,
+                            title:'完成',
+                            message: '传输完成，继续编辑还是回到首页？',
+                            buttons: [{
+                                label: '刷新',
+                                action: function (dialogItself) {
+                                    location.reload();
+                                }
+                            }, {
+                                label: '回到首页',
+                                action: function (dialogItself) {
+                                    window.location = "index.html";
+                                }
+                            }]
+                        });
+                    },
+                    error: function (errorData) {
+                        loadingDialog.close();
+                        BootstrapDialog.show({
+                            closable: false,
+                            message: errorData,
+                            buttons: [{
+                                label: 'Close',
+                                action: function (dialogItself) {
+                                    dialogItself.close();
+                                }
+                            }]
+                        });
+                    }
+                });
+            } else {
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/saleMainData/insert',
+                    cache: false,
+                    dataType: 'json',
+                    data: newMainData,
+                    success: function (datas) {
+                        loadingDialog.close();
+
+                        BootstrapDialog.show({
+                            closable: false,
+                            title:'完成',
+                            message: '传输完成，继续添加还是回到首页？',
+                            buttons: [{
+                                label: '继续添加',
+                                action: function (dialogItself) {
+                                    location.reload();
+                                }
+                            }, {
+                                label: '回到首页',
+                                action: function (dialogItself) {
+                                    window.location = "index.html";
+                                }
+                            }]
+                        });
+                    },
+                    error: function (errorData) {
+                        loadingDialog.close();
+                        BootstrapDialog.show({
+                            closable: false,
+                            message: errorData,
+                            buttons: [{
+                                label: 'Close',
+                                action: function (dialogItself) {
+                                    dialogItself.close();
+                                }
+                            }]
+                        });
+                    }
+                });
+            }
 
         }
 
@@ -277,25 +332,36 @@ function reset_btns() {//重置表单
     });
 }
 
-function distribution() {
+function assign() {
     $.ajax({
         type: 'GET',
         url: 'api/user/findAllUserInfo',
         cache: false,
         dataType: 'json',
         success: function (datas) {
-            var distribution_option = "";
-            for (var i = 0; i < datas.data.length;i++) {
-                distribution_option += '<option value="">'+datas.data[i].name+'</option>';
+
+            var optionData = [];
+            for (var i = 0; i < datas.data.length; i++) {
+                optionData.push({id: datas.data[i].id, text: datas.data[i].name});
             }
-            //$("#distribution").append(distribution_option);
+            //$("#assign").append(assign_option);
+
+
+            $("#assign").select2({
+                data: optionData
+            })
+
+
+            if (dataid != undefined && dataid!="") {
+                updateform(dataid);
+            }
         }
     })
 }
 
 
 // 更新列表数据
-function updateform() {
+function updateform(id) {
     //判断是否是更新
     /*if() {
 
@@ -303,7 +369,7 @@ function updateform() {
 
     $.ajax({
         type: 'GET',
-        url: '/api/saleMainData/findById/097200a3262b42129153776f3b58efbc',
+        url: '/api/saleMainData/findById/' + id,
         cache: false,
         dataType: 'json',
         success: function (datas) {
@@ -316,18 +382,25 @@ function updateform() {
                 $("#importantReq").val(datas.data.importantReq);
                 $("#cusEmpNum").val(datas.data.cusEmpNum);
                 $("#cusCity").val(datas.data.cusCity);
-                $("#launchTime").val(datas.data.launchTime);
-                $("#closeTime").val(datas.data.closeTime);
+                /*$("#launchTime").val(datas.data.launchTime);
+                $("#closeTime").val(datas.data.closeTime);*/
                 $("#seenPolicymaker").val(datas.data.seenPolicymaker).trigger("change");
                 $("#policymakerPosition").val(datas.data.policymakerPosition).trigger("change");
                 $("#donePolicymaker").val(datas.data.donePolicymaker).trigger("change");
                 $("#donePolicymakerPosition").val(datas.data.donePolicymakerPosition).trigger("change");
                 $("#isReal").val(datas.data.isReal).trigger("change");
                 $("#isRealComment").val(datas.data.isRealComment).trigger("change");
+                $("#fiveUserUp").val(datas.data.fiveUserUp).trigger("change");
                 $("#fiveUserUpComment").val(datas.data.fiveUserUpComment).trigger("change");
                 $("#nextPolicymakerAction").val(datas.data.nextPolicymakerAction).trigger("change");
                 $("#nextReqAction").val(datas.data.nextReqAction).trigger("change");
-                $("#distribution").val(datas.data.assign).trigger("change");
+                $("#assign").val(datas.data.assign).trigger("change");
+                $("#logInfo").val(datas.data.logInfo);
+
+                $('#launchTime').datepicker("setDate", datas.data.launchTime);
+
+                $('#closeTime').datepicker("setDate", datas.data.closeTime);
+
             }
 
         }

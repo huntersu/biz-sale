@@ -433,7 +433,7 @@
                 <b class="arrow"></b>
             </li>
             <li class="active">
-                <a href="add-sale-data.html">
+                <a href="datadetail.html">
                     <i class="menu-icon fa fa-plus-square"></i>
                     <span class="menu-text"> 新增数据 </span>
                 </a>
@@ -845,10 +845,9 @@
                                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">可分配的人：</label>
 
                                 <div class="col-xs-12 col-sm-9">
-                                    <select id="distribution" name="distribution" class="select2 "
+                                    <select id="assign" name="assign" class="select2 "
                                             style="width: 200px;">
                                         <option value="">请选择</option>
-                                        <option value="zhangsan">zhangsan</option>
                                     </select>
                                 </div>
                             </div>
@@ -858,7 +857,7 @@
 
                                 <div class="col-sm-5">
                                     <div class="clearfix">
-                                        <textarea class="input-xlarge" id="formlog" name="formlog"></textarea>
+                                        <textarea class="input-xlarge" id="logInfo" name="logInfo"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -935,7 +934,7 @@
 <script src="assets/js/jquery.maskedinput.min.js"></script>
 <script src="assets/js/select2.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
-
+<script src="assets/data/dx.js"></script>
 
 
 <!-- ace scripts -->
@@ -1545,10 +1544,10 @@
                 nextReqAction: {
                     required: true
                 },
-                distribution: {
+                assign: {
                     required: true
                 },
-                formlog: {
+                logInfo: {
                     required: true
                 }
             },
@@ -1576,7 +1575,7 @@
                 cusCity: {
                     required: "客户所在城市不能为空"
                 },
-                formlog: {
+                logInfo: {
                     required: "日志不能为空"
                 },
                 seenPolicymaker: "请选择决策人",
@@ -1591,7 +1590,7 @@
                 launchTime: '请选择时间',
                 nextPolicymakerAction: '请选择决策人计划',
                 nextReqAction: '请选择需求计划',
-                distribution: '请选择可分配人员',
+                assign: '请选择可分配人员',
             },
 
 

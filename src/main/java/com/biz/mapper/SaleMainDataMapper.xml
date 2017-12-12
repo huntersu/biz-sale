@@ -584,7 +584,6 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
     update sale_main_data
     set cus_name = #{cusName,jdbcType=VARCHAR},
-      begin_date = #{beginDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       seen_policymaker = #{seenPolicymaker,jdbcType=VARCHAR},
       policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
@@ -604,7 +603,6 @@
       next_policymaker_action = #{nextPolicymakerAction,jdbcType=VARCHAR},
       next_req_action = #{nextReqAction,jdbcType=VARCHAR},
       true_close_time = #{trueCloseTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=VARCHAR},
       uploads = #{uploads,jdbcType=VARCHAR},
       assign = #{assign,jdbcType=VARCHAR},
       important_req = #{importantReq,jdbcType=LONGVARCHAR},
@@ -641,7 +639,13 @@
   </update>
 
   <select id="selectAll" resultMap="ResultMapWithBLOBs">
-    SELECT * FROM sale_main_data order by begin_date desc
+    select m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
+m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
+m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
+m.contact_name,m.contact_phone,m.contact_email,m.important_req,
+m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
+m.next_req_action,m.true_close_time,m.status,m.log_info, u.name as uploads , u2.name as assign
+from sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id order by m.begin_date desc
   </select>
   <update id="resetSaleMainDataStatusById" parameterType="java.lang.String">
     UPDATE sale_main_data SET status=#{1} WHERE id=#{0}

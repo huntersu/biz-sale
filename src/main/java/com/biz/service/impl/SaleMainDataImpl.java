@@ -91,6 +91,8 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
     public ResultDTO<Boolean> updata(SaleMainDataWithBLOBs saleMainDataWith) {
         log.info("impl - 根据ID修改sale_main_data表中数据时的参数：" + JsonUtil.toJson(saleMainDataWith));
         try {
+
+            saleMainDataWith.setUpdateDate(new Date());
             int isUpdata = saleMainDataMapper.updateByPrimaryKeyWithBLOBs(saleMainDataWith);
 
             log.info("impl - 根据ID修改sale_main_data表中数据时的返回结果：***" + isUpdata + "***");
