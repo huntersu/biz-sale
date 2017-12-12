@@ -45,7 +45,7 @@ var yiwaishiqxqObj = {
     "BUS_NO_FEEL": "业务部门无感",
     "NO_PLAT_DOUBT_RESULT": "企业没上过平台担心效果",
     "HAVE_PLAT_NO_GOOD_BOUBT_RESULT": "企业上过平台，效果不好，再上担心效果",
-    "HR_NEED_BUS_MO": "HR认为有需求，业务部门没有"
+    "HR_NEED_BUS_NO": "HR认为有需求，业务部门没有"
 };
 var shiyongcpxgObj = {
     "PLEASED": "决策者已经试用且满意",
