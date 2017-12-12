@@ -974,12 +974,12 @@
 
         ],
         rowNum: 10,
-        rowList: [10, 20, 30],
+        rowList: [10, 20, 30,50,100],
         pager: '#pager',
         sortname: 'id',
         viewrecords: true,
         sortorder: "desc",
-        caption: "JSON Example",
+        caption: "客户情况跟踪",
         jsonReader: {
             root: "data.list",    // json中代表实际模型数据的入口
             page: "data.pageNum",    // json中代表当前页码的数据
@@ -988,7 +988,8 @@
             repeatitems: false // 如果设为false，则jqGrid在解析json时，会根据name来搜索对应的数据元素（即可以json中元素可以不按顺序）；而所使用的name是来自于colModel中的name设定。
         },
         autoScroll: true,
-        height: 325,
+        height: 'auto',
+        width:'auto',
         loadComplete: function () {
             var table = this;
             setTimeout(function () {

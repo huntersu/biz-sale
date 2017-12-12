@@ -31,13 +31,13 @@
 	<mvc:annotation-driven/>
 
 	<!--拦截器-->
-	<!--<mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*.html"/>
 			<mvc:exclude-mapping path="/login.html"/>
 			<bean class="com.biz.interceptor.SpringInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors>-->
+	</mvc:interceptors>
 
 	<!--图片上传-->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
