@@ -11,6 +11,7 @@ $(function () {
     select_menu_sycpbz();//未满足5人以上效果
     select_menu_jcrdz();//下一步决策人动作
     select_menu_xqdz();//下一步需求动作
+    distribution();//可分配人
 });
 
 var juecerenObj = {"0": "否", "1": "是"};//决策人
@@ -273,4 +274,20 @@ function reset_btns() {//重置表单
     $("#reset_btn").click(function () {
         $(".btn-group button span").text("请选择");
     });
+}
+
+function distribution() {
+    $.ajax({
+        type: 'GET',
+        url: 'api/user/findAllUserInfo',
+        cache: false,
+        dataType: 'json',
+        success: function (datas) {
+            var distribution_option = "";
+            for (var i = 0; i < datas.data.length;i++) {
+                distribution_option += '<option value="">'+datas.data[i].name+'</option>';
+            }
+            $("#distribution").append(distribution_option);
+        }
+    })
 }

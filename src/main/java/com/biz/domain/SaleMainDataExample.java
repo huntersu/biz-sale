@@ -1654,6 +1654,146 @@ public class SaleMainDataExample {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
+
+        public Criteria andUploadsIsNull() {
+            addCriterion("uploads is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsIsNotNull() {
+            addCriterion("uploads is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsEqualTo(String value) {
+            addCriterion("uploads =", value, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsNotEqualTo(String value) {
+            addCriterion("uploads <>", value, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsGreaterThan(String value) {
+            addCriterion("uploads >", value, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsGreaterThanOrEqualTo(String value) {
+            addCriterion("uploads >=", value, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsLessThan(String value) {
+            addCriterion("uploads <", value, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsLessThanOrEqualTo(String value) {
+            addCriterion("uploads <=", value, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsLike(String value) {
+            addCriterion("uploads like", value, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsNotLike(String value) {
+            addCriterion("uploads not like", value, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsIn(List<String> values) {
+            addCriterion("uploads in", values, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsNotIn(List<String> values) {
+            addCriterion("uploads not in", values, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsBetween(String value1, String value2) {
+            addCriterion("uploads between", value1, value2, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadsNotBetween(String value1, String value2) {
+            addCriterion("uploads not between", value1, value2, "uploads");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignIsNull() {
+            addCriterion("assign is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignIsNotNull() {
+            addCriterion("assign is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignEqualTo(String value) {
+            addCriterion("assign =", value, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignNotEqualTo(String value) {
+            addCriterion("assign <>", value, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignGreaterThan(String value) {
+            addCriterion("assign >", value, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignGreaterThanOrEqualTo(String value) {
+            addCriterion("assign >=", value, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignLessThan(String value) {
+            addCriterion("assign <", value, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignLessThanOrEqualTo(String value) {
+            addCriterion("assign <=", value, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignLike(String value) {
+            addCriterion("assign like", value, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignNotLike(String value) {
+            addCriterion("assign not like", value, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignIn(List<String> values) {
+            addCriterion("assign in", values, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignNotIn(List<String> values) {
+            addCriterion("assign not in", values, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignBetween(String value1, String value2) {
+            addCriterion("assign between", value1, value2, "assign");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssignNotBetween(String value1, String value2) {
+            addCriterion("assign not between", value1, value2, "assign");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -83,6 +83,7 @@
 		映射文件必须和接口在同一个目录下面，且名称相同。
 	 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!--扫描mapper.xml配置文件-->
 		<property name="basePackage" value="com.biz.mapper"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>

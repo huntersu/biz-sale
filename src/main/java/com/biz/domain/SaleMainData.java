@@ -111,7 +111,20 @@ public class SaleMainData implements Serializable{
 
     private Date trueCloseTime;
 
+    /**
+     * 状态
+     */
     private String status;
+
+    /**
+     * 上传者
+     */
+    private String uploads;
+
+    /**
+     * 分配给谁
+     */
+    private String assign;
 
     /**
      * 客户重点需求
@@ -305,6 +318,22 @@ public class SaleMainData implements Serializable{
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getUploads() {
+        return uploads;
+    }
+
+    public void setUploads(String uploads) {
+        this.uploads = uploads == null ? null : uploads.trim();
+    }
+
+    public String getAssign() {
+        return assign;
+    }
+
+    public void setAssign(String assign) {
+        this.assign = assign == null ? null : assign.trim();
     }
 
     public String getImportantReq() {

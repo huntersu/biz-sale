@@ -25,6 +25,8 @@
     <result column="next_req_action" property="nextReqAction" jdbcType="VARCHAR" />
     <result column="true_close_time" property="trueCloseTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="uploads" property="uploads" jdbcType="VARCHAR" />
+    <result column="assign" property="assign" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.biz.domain.SaleMainData" extends="BaseResultMap" >
     <result column="important_req" property="importantReq" jdbcType="LONGVARCHAR" />
@@ -91,7 +93,7 @@
     id, cus_name, begin_date, update_date, seen_policymaker, policymaker_position, done_policymaker, 
     done_policymaker_position, is_real, is_real_comment, five_user_up, five_user_up_comment, 
     contact_name, contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time, 
-    next_policymaker_action, next_req_action, true_close_time, status
+    next_policymaker_action, next_req_action, true_close_time, status, uploads, assign
   </sql>
   <sql id="Blob_Column_List" >
     important_req
@@ -153,7 +155,8 @@
       contact_email, cus_emp_num, cus_city, 
       launch_time, close_time, next_policymaker_action, 
       next_req_action, true_close_time, status, 
-      important_req)
+      uploads, assign, important_req
+      )
     values (#{id,jdbcType=VARCHAR}, #{cusName,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, 
       #{updateDate,jdbcType=TIMESTAMP}, #{seenPolicymaker,jdbcType=VARCHAR}, #{policymakerPosition,jdbcType=VARCHAR}, 
       #{donePolicymaker,jdbcType=VARCHAR}, #{donePolicymakerPosition,jdbcType=VARCHAR}, 
@@ -162,7 +165,8 @@
       #{contactEmail,jdbcType=VARCHAR}, #{cusEmpNum,jdbcType=INTEGER}, #{cusCity,jdbcType=VARCHAR}, 
       #{launchTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{nextPolicymakerAction,jdbcType=VARCHAR}, 
       #{nextReqAction,jdbcType=VARCHAR}, #{trueCloseTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
-      #{importantReq,jdbcType=LONGVARCHAR})
+      #{uploads,jdbcType=VARCHAR}, #{assign,jdbcType=VARCHAR}, #{importantReq,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.biz.domain.SaleMainData" >
     insert into sale_main_data
@@ -235,6 +239,12 @@
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="uploads != null" >
+        uploads,
+      </if>
+      <if test="assign != null" >
+        assign,
       </if>
       <if test="importantReq != null" >
         important_req,
@@ -309,6 +319,12 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="uploads != null" >
+        #{uploads,jdbcType=VARCHAR},
+      </if>
+      <if test="assign != null" >
+        #{assign,jdbcType=VARCHAR},
       </if>
       <if test="importantReq != null" >
         #{importantReq,jdbcType=LONGVARCHAR},
@@ -393,6 +409,12 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=VARCHAR},
       </if>
+      <if test="record.uploads != null" >
+        uploads = #{record.uploads,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assign != null" >
+        assign = #{record.assign,jdbcType=VARCHAR},
+      </if>
       <if test="record.importantReq != null" >
         important_req = #{record.importantReq,jdbcType=LONGVARCHAR},
       </if>
@@ -426,6 +448,8 @@
       next_req_action = #{record.nextReqAction,jdbcType=VARCHAR},
       true_close_time = #{record.trueCloseTime,jdbcType=TIMESTAMP},
       status = #{record.status,jdbcType=VARCHAR},
+      uploads = #{record.uploads,jdbcType=VARCHAR},
+      assign = #{record.assign,jdbcType=VARCHAR},
       important_req = #{record.importantReq,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -455,7 +479,9 @@
       next_policymaker_action = #{record.nextPolicymakerAction,jdbcType=VARCHAR},
       next_req_action = #{record.nextReqAction,jdbcType=VARCHAR},
       true_close_time = #{record.trueCloseTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=VARCHAR}
+      status = #{record.status,jdbcType=VARCHAR},
+      uploads = #{record.uploads,jdbcType=VARCHAR},
+      assign = #{record.assign,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -529,6 +555,12 @@
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
+      <if test="uploads != null" >
+        uploads = #{uploads,jdbcType=VARCHAR},
+      </if>
+      <if test="assign != null" >
+        assign = #{assign,jdbcType=VARCHAR},
+      </if>
       <if test="importantReq != null" >
         important_req = #{importantReq,jdbcType=LONGVARCHAR},
       </if>
@@ -559,6 +591,8 @@
       next_req_action = #{nextReqAction,jdbcType=VARCHAR},
       true_close_time = #{trueCloseTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=VARCHAR},
+      uploads = #{uploads,jdbcType=VARCHAR},
+      assign = #{assign,jdbcType=VARCHAR},
       important_req = #{importantReq,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -585,9 +619,12 @@
       next_policymaker_action = #{nextPolicymakerAction,jdbcType=VARCHAR},
       next_req_action = #{nextReqAction,jdbcType=VARCHAR},
       true_close_time = #{trueCloseTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=VARCHAR}
+      status = #{status,jdbcType=VARCHAR},
+      uploads = #{uploads,jdbcType=VARCHAR},
+      assign = #{assign,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
   <select id="selectAll" resultMap="ResultMapWithBLOBs">
     SELECT * FROM sale_main_data order by begin_date desc
   </select>
