@@ -1,8 +1,8 @@
 package com.biz.service;
 
 import com.biz.common.ResultDTO;
-import com.biz.common.ResultDTOBuilder;
 import com.biz.domain.SaleMainData;
+import com.biz.domain.SaleMainDataWithBLOBs;
 import com.github.pagehelper.PageInfo;
 
 public interface ISaleMainDataClient {
@@ -10,7 +10,7 @@ public interface ISaleMainDataClient {
     /**
      * 新增
      */
-    ResultDTO<Boolean> insert(SaleMainData saleMainData);
+    ResultDTO<Boolean> insert(SaleMainDataWithBLOBs saleMainDataWit);
 
     /**
      * 根据id删除数据
@@ -20,12 +20,12 @@ public interface ISaleMainDataClient {
     /**
      * 根据id修改数据
      */
-    ResultDTO<Boolean> updata(SaleMainData saleMainData);
+    ResultDTO<Boolean> updata(SaleMainDataWithBLOBs saleMainDataWith);
 
     /**
      * 根据id查询
      */
-    ResultDTO<SaleMainData> findById(String id);
+    ResultDTO<SaleMainDataWithBLOBs> findById(String id);
 
     /**
      * 查询所有

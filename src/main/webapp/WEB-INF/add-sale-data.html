@@ -848,7 +848,18 @@
                                     <select id="distribution" name="distribution" class="select2 "
                                             style="width: 200px;">
                                         <option value="">请选择</option>
+                                        <option value="zhangsan">zhangsan</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"> 日志： </label>
+
+                                <div class="col-sm-5">
+                                    <div class="clearfix">
+                                        <textarea class="input-xlarge" id="formlog" name="formlog"></textarea>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1536,6 +1547,9 @@
                 },
                 distribution: {
                     required: true
+                },
+                formlog: {
+                    required: true
                 }
             },
             messages: {
@@ -1562,6 +1576,9 @@
                 cusCity: {
                     required: "客户所在城市不能为空"
                 },
+                formlog: {
+                    required: "日志不能为空"
+                },
                 seenPolicymaker: "请选择决策人",
                 closeTime: '请选择时间',
                 policymakerPosition: '请选择决策人职位',
@@ -1574,7 +1591,7 @@
                 launchTime: '请选择时间',
                 nextPolicymakerAction: '请选择决策人计划',
                 nextReqAction: '请选择需求计划',
-                distribution: '请选择可分配人员'
+                distribution: '请选择可分配人员',
             },
 
 

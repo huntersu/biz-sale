@@ -60,7 +60,7 @@ public class UserController {
         log.info("登陆后的用户信息：" + JsonUtil.toJson(selectResult));
 
         //登录成功后将用户信息存入cookie中
-        if (selectResult.isSuccess() && selectResult.getData() != null) {
+        if (selectResult.getSuccess() && selectResult.getData() != null) {
             SaleLoginUser saleLoginUser = selectResult.getData();
 
             String userName = saleLoginUser.getLoginname();

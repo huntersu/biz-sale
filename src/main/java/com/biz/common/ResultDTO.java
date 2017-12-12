@@ -7,19 +7,19 @@ import java.io.Serializable;
  */
 public class ResultDTO<T> implements Serializable{
 
-    private Boolean isSuccess = true;
+    private Boolean success = true;
     private String errCode = "0";
     private String errMsg = "接口调用成功";
     private T data;
 
     public ResultDTO(){}
 
-    public Boolean isSuccess() {
-        return isSuccess;
+    public Boolean getSuccess() {
+        return success;
     }
 
     public void setSuccess(Boolean success) {
-        isSuccess = success;
+        success = success;
     }
 
     public String getErrCode() {

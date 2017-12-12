@@ -49,11 +49,11 @@ public class UserImpl implements IUserClient {
 
         ResultDTO<SaleLoginUser> userInfo = this.findUserInfoByUserName(saleLoginUser.getLoginname());
 
-        if (userInfo.isSuccess()) {
+        if (userInfo.getSuccess()) {
             if (userInfo.getData() != null) {
                 return ResultDTOBuilder.failure("10006", "用户名已存在");
             }
-        } else if(!userInfo.isSuccess()){
+        } else if(!userInfo.getSuccess()){
             return ResultDTOBuilder.failure(userInfo.getErrCode(), userInfo.getErrMsg());
         }
 
@@ -110,7 +110,7 @@ public class UserImpl implements IUserClient {
 
         ResultDTO<SaleLoginUser> saleLoginUsers = this.findUserInfoByUserName(loginName);
 
-        if (!saleLoginUsers.isSuccess()){
+        if (!saleLoginUsers.getSuccess()){
             return saleLoginUsers;
         }
 

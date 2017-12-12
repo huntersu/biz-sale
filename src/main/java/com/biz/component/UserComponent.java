@@ -42,7 +42,7 @@ public class UserComponent {
             ResultDTO<SaleLoginUser> selectResult = userClient.userLogin(userNameAndPass[0], AES.aesDecrypt(userNameAndPass[1],""));
 
             //登录成功后将用户信息存入cookie中
-            if (selectResult.isSuccess() && selectResult.getData() != null) {
+            if (selectResult.getSuccess() && selectResult.getData() != null) {
 
                 return selectResult.getData();
 

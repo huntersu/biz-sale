@@ -1,8 +1,10 @@
 package com.biz.controller;
 
+import com.biz.common.BeanUtil;
 import com.biz.common.ResultDTO;
 import com.biz.constant.*;
 import com.biz.domain.SaleMainData;
+import com.biz.domain.SaleMainDataWithBLOBs;
 import com.biz.service.ISaleMainDataClient;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * sale_main_data表的对应操作
@@ -30,9 +34,9 @@ public class SaleMainDataController {
      * 新增
      */
     @GetMapping("insert")
-    public Object insert(SaleMainData saleMainData){
+    public Object insert(SaleMainDataWithBLOBs saleMainDataWith){
 
-        ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainData);
+        ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainDataWith);
 
         return result;
     }
@@ -54,15 +58,15 @@ public class SaleMainDataController {
      * 根据id修改数据
      */
     @GetMapping("updataById")
-    public Object updataById(SaleMainData saleMainData){
+    public Object updataById(SaleMainDataWithBLOBs saleMainDataWith){
 
-        ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainData);
+        ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainDataWith);
 
         return updataResult;
     }
 
     /**
-     * /api/saleMainData/findById
+     * /api/saleMainData/findById/{id}
      * 根据id查询单个
      * @param id
      * @return
@@ -70,12 +74,7 @@ public class SaleMainDataController {
     @GetMapping("findById/{id}")
     public Object findById(@PathVariable String id){
 
-        ResultDTO<SaleMainData> findResult = saleMainDataClient.findById(id);
-
-        if (findResult.isSuccess() && findResult.getData() != null) {
-            //将对应value值转成对应的描述
-            this.transfer(findResult.getData());
-        }
+        ResultDTO<SaleMainDataWithBLOBs> findResult = saleMainDataClient.findById(id);
 
         return findResult;
     }
@@ -90,7 +89,7 @@ public class SaleMainDataController {
 
         ResultDTO<PageInfo<SaleMainData>> resultDTO = saleMainDataClient.findAll(page ,rows);
 
-        if (resultDTO.isSuccess() && resultDTO.getData() != null && resultDTO.getData().getList() != null && resultDTO.getData().getList().size() > 0) {
+        if (resultDTO.getSuccess() && resultDTO.getData() != null && resultDTO.getData().getList() != null && resultDTO.getData().getList().size() > 0) {
             for (SaleMainData saleMainData : resultDTO.getData().getList()) {
                 //将对应value值转成对应的描述
                 this.transfer(saleMainData);
@@ -108,7 +107,13 @@ public class SaleMainDataController {
 
         ResultDTO seenPolicymakerResult = saleMainDataClient.countQuery();
 
-        return seenPolicymakerResult;
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        BeanUtil.copyProperties(seenPolicymakerResult, map);
+
+        map.put("wwwwww", "ceshi shuju");
+
+        return map;
     }
 
     //将对应的枚举类型的value值转成对应的描述
