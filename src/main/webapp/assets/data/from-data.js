@@ -234,11 +234,16 @@ function from_btns() {//提交表单
 
                     BootstrapDialog.show({
                         closable: false,
-                        message: '要去哪里啊',
+                        message: '传输完成，继续添加还是回到首页？',
                         buttons: [{
-                            label: 'Close',
+                            label: '继续添加',
                             action: function (dialogItself) {
-                                dialogItself.close();
+                                location.reload();
+                            }
+                        },{
+                            label: '回到首页',
+                            action: function (dialogItself) {
+                                window.location="index.html";
                             }
                         }]
                     });

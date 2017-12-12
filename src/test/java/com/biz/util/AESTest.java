@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class AESTest {
     @Test
     public void aesEncrypt() throws Exception {
-        String content = "我爱你";
+        String content = "DouXing2017";
         System.out.println("加密前：" + content);
 
         String key = "123456";
@@ -28,8 +28,8 @@ public class AESTest {
     public void aesDecrypt() throws Exception {
 
 
-                String content = "stLEywX13EVhsA3jT6E20Q==";
-        System.out.println("加密前：" + content);
+                String content = "qmlSyCRy9pqAr2ERkjSf8Q==";
+        System.out.println("解密前：" + content);
 
         String key = "123456";
         System.out.println("加密密钥和解密密钥：" + key);

@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css"/>
 
     <!-- page specific plugin styles -->
-
+    <link rel="stylesheet" href="assets/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" href="assets/css/ui.jqgrid.min.css" />
     <!-- text fonts -->
     <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css"/>
 
@@ -44,6 +46,10 @@
     <script src="assets/js/html5shiv.min.js"></script>
     <script src="assets/js/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+        .ui-jqgrid tr.jqgrow td { text-overflow : ellipsis; }
+    </style>
 </head>
 
 <body class="no-skin">
@@ -655,7 +661,7 @@
                 <row>
                     <div class="col-sm-12" style="overflow-x:auto;overflow-y: hidden">
                         <table id="list2"></table>
-                        <div id="pager"></div>
+                        <div id="pager" style="width:100px"></div>
                     </div>
                 </row>
             </div><!-- /.page-content -->
@@ -944,6 +950,11 @@
             {name: 'nextPolicymakerAction', index: 'nextPolicymakerAction'},
             {name: 'nextReqAction', index: 'nextReqAction'}
         ],
+        subGridOptions : {
+            plusicon : "ace-icon fa fa-plus center bigger-110 blue",
+            minusicon  : "ace-icon fa fa-minus center bigger-110 blue",
+            openicon : "ace-icon fa fa-chevron-right center orange"
+        },
         rowNum: 10,
         rowList: [10, 20, 30],
         pager: '#pager',
@@ -967,13 +978,18 @@
 
 
                 updatePagerIcons(table);
+                $("#pager_left").hide();
+                $("#pager_right").css("text-align","left");
+
 
             }, 0);
         }
 
     });
 
-
+    function StrLenFormat(cellvalue, options, rowObject){
+        return "111"
+    }
 
 
     $(document).ready(function () {
@@ -998,6 +1014,33 @@
                 }
             }
         });
+/*
+
+        $(window).triggerHandler('resize.jqGrid');
+
+        var parent_column = $("#list2").closest('[class*="col-"]');
+
+        //resize to fit page size
+        $(window).on('resize.jqGrid', function () {
+            $("#list2").jqGrid( 'setGridWidth', parent_column.width() );
+        })
+
+        //resize on sidebar collapse/expand
+        $(document).on('settings.ace.jqGrid' , function(ev, event_name, collapsed) {
+            if( event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed' ) {
+                //setTimeout is for webkit only to give time for DOM changes and then redraw!!!
+                setTimeout(function() {
+                    $("#list2").jqGrid( 'setGridWidth', parent_column.width() );
+                }, 20);
+            }
+        })
+
+
+        $(document).one('ajaxloadstart.page', function(e) {
+            $.jgrid.gridDestroy("#list2");
+            $('.ui-jqdialog').remove();
+        });
+*/
 
 
     });
