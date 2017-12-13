@@ -122,7 +122,26 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
             return ResultDTOBuilder.success(saleMainDataWith);
         } catch (Exception e) {
-            log.info("impl - 根据ID查询sale_main_data表中单个数据的查询结果(异常)：", e);
+            log.error("impl - 根据ID查询sale_main_data表中单个数据的查询结果(异常)：", e);
+            return ResultDTOBuilder.failure("10007", "服务异常，请稍后重试");
+        }
+    }
+
+    /**
+     * 多条件查询
+     * 参数：SaleMainDataWithBLOBs对象
+     * 返回值：List<SaleMainDataWithBLOBs>
+     */
+    public ResultDTO<List<SaleMainDataWithBLOBs>> findUserBySelective(SaleMainDataWithBLOBs saleMainDataWith) {
+        log.info("impl - 多条件查询sale_main_data表中数据 - 方法入参：" + JsonUtil.toJson(saleMainDataWith));
+
+        try {
+            List<SaleMainDataWithBLOBs> saleMainDatas = saleMainDataMapper.findUserBySelective(saleMainDataWith);
+            log.info("impl - 多条件查询sale_main_data表中数据结果：" + JsonUtil.toJson(saleMainDatas));
+
+            return ResultDTOBuilder.success(saleMainDatas);
+        } catch (Exception ex) {
+            log.error("impl - 多条件查询sale_main_data表中数据结果(异常)：", ex);
             return ResultDTOBuilder.failure("10007", "服务异常，请稍后重试");
         }
     }
@@ -243,7 +262,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
             return ResultDTOBuilder.success(closeResult);
         } catch (Exception e) {
-            log.info("impl - 重置状态结果(异常)：", e);
+            log.error("impl - 重置状态结果(异常)：", e);
             return ResultDTOBuilder.failure("10009", "服务异常，请稍后重试");
         }
     }

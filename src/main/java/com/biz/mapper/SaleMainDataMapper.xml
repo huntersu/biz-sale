@@ -639,15 +639,111 @@
   </update>
 
   <select id="selectAll" resultMap="ResultMapWithBLOBs">
-    select m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
-m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
-m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
-m.contact_name,m.contact_phone,m.contact_email,m.important_req,
-m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
-m.next_req_action,m.true_close_time,m.status,m.log_info, u.name as uploads , u2.name as assign
-from sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id order by m.begin_date desc
+    select
+        m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
+        m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
+        m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
+        m.contact_name,m.contact_phone,m.contact_email,m.important_req,
+        m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
+        m.next_req_action,m.true_close_time,m.status,m.log_info, u.name as uploads , u2.name as assign
+    from
+        sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id order by m.begin_date desc
   </select>
+
   <update id="resetSaleMainDataStatusById" parameterType="java.lang.String">
     UPDATE sale_main_data SET status=#{1} WHERE id=#{0}
   </update>
+
+  <!--多条件查询-->
+  <select id="findUserBySelective" resultType="saleMainDataWithBlOBs" resultMap="ResultMapWithBLOBs">
+      SELECT
+          <include refid="Base_Column_List"/>
+          ,
+          <include refid="Blob_Column_List"/>
+      FROM
+          sale_main_data
+      <where>
+          <if test="id != null" >
+              id = #{id}
+          </if>
+          <if test="cusName != null" >
+              AND cus_name = #{cusName}
+          </if>
+          <if test="beginDate != null" >
+              AND begin_date = #{beginDate,jdbcType=TIMESTAMP}
+          </if>
+          <if test="updateDate != null" >
+              AND update_date = #{updateDate,jdbcType=TIMESTAMP}
+          </if>
+          <if test="seenPolicymaker != null" >
+              AND seen_policymaker = #{seenPolicymaker}
+          </if>
+          <if test="policymakerPosition != null" >
+              AND policymaker_position = #{policymakerPosition}
+          </if>
+          <if test="donePolicymaker != null" >
+              AND done_policymaker = #{donePolicymaker}
+          </if>
+          <if test="donePolicymakerPosition != null" >
+              AND done_policymaker_position = #{donePolicymakerPosition}
+          </if>
+          <if test="isReal != null" >
+              AND is_real = #{isReal}
+          </if>
+          <if test="isRealComment != null" >
+              AND is_real_comment = #{isRealComment}
+          </if>
+          <if test="fiveUserUp != null" >
+              AND five_user_up = #{fiveUserUp}
+          </if>
+          <if test="fiveUserUpComment != null" >
+              AND five_user_up_comment = #{fiveUserUpComment}
+          </if>
+          <if test="contactName != null" >
+              AND contact_name = #{contactName}
+          </if>
+          <if test="contactPhone != null" >
+              AND contact_phone = #{contactPhone}
+          </if>
+          <if test="contactEmail != null" >
+              AND contact_email = #{contactEmail}
+          </if>
+          <if test="cusEmpNum != null" >
+              AND cus_emp_num = #{cusEmpNum,jdbcType=INTEGER}
+          </if>
+          <if test="cusCity != null" >
+              AND cus_city = #{cusCity}
+          </if>
+          <if test="launchTime != null" >
+              AND launch_time = #{launchTime,jdbcType=TIMESTAMP}
+          </if>
+          <if test="closeTime != null" >
+              AND close_time = #{closeTime,jdbcType=TIMESTAMP}
+          </if>
+          <if test="nextPolicymakerAction != null" >
+              AND next_policymaker_action = #{nextPolicymakerAction}
+          </if>
+          <if test="nextReqAction != null" >
+              AND next_req_action = #{nextReqAction}
+          </if>
+          <if test="trueCloseTime != null" >
+              AND true_close_time = #{trueCloseTime,jdbcType=TIMESTAMP}
+          </if>
+          <if test="status != null" >
+              AND status = #{status}
+          </if>
+          <if test="uploads != null" >
+              AND uploads = #{uploads}
+          </if>
+          <if test="assign != null" >
+              AND assign = #{assign}
+          </if>
+          <if test="importantReq != null" >
+              AND important_req = #{importantReq}
+          </if>
+          <if test="logInfo != null" >
+              AND log_info = #{logInfo}
+          </if>
+      </where>
+  </select>
 </mapper>

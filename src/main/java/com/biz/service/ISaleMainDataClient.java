@@ -5,6 +5,8 @@ import com.biz.domain.SaleMainData;
 import com.biz.domain.SaleMainDataWithBLOBs;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface ISaleMainDataClient {
 
     /**
@@ -26,6 +28,11 @@ public interface ISaleMainDataClient {
      * 根据id查询
      */
     ResultDTO<SaleMainDataWithBLOBs> findById(String id);
+
+    /**
+     * 多条件查询
+     */
+    ResultDTO<List<SaleMainDataWithBLOBs>> findUserBySelective(SaleMainDataWithBLOBs saleMainDataWith);
 
     /**
      * 查询所有

@@ -40,4 +40,7 @@ public interface SaleMainDataMapper {
 
     //关闭/重新打开status状态
     int resetSaleMainDataStatusById(String id, String status);
+
+    //多条件查询
+    List<SaleMainDataWithBLOBs> findUserBySelective(SaleMainDataWithBLOBs saleMainDataWith);
 }

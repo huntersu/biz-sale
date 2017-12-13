@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,6 +87,26 @@ public class SaleMainDataController {
         ResultDTO<SaleMainDataWithBLOBs> findResult = saleMainDataClient.findById(id);
 
         return findResult;
+    }
+
+    /**
+     * 多条件查询
+     * /api/saleMainData/findUserBySelective
+     * 参数：SaleMainDataWithBLOBs对象
+     * 返回值：List<SaleMainDataWithBLOBs>
+     */
+    @GetMapping("findUserBySelective")
+    public Object findUserBySelective(SaleMainDataWithBLOBs saleMainDataWith){
+
+        ResultDTO<List<SaleMainDataWithBLOBs>> saleMainDatas = saleMainDataClient.findUserBySelective(saleMainDataWith);
+        if (saleMainDatas.getSuccess() && saleMainDatas.getData() != null && saleMainDatas.getData().size() > 0) {
+            for (SaleMainDataWithBLOBs saleMainData : saleMainDatas.getData()) {
+                //将对应value值转成对应的描述
+                this.transfer(saleMainData);
+            }
+        }
+
+        return saleMainDatas;
     }
 
     /**
