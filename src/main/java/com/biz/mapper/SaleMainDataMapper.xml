@@ -670,10 +670,10 @@
               AND cus_name = #{cusName}
           </if>
           <if test="beginDate != null" >
-              AND begin_date = #{beginDate,jdbcType=TIMESTAMP}
+              AND begin_date = #{beginDate}
           </if>
           <if test="updateDate != null" >
-              AND update_date = #{updateDate,jdbcType=TIMESTAMP}
+              AND update_date = #{updateDate}
           </if>
           <if test="seenPolicymaker != null" >
               AND seen_policymaker = #{seenPolicymaker}
@@ -709,16 +709,16 @@
               AND contact_email = #{contactEmail}
           </if>
           <if test="cusEmpNum != null" >
-              AND cus_emp_num = #{cusEmpNum,jdbcType=INTEGER}
+              AND cus_emp_num = #{cusEmpNum}
           </if>
           <if test="cusCity != null" >
               AND cus_city = #{cusCity}
           </if>
           <if test="launchTime != null" >
-              AND launch_time = #{launchTime,jdbcType=TIMESTAMP}
+              AND launch_time = #{launchTime}
           </if>
           <if test="closeTime != null" >
-              AND close_time = #{closeTime,jdbcType=TIMESTAMP}
+              AND close_time = #{closeTime}
           </if>
           <if test="nextPolicymakerAction != null" >
               AND next_policymaker_action = #{nextPolicymakerAction}
@@ -727,7 +727,7 @@
               AND next_req_action = #{nextReqAction}
           </if>
           <if test="trueCloseTime != null" >
-              AND true_close_time = #{trueCloseTime,jdbcType=TIMESTAMP}
+              AND true_close_time = #{trueCloseTime}
           </if>
           <if test="status != null" >
               AND status = #{status}
