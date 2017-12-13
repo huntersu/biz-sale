@@ -22,7 +22,7 @@ public class SpringInterceptor implements HandlerInterceptor {
 
         if(user==null)
         {
-            httpServletResponse.sendRedirect("login.html");
+            httpServletResponse.sendRedirect("/login.html");
 
             return false;
         }
