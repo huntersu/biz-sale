@@ -6,27 +6,69 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SaleLoginUserMapper {
-    int countByExample(SaleLoginUserExample example);
+    /**
+     * 新增数据
+     * @param saleLoginUser
+     * @return
+     */
+    int save(SaleLoginUser saleLoginUser);
 
-    int deleteByExample(SaleLoginUserExample example);
+    /**
+     * 查询用户表中的所有数据
+     * @return
+     */
+    List<SaleLoginUser> selectAll();
 
-    int deleteByPrimaryKey(String id);
+    /**
+     * 根据用户名查询用户信息
+     */
+    SaleLoginUser findUserByLoginName(String loginName);
 
-    int insert(SaleLoginUser record);
+    /**
+     * 多条件查询
+     * @param saleLoginUser
+     * @return
+     */
+    List<SaleLoginUser> findUserSelective(SaleLoginUser saleLoginUser);
 
-    int insertSelective(SaleLoginUser record);
+    /**
+     * 根据id查询
+     * @param userId
+     * @return
+     */
+    SaleLoginUser selectById(String userId);
 
-    List<SaleLoginUser> selectByExample(SaleLoginUserExample example);
+    /**
+     * 多条件统计查询
+     * @param saleLoginUser
+     * @return
+     */
+    int countBySelective(SaleLoginUser saleLoginUser);
 
-    SaleLoginUser selectByPrimaryKey(String id);
+    /**
+     * 根据ID修改数据
+     * @param userId
+     * @return
+     */
+    int updateById(String userId);
 
-    int updateByExampleSelective(@Param("record") SaleLoginUser record, @Param("example") SaleLoginUserExample example);
+    /**
+     * 根据ID动态修改数据
+     * @param userId
+     * @return
+     */
+    int updateByIdSelective(String userId);
 
-    int updateByExample(@Param("record") SaleLoginUser record, @Param("example") SaleLoginUserExample example);
+    /**
+     * 根据ID删除数据
+     * @param userId
+     * @return
+     */
+    int deleteById(String userId);
 
-    int updateByPrimaryKeySelective(SaleLoginUser record);
-
-    int updateByPrimaryKey(SaleLoginUser record);
-
-    List<SaleLoginUser> findAllUser();
+    /**
+     * 删除所有数据
+     * @return
+     */
+    int deleteAll();
 }

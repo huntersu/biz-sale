@@ -1,16 +1,11 @@
 package com.biz.service.impl;
 
+import com.biz.common.IDUtils;
 import com.biz.common.JsonUtil;
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
-import com.biz.common.UUIDUtils;
-import com.biz.constant.FiveUserupResult;
-import com.biz.constant.IsReal;
 import com.biz.constant.SaleMainStatus;
-import com.biz.constant.SeenPolicymaker;
 import com.biz.domain.SaleMainData;
-import com.biz.domain.SaleMainDataExample;
-import com.biz.domain.SaleMainDataWithBLOBs;
 import com.biz.mapper.SaleMainDataMapper;
 import com.biz.service.ISaleMainDataClient;
 import com.github.pagehelper.PageHelper;
@@ -35,18 +30,18 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
     /**
      * 插入
-     * @param saleMainDataWith
+     * @param saleMainData
      * @return
      */
-    public ResultDTO<Boolean> insert(SaleMainDataWithBLOBs saleMainDataWith) {
-        saleMainDataWith.setId(UUIDUtils.genratorCode());
-        saleMainDataWith.setBeginDate(new Date());
-        saleMainDataWith.setUpdateDate(new Date());
-        saleMainDataWith.setStatus(SaleMainStatus.OPEN.getValue());
+    public ResultDTO<Boolean> insert(SaleMainData saleMainData) {
+        saleMainData.setId(IDUtils.currentTimeMillis());
+        saleMainData.setBeginDate(new Date());
+        saleMainData.setUpdateDate(new Date());
+        saleMainData.setStatus(SaleMainStatus.OPEN.getValue());
 
-        log.info("impl — 保存sale_main_data对象数据内容：" + JsonUtil.toJson(saleMainDataWith));
+        log.info("impl — 保存sale_main_data对象数据内容：" + JsonUtil.toJson(saleMainData));
         try {
-            int insert = saleMainDataMapper.insert(saleMainDataWith);
+            int insert = saleMainDataMapper.save(saleMainData);
 
             log.info("保存sale_main_data对象数据 - 结果：******" + insert + "******");
 
@@ -69,7 +64,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
     public ResultDTO<Boolean> deleteById(String id) {
         log.info("impl - 根据ID删除sale_main_data表中数据时的ID：***" + id + "***");
         try {
-            int isDetlete = saleMainDataMapper.deleteByPrimaryKey(id);
+            int isDetlete = saleMainDataMapper.deleteById(id);
             log.info("impl - 根据ID删除sale_main_data表中数据时的结果：***" + isDetlete + "***");
 
             if (isDetlete != 1) {
@@ -85,15 +80,14 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
     /**
      * 修改
-     * @param saleMainDataWith
+     * @param saleMainData
      * @return
      */
-    public ResultDTO<Boolean> updata(SaleMainDataWithBLOBs saleMainDataWith) {
-        log.info("impl - 根据ID修改sale_main_data表中数据时的参数：" + JsonUtil.toJson(saleMainDataWith));
+    public ResultDTO<Boolean> updata(SaleMainData saleMainData) {
+        log.info("impl - 根据ID修改sale_main_data表中数据时的参数：" + JsonUtil.toJson(saleMainData));
         try {
-
-            saleMainDataWith.setUpdateDate(new Date());
-            int isUpdata = saleMainDataMapper.updateByPrimaryKeyWithBLOBs(saleMainDataWith);
+            saleMainData.setUpdateDate(new Date());
+            int isUpdata = saleMainDataMapper.updateById(saleMainData);
 
             log.info("impl - 根据ID修改sale_main_data表中数据时的返回结果：***" + isUpdata + "***");
 
@@ -113,14 +107,14 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @param id
      * @return
      */
-    public ResultDTO<SaleMainDataWithBLOBs> findById(String id) {
+    public ResultDTO<SaleMainData> findById(String id) {
         log.info("impl - 根据ID查询sale_main_data表中单个数据时的方法入参ID：***" + id + "***");
         try {
-            SaleMainDataWithBLOBs saleMainDataWith = saleMainDataMapper.selectByPrimaryKey(id);
+            SaleMainData saleMainData = saleMainDataMapper.selectById(id);
 
-            log.info("impl - 根据ID查询sale_main_data表中单个数据的查询结果：" + JsonUtil.toJson(saleMainDataWith));
+            log.info("impl - 根据ID查询sale_main_data表中单个数据的查询结果：" + JsonUtil.toJson(saleMainData));
 
-            return ResultDTOBuilder.success(saleMainDataWith);
+            return ResultDTOBuilder.success(saleMainData);
         } catch (Exception e) {
             log.error("impl - 根据ID查询sale_main_data表中单个数据的查询结果(异常)：", e);
             return ResultDTOBuilder.failure("10007", "服务异常，请稍后重试");
@@ -132,11 +126,11 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * 参数：SaleMainDataWithBLOBs对象
      * 返回值：List<SaleMainDataWithBLOBs>
      */
-    public ResultDTO<List<SaleMainDataWithBLOBs>> findUserBySelective(SaleMainDataWithBLOBs saleMainDataWith) {
-        log.info("impl - 多条件查询sale_main_data表中数据 - 方法入参：" + JsonUtil.toJson(saleMainDataWith));
+    public ResultDTO<List<SaleMainData>> findUserBySelective(SaleMainData saleMainData) {
+        log.info("impl - 多条件查询sale_main_data表中数据 - 方法入参：" + JsonUtil.toJson(saleMainData));
 
         try {
-            List<SaleMainDataWithBLOBs> saleMainDatas = saleMainDataMapper.findUserBySelective(saleMainDataWith);
+            List<SaleMainData> saleMainDatas = saleMainDataMapper.findSaleMainDataBySelective(saleMainData);
             log.info("impl - 多条件查询sale_main_data表中数据结果：" + JsonUtil.toJson(saleMainDatas));
 
             return ResultDTOBuilder.success(saleMainDatas);
@@ -150,13 +144,13 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * 分页查询全部
      * @return
      */
-    public ResultDTO<PageInfo<SaleMainData>> findAll(int page, int rows) {
+    public ResultDTO<PageInfo<SaleMainData>> associativeSelectAll(int page, int rows) {
         log.error("impl - 分页查询全部(sale_main_data表)的查询方法入参：page = " + page + "、rows = " + rows);
         try {
             //查询前设置分页信息
             PageHelper.startPage(page, rows);
 
-            List<SaleMainData> saleMainDatas = saleMainDataMapper.selectAll();
+            List<SaleMainData> saleMainDatas = saleMainDataMapper.associativeSelectAll();
             log.error("impl - 分页查询全部(sale_main_data表)的查询结果：", JsonUtil.toJson(saleMainDatas));
 
             //创建PageInfo对象
@@ -172,6 +166,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
     /**
      * 统计查询
+     * 临时写成固定sql，后期封装数据
      */
     public ResultDTO countQuery(){
 
@@ -182,10 +177,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
         try {
             //统计状态不是关闭的数据
-            SaleMainDataExample StatusExample = new SaleMainDataExample();
-            StatusExample.createCriteria().andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
-
-            StatusNum = saleMainDataMapper.countByExample(StatusExample);
+            StatusNum = saleMainDataMapper.countStatusIsNotCloseNum();
 
         } catch (Exception e) {
             log.error("统计状态不是关闭的数据(异常)", e);
@@ -193,13 +185,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
         try {
             //统计seen_policy_maker状态是已经见到决策人,并且status!=cloes的数据
-            SaleMainDataExample seenPolicymakerExample = new SaleMainDataExample();
-            SaleMainDataExample.Criteria seenPolicymakerCriteria = seenPolicymakerExample.createCriteria();
-
-            seenPolicymakerCriteria.andSeenPolicymakerEqualTo(SeenPolicymaker.YES.getValue());
-            seenPolicymakerCriteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
-
-            seenPolicymakerNum = saleMainDataMapper.countByExample(seenPolicymakerExample);
+            seenPolicymakerNum = saleMainDataMapper.countSeenPolicymakerNum();
 
         } catch (Exception e) {
             log.error("统计seen_policy_maker状态是已经见到决策人(异常)", e);
@@ -207,14 +193,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
         try {
             //统计is_real字段状态不是null并且status!=cloes的数据
-            SaleMainDataExample isRealExample = new SaleMainDataExample();
-            SaleMainDataExample.Criteria isRealCriteria = isRealExample.createCriteria();
-
-            isRealCriteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
-            isRealCriteria.andIsRealIsNotNull();
-            isRealCriteria.andIsRealNotEqualTo(IsReal.NO.getValue());
-
-            isRealNum = saleMainDataMapper.countByExample(isRealExample);
+            isRealNum = saleMainDataMapper.countIsRealNum();
 
         } catch (Exception e) {
             log.error("统计is_real字段状态不是null(异常)", e);
@@ -222,14 +201,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
         try {
             //统计five_user_up字段状态不是null并且status!=cloes的数据
-            SaleMainDataExample fiveUserupExample = new SaleMainDataExample();
-            SaleMainDataExample.Criteria fiveUserupCriteria = fiveUserupExample.createCriteria();
-
-            fiveUserupCriteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
-            fiveUserupCriteria.andFiveUserUpIsNotNull();
-            fiveUserupCriteria.andFiveUserUpNotEqualTo(FiveUserupResult.NO.getValue());
-
-            fiveUserupIsRealNum = saleMainDataMapper.countByExample(fiveUserupExample);
+            fiveUserupIsRealNum = saleMainDataMapper.countFiveUserupIsRealNum();
 
         } catch (Exception e) {
             log.error("统计five_user_up字段状态不是null(异常)", e);

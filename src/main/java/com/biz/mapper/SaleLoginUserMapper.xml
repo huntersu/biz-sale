@@ -1,234 +1,160 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.biz.mapper.SaleLoginUserMapper" >
-  <resultMap id="BaseResultMap" type="com.biz.domain.SaleLoginUser" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="department" property="department" jdbcType="VARCHAR" />
-    <result column="loginname" property="loginname" jdbcType="VARCHAR" />
-    <result column="displayImage" property="displayimage" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
+    <!--定义resultMap使数据库中的字段和pojo中的字段一一映射-->
+    <resultMap id="BaseResultMap" type="com.biz.domain.SaleLoginUser" >
+        <!-- id -->
+        <id column="id" property="id"/>
+        <!-- 客户姓名 -->
+        <result column="name" property="name"/>
+        <!-- 登录密码 -->
+        <result column="password" property="password" />
+        <!-- 登录名 -->
+        <result column="loginname" property="loginname"/>
+        <!-- 所属部门 -->
+        <result column="department" property="department"/>
+        <!-- 用户头像 -->
+        <result column="displayImage" property="displayimage"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, name, password, department, loginname, displayImage
+    </sql>
+
+    <!-- 动态查询条件sql片段 -->
+    <sql id="Base_query_criteria" >
+        <if test="id != null" >
+            id = #{id}
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
+        <if test="name != null" >
+            AND name = #{name}
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    id, name, password, department, loginname, displayImage
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.biz.domain.SaleLoginUserExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from sale_login_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from sale_login_user
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from sale_login_user
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.biz.domain.SaleLoginUserExample" >
-    delete from sale_login_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.biz.domain.SaleLoginUser" >
-    insert into sale_login_user (id, name, password, 
-      department, loginname, displayImage
-      )
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{department,jdbcType=VARCHAR}, #{loginname,jdbcType=VARCHAR}, #{displayimage,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.biz.domain.SaleLoginUser" >
-    insert into sale_login_user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="password != null" >
-        password,
-      </if>
-      <if test="department != null" >
-        department,
-      </if>
-      <if test="loginname != null" >
-        loginname,
-      </if>
-      <if test="displayimage != null" >
-        displayImage,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="department != null" >
-        #{department,jdbcType=VARCHAR},
-      </if>
-      <if test="loginname != null" >
-        #{loginname,jdbcType=VARCHAR},
-      </if>
-      <if test="displayimage != null" >
-        #{displayimage,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.biz.domain.SaleLoginUserExample" resultType="java.lang.Integer" >
-    select count(*) from sale_login_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update sale_login_user
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null" >
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.department != null" >
-        department = #{record.department,jdbcType=VARCHAR},
-      </if>
-      <if test="record.loginname != null" >
-        loginname = #{record.loginname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.displayimage != null" >
-        displayImage = #{record.displayimage,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update sale_login_user
-    set id = #{record.id,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      department = #{record.department,jdbcType=VARCHAR},
-      loginname = #{record.loginname,jdbcType=VARCHAR},
-      displayImage = #{record.displayimage,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.biz.domain.SaleLoginUser" >
-    update sale_login_user
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="department != null" >
-        department = #{department,jdbcType=VARCHAR},
-      </if>
-      <if test="loginname != null" >
-        loginname = #{loginname,jdbcType=VARCHAR},
-      </if>
-      <if test="displayimage != null" >
-        displayImage = #{displayimage,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.biz.domain.SaleLoginUser" >
-    update sale_login_user
-    set name = #{name,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      department = #{department,jdbcType=VARCHAR},
-      loginname = #{loginname,jdbcType=VARCHAR},
-      displayImage = #{displayimage,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <select id="findAllUser" resultType="com.biz.domain.SaleLoginUser">
-      SELECT
-        <include refid="Base_Column_List" />
-      FROM
-        sale_login_user
-  </select>
+        <if test="password != null" >
+            AND password = #{password}
+        </if>
+        <if test="department != null" >
+            AND department = #{department}
+        </if>
+        <if test="loginname != null" >
+            AND loginname = #{loginname}
+        </if>
+        <if test="displayimage != null" >
+            AND displayImage = #{displayimage}
+        </if>
+    </sql>
+
+    <select id="findAllUser" resultType="saleLoginUser">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM
+            sale_login_user
+    </select>
+
+    <!--登录时，根据用户名查询用户信息-->
+    <select id="findUserByLoginName" parameterType="java.lang.String" resultType="saleLoginUser">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM
+            sale_login_user
+        WHERE
+            loginname=#{loginname}
+    </select>
+
+    <!-- 新增数据，返回主键 -->
+    <insert id="save" parameterType="saleLoginUser" useGeneratedKeys="true" keyProperty="id">
+        insert into sale_login_user (id, name, password, department, loginname, displayImage)
+        values (#{id}, #{name}, #{password}, #{department}, #{loginname}, #{displayimage})
+    </insert>
+
+    <!-- 查询用户表中的所有数据 -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from
+            sale_login_user
+    </select>
+
+    <!-- 多条件查询 -->
+    <select id="findUserSelective" parameterType="saleLoginUser" resultMap="BaseResultMap" >
+        select
+            <include refid="Base_Column_List" />
+        from
+            sale_login_user
+        <where>
+            <include refid="Base_query_criteria" />
+        </where>
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap" >
+        select
+            <include refid="Base_Column_List" />
+        from
+            sale_login_user
+        where
+            id = #{id}
+    </select>
+
+    <!-- 多条件统计查询 -->
+    <select id="countBySelective" parameterType="saleLoginUser" resultType="java.lang.Integer" >
+        select
+            count(*)
+        from
+            sale_login_user
+        <where>
+            <include refid="Base_query_criteria" />
+        </where>
+    </select>
+
+    <!-- 根据ID修改数据 -->
+    <update id="updateById" parameterType="saleLoginUser" >
+        update
+            sale_login_user
+        set
+            name = #{name},
+            password = #{password},
+            department = #{department},
+            loginname = #{loginname},
+            displayImage = #{displayimage}
+        where
+            id = #{id}
+    </update>
+
+    <!-- 根据ID动态修改数据 -->
+    <update id="updateByIdSelective" parameterType="saleLoginUser" >
+        update
+            sale_login_user
+        <set >
+            <if test="name != null" >
+                name = #{name},
+            </if>
+            <if test="password != null" >
+                password = #{password},
+            </if>
+            <if test="department != null" >
+                department = #{department},
+            </if>
+            <if test="loginname != null" >
+                loginname = #{loginname},
+            </if>
+            <if test="displayimage != null" >
+                displayImage = #{displayimage},
+            </if>
+        </set>
+        where
+            id = #{id}
+    </update>
+
+    <!-- 根据ID删除数据 -->
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from
+            sale_login_user
+        where
+            id = #{id}
+    </delete>
+
+    <!-- 删除所有数据 -->
+    <delete id="deleteAll" parameterType="java.lang.String" >
+        delete from sale_login_user
+    </delete>
 </mapper>

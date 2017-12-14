@@ -109,6 +109,9 @@ public class SaleMainData implements Serializable{
 
     private String nextReqAction;
 
+    /**
+     * 销售关单预计时间
+     */
     private Date trueCloseTime;
 
     /**
@@ -125,6 +128,22 @@ public class SaleMainData implements Serializable{
      * 分配给谁
      */
     private String assign;
+
+    /**
+     * 用户重点需求
+     */
+    private String importantReq;
+
+    /**
+     * 日志信息
+     */
+    private String logInfo;
+
+    /**
+     * 优先级  取值：1、2、3、4、。。。(从1开始)
+     * @return
+     */
+    private int priorityLevel;
 
     public String getId() {
         return id;
@@ -329,5 +348,29 @@ public class SaleMainData implements Serializable{
 
     public void setAssign(String assign) {
         this.assign = assign == null ? null : assign.trim();
+    }
+
+    public String getImportantReq() {
+        return importantReq;
+    }
+
+    public void setImportantReq(String importantReq) {
+        this.importantReq = importantReq == null ? null : importantReq.trim();
+    }
+
+    public String getLogInfo() {
+        return logInfo;
+    }
+
+    public void setLogInfo(String logInfo) {
+        this.logInfo = logInfo == null ? null : logInfo.trim();
+    }
+
+    public int getPriorityLevel() {
+        return priorityLevel;
+    }
+
+    public void setPriorityLevel(int priorityLevel) {
+        this.priorityLevel = priorityLevel;
     }
 }

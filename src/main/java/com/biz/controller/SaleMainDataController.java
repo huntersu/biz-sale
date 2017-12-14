@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +83,7 @@ public class SaleMainDataController {
     @GetMapping("findById/{id}")
     public Object findById(@PathVariable String id){
 
-        ResultDTO<SaleMainDataWithBLOBs> findResult = saleMainDataClient.findById(id);
+        ResultDTO<SaleMainData> findResult = saleMainDataClient.findById(id);
 
         return findResult;
     }
@@ -92,15 +91,15 @@ public class SaleMainDataController {
     /**
      * 多条件查询
      * /api/saleMainData/findUserBySelective
-     * 参数：SaleMainDataWithBLOBs对象
-     * 返回值：List<SaleMainDataWithBLOBs>
+     * 参数：SaleMainData对象
+     * 返回值：List<SaleMainData>
      */
     @GetMapping("findUserBySelective")
-    public Object findUserBySelective(SaleMainDataWithBLOBs saleMainDataWith){
+    public Object findUserBySelective(SaleMainData saleMainData){
 
-        ResultDTO<List<SaleMainDataWithBLOBs>> saleMainDatas = saleMainDataClient.findUserBySelective(saleMainDataWith);
+        ResultDTO<List<SaleMainData>> saleMainDatas = saleMainDataClient.findUserBySelective(saleMainData);
         if (saleMainDatas.getSuccess() && saleMainDatas.getData() != null && saleMainDatas.getData().size() > 0) {
-            for (SaleMainDataWithBLOBs saleMainData : saleMainDatas.getData()) {
+            for (SaleMainData mainData : saleMainDatas.getData()) {
                 //将对应value值转成对应的描述
                 this.transfer(saleMainData);
             }
@@ -117,7 +116,7 @@ public class SaleMainDataController {
     @GetMapping("findAll")
     public Object findAll(@RequestParam int page, @RequestParam int rows){
 
-        ResultDTO<PageInfo<SaleMainData>> resultDTO = saleMainDataClient.findAll(page ,rows);
+        ResultDTO<PageInfo<SaleMainData>> resultDTO = saleMainDataClient.associativeSelectAll(page ,rows);
 
         if (resultDTO.getSuccess() && resultDTO.getData() != null && resultDTO.getData().getList() != null && resultDTO.getData().getList().size() > 0) {
             for (SaleMainData saleMainData : resultDTO.getData().getList()) {

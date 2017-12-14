@@ -1,749 +1,357 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.biz.mapper.SaleMainDataMapper" >
-  <resultMap id="BaseResultMap" type="com.biz.domain.SaleMainData" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="cus_name" property="cusName" jdbcType="VARCHAR" />
-    <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
-    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
-    <result column="seen_policymaker" property="seenPolicymaker" jdbcType="VARCHAR" />
-    <result column="policymaker_position" property="policymakerPosition" jdbcType="VARCHAR" />
-    <result column="done_policymaker" property="donePolicymaker" jdbcType="VARCHAR" />
-    <result column="done_policymaker_position" property="donePolicymakerPosition" jdbcType="VARCHAR" />
-    <result column="is_real" property="isReal" jdbcType="VARCHAR" />
-    <result column="is_real_comment" property="isRealComment" jdbcType="VARCHAR" />
-    <result column="five_user_up" property="fiveUserUp" jdbcType="VARCHAR" />
-    <result column="five_user_up_comment" property="fiveUserUpComment" jdbcType="VARCHAR" />
-    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
-    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
-    <result column="contact_email" property="contactEmail" jdbcType="VARCHAR" />
-    <result column="cus_emp_num" property="cusEmpNum" jdbcType="INTEGER" />
-    <result column="cus_city" property="cusCity" jdbcType="VARCHAR" />
-    <result column="launch_time" property="launchTime" jdbcType="TIMESTAMP" />
-    <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
-    <result column="next_policymaker_action" property="nextPolicymakerAction" jdbcType="VARCHAR" />
-    <result column="next_req_action" property="nextReqAction" jdbcType="VARCHAR" />
-    <result column="true_close_time" property="trueCloseTime" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="uploads" property="uploads" jdbcType="VARCHAR" />
-    <result column="assign" property="assign" jdbcType="VARCHAR" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.biz.domain.SaleMainDataWithBLOBs" extends="BaseResultMap" >
-    <result column="important_req" property="importantReq" jdbcType="LONGVARCHAR" />
-    <result column="log_info" property="logInfo" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
+    <resultMap id="BaseMainDataResultMap" type="com.biz.domain.SaleMainData" >
+        <id column="id" property="id"/>
+        <result column="cus_name" property="cusName"/>
+        <result column="begin_date" property="beginDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="seen_policymaker" property="seenPolicymaker"/>
+        <result column="policymaker_position" property="policymakerPosition"/>
+        <result column="done_policymaker" property="donePolicymaker"/>
+        <result column="done_policymaker_position" property="donePolicymakerPosition"/>
+        <result column="is_real" property="isReal"/>
+        <result column="is_real_comment" property="isRealComment"/>
+        <result column="five_user_up" property="fiveUserUp"/>
+        <result column="five_user_up_comment" property="fiveUserUpComment"/>
+        <result column="contact_name" property="contactName"/>
+        <result column="contact_phone" property="contactPhone"/>
+        <result column="contact_email" property="contactEmail"/>
+        <result column="cus_emp_num" property="cusEmpNum" jdbcType="INTEGER" />
+        <result column="cus_city" property="cusCity"/>
+        <result column="launch_time" property="launchTime"/>
+        <result column="close_time" property="closeTime"/>
+        <result column="next_policymaker_action" property="nextPolicymakerAction"/>
+        <result column="next_req_action" property="nextReqAction"/>
+        <result column="true_close_time" property="trueCloseTime"/>
+        <result column="status" property="status"/>
+        <result column="uploads" property="uploads"/>
+        <result column="assign" property="assign"/>
+        <result column="important_req" property="importantReq"/>
+        <result column="log_info" property="logInfo"/>
+        <result column="priority_level" property="priorityLevel"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, cus_name, begin_date, update_date, seen_policymaker, policymaker_position, done_policymaker,
+        done_policymaker_position, is_real, is_real_comment, five_user_up, five_user_up_comment,
+        contact_name, contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time,
+        next_policymaker_action, next_req_action, true_close_time, status, uploads, assign, important_req,
+        log_info, priority_level
+    </sql>
+
+    <!-- 动态查询条件sql片段 -->
+    <sql id="Base_query_criteria" >
+        <if test="id != null" >
+            id = #{id}
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
+        <if test="cusName != null" >
+            AND cus_name = #{cusName}
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    id, cus_name, begin_date, update_date, seen_policymaker, policymaker_position, done_policymaker, 
-    done_policymaker_position, is_real, is_real_comment, five_user_up, five_user_up_comment, 
-    contact_name, contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time, 
-    next_policymaker_action, next_req_action, true_close_time, status, uploads, assign
-  </sql>
-  <sql id="Blob_Column_List" >
-    important_req, log_info
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.biz.domain.SaleMainDataExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from sale_main_data
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.biz.domain.SaleMainDataExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from sale_main_data
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from sale_main_data
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from sale_main_data
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.biz.domain.SaleMainDataExample" >
-    delete from sale_main_data
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
-    insert into sale_main_data (id, cus_name, begin_date, 
-      update_date, seen_policymaker, policymaker_position, 
-      done_policymaker, done_policymaker_position, 
-      is_real, is_real_comment, five_user_up, 
-      five_user_up_comment, contact_name, contact_phone, 
-      contact_email, cus_emp_num, cus_city, 
-      launch_time, close_time, next_policymaker_action, 
-      next_req_action, true_close_time, status, 
-      uploads, assign, important_req, 
-      log_info)
-    values (#{id,jdbcType=VARCHAR}, #{cusName,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, 
-      #{updateDate,jdbcType=TIMESTAMP}, #{seenPolicymaker,jdbcType=VARCHAR}, #{policymakerPosition,jdbcType=VARCHAR}, 
-      #{donePolicymaker,jdbcType=VARCHAR}, #{donePolicymakerPosition,jdbcType=VARCHAR}, 
-      #{isReal,jdbcType=VARCHAR}, #{isRealComment,jdbcType=VARCHAR}, #{fiveUserUp,jdbcType=VARCHAR}, 
-      #{fiveUserUpComment,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, 
-      #{contactEmail,jdbcType=VARCHAR}, #{cusEmpNum,jdbcType=INTEGER}, #{cusCity,jdbcType=VARCHAR}, 
-      #{launchTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{nextPolicymakerAction,jdbcType=VARCHAR}, 
-      #{nextReqAction,jdbcType=VARCHAR}, #{trueCloseTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
-      #{uploads,jdbcType=VARCHAR}, #{assign,jdbcType=VARCHAR}, #{importantReq,jdbcType=LONGVARCHAR}, 
-      #{logInfo,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
-    insert into sale_main_data
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="cusName != null" >
-        cus_name,
-      </if>
-      <if test="beginDate != null" >
-        begin_date,
-      </if>
-      <if test="updateDate != null" >
-        update_date,
-      </if>
-      <if test="seenPolicymaker != null" >
-        seen_policymaker,
-      </if>
-      <if test="policymakerPosition != null" >
-        policymaker_position,
-      </if>
-      <if test="donePolicymaker != null" >
-        done_policymaker,
-      </if>
-      <if test="donePolicymakerPosition != null" >
-        done_policymaker_position,
-      </if>
-      <if test="isReal != null" >
-        is_real,
-      </if>
-      <if test="isRealComment != null" >
-        is_real_comment,
-      </if>
-      <if test="fiveUserUp != null" >
-        five_user_up,
-      </if>
-      <if test="fiveUserUpComment != null" >
-        five_user_up_comment,
-      </if>
-      <if test="contactName != null" >
-        contact_name,
-      </if>
-      <if test="contactPhone != null" >
-        contact_phone,
-      </if>
-      <if test="contactEmail != null" >
-        contact_email,
-      </if>
-      <if test="cusEmpNum != null" >
-        cus_emp_num,
-      </if>
-      <if test="cusCity != null" >
-        cus_city,
-      </if>
-      <if test="launchTime != null" >
-        launch_time,
-      </if>
-      <if test="closeTime != null" >
-        close_time,
-      </if>
-      <if test="nextPolicymakerAction != null" >
-        next_policymaker_action,
-      </if>
-      <if test="nextReqAction != null" >
-        next_req_action,
-      </if>
-      <if test="trueCloseTime != null" >
-        true_close_time,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="uploads != null" >
-        uploads,
-      </if>
-      <if test="assign != null" >
-        assign,
-      </if>
-      <if test="importantReq != null" >
-        important_req,
-      </if>
-      <if test="logInfo != null" >
-        log_info,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="cusName != null" >
-        #{cusName,jdbcType=VARCHAR},
-      </if>
-      <if test="beginDate != null" >
-        #{beginDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null" >
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="seenPolicymaker != null" >
-        #{seenPolicymaker,jdbcType=VARCHAR},
-      </if>
-      <if test="policymakerPosition != null" >
-        #{policymakerPosition,jdbcType=VARCHAR},
-      </if>
-      <if test="donePolicymaker != null" >
-        #{donePolicymaker,jdbcType=VARCHAR},
-      </if>
-      <if test="donePolicymakerPosition != null" >
-        #{donePolicymakerPosition,jdbcType=VARCHAR},
-      </if>
-      <if test="isReal != null" >
-        #{isReal,jdbcType=VARCHAR},
-      </if>
-      <if test="isRealComment != null" >
-        #{isRealComment,jdbcType=VARCHAR},
-      </if>
-      <if test="fiveUserUp != null" >
-        #{fiveUserUp,jdbcType=VARCHAR},
-      </if>
-      <if test="fiveUserUpComment != null" >
-        #{fiveUserUpComment,jdbcType=VARCHAR},
-      </if>
-      <if test="contactName != null" >
-        #{contactName,jdbcType=VARCHAR},
-      </if>
-      <if test="contactPhone != null" >
-        #{contactPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="contactEmail != null" >
-        #{contactEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="cusEmpNum != null" >
-        #{cusEmpNum,jdbcType=INTEGER},
-      </if>
-      <if test="cusCity != null" >
-        #{cusCity,jdbcType=VARCHAR},
-      </if>
-      <if test="launchTime != null" >
-        #{launchTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="closeTime != null" >
-        #{closeTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="nextPolicymakerAction != null" >
-        #{nextPolicymakerAction,jdbcType=VARCHAR},
-      </if>
-      <if test="nextReqAction != null" >
-        #{nextReqAction,jdbcType=VARCHAR},
-      </if>
-      <if test="trueCloseTime != null" >
-        #{trueCloseTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="uploads != null" >
-        #{uploads,jdbcType=VARCHAR},
-      </if>
-      <if test="assign != null" >
-        #{assign,jdbcType=VARCHAR},
-      </if>
-      <if test="importantReq != null" >
-        #{importantReq,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="logInfo != null" >
-        #{logInfo,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.biz.domain.SaleMainDataExample" resultType="java.lang.Integer" >
-    select count(*) from sale_main_data
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update sale_main_data
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
-      </if>
-      <if test="record.cusName != null" >
-        cus_name = #{record.cusName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.beginDate != null" >
-        begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateDate != null" >
-        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.seenPolicymaker != null" >
-        seen_policymaker = #{record.seenPolicymaker,jdbcType=VARCHAR},
-      </if>
-      <if test="record.policymakerPosition != null" >
-        policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
-      </if>
-      <if test="record.donePolicymaker != null" >
-        done_policymaker = #{record.donePolicymaker,jdbcType=VARCHAR},
-      </if>
-      <if test="record.donePolicymakerPosition != null" >
-        done_policymaker_position = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
-      </if>
-      <if test="record.isReal != null" >
-        is_real = #{record.isReal,jdbcType=VARCHAR},
-      </if>
-      <if test="record.isRealComment != null" >
-        is_real_comment = #{record.isRealComment,jdbcType=VARCHAR},
-      </if>
-      <if test="record.fiveUserUp != null" >
-        five_user_up = #{record.fiveUserUp,jdbcType=VARCHAR},
-      </if>
-      <if test="record.fiveUserUpComment != null" >
-        five_user_up_comment = #{record.fiveUserUpComment,jdbcType=VARCHAR},
-      </if>
-      <if test="record.contactName != null" >
-        contact_name = #{record.contactName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.contactPhone != null" >
-        contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.contactEmail != null" >
-        contact_email = #{record.contactEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="record.cusEmpNum != null" >
-        cus_emp_num = #{record.cusEmpNum,jdbcType=INTEGER},
-      </if>
-      <if test="record.cusCity != null" >
-        cus_city = #{record.cusCity,jdbcType=VARCHAR},
-      </if>
-      <if test="record.launchTime != null" >
-        launch_time = #{record.launchTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.closeTime != null" >
-        close_time = #{record.closeTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.nextPolicymakerAction != null" >
-        next_policymaker_action = #{record.nextPolicymakerAction,jdbcType=VARCHAR},
-      </if>
-      <if test="record.nextReqAction != null" >
-        next_req_action = #{record.nextReqAction,jdbcType=VARCHAR},
-      </if>
-      <if test="record.trueCloseTime != null" >
-        true_close_time = #{record.trueCloseTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=VARCHAR},
-      </if>
-      <if test="record.uploads != null" >
-        uploads = #{record.uploads,jdbcType=VARCHAR},
-      </if>
-      <if test="record.assign != null" >
-        assign = #{record.assign,jdbcType=VARCHAR},
-      </if>
-      <if test="record.importantReq != null" >
-        important_req = #{record.importantReq,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.logInfo != null" >
-        log_info = #{record.logInfo,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update sale_main_data
-    set id = #{record.id,jdbcType=VARCHAR},
-      cus_name = #{record.cusName,jdbcType=VARCHAR},
-      begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
-      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      seen_policymaker = #{record.seenPolicymaker,jdbcType=VARCHAR},
-      policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
-      done_policymaker = #{record.donePolicymaker,jdbcType=VARCHAR},
-      done_policymaker_position = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
-      is_real = #{record.isReal,jdbcType=VARCHAR},
-      is_real_comment = #{record.isRealComment,jdbcType=VARCHAR},
-      five_user_up = #{record.fiveUserUp,jdbcType=VARCHAR},
-      five_user_up_comment = #{record.fiveUserUpComment,jdbcType=VARCHAR},
-      contact_name = #{record.contactName,jdbcType=VARCHAR},
-      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
-      contact_email = #{record.contactEmail,jdbcType=VARCHAR},
-      cus_emp_num = #{record.cusEmpNum,jdbcType=INTEGER},
-      cus_city = #{record.cusCity,jdbcType=VARCHAR},
-      launch_time = #{record.launchTime,jdbcType=TIMESTAMP},
-      close_time = #{record.closeTime,jdbcType=TIMESTAMP},
-      next_policymaker_action = #{record.nextPolicymakerAction,jdbcType=VARCHAR},
-      next_req_action = #{record.nextReqAction,jdbcType=VARCHAR},
-      true_close_time = #{record.trueCloseTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=VARCHAR},
-      uploads = #{record.uploads,jdbcType=VARCHAR},
-      assign = #{record.assign,jdbcType=VARCHAR},
-      important_req = #{record.importantReq,jdbcType=LONGVARCHAR},
-      log_info = #{record.logInfo,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update sale_main_data
-    set id = #{record.id,jdbcType=VARCHAR},
-      cus_name = #{record.cusName,jdbcType=VARCHAR},
-      begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
-      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      seen_policymaker = #{record.seenPolicymaker,jdbcType=VARCHAR},
-      policymaker_position = #{record.policymakerPosition,jdbcType=VARCHAR},
-      done_policymaker = #{record.donePolicymaker,jdbcType=VARCHAR},
-      done_policymaker_position = #{record.donePolicymakerPosition,jdbcType=VARCHAR},
-      is_real = #{record.isReal,jdbcType=VARCHAR},
-      is_real_comment = #{record.isRealComment,jdbcType=VARCHAR},
-      five_user_up = #{record.fiveUserUp,jdbcType=VARCHAR},
-      five_user_up_comment = #{record.fiveUserUpComment,jdbcType=VARCHAR},
-      contact_name = #{record.contactName,jdbcType=VARCHAR},
-      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
-      contact_email = #{record.contactEmail,jdbcType=VARCHAR},
-      cus_emp_num = #{record.cusEmpNum,jdbcType=INTEGER},
-      cus_city = #{record.cusCity,jdbcType=VARCHAR},
-      launch_time = #{record.launchTime,jdbcType=TIMESTAMP},
-      close_time = #{record.closeTime,jdbcType=TIMESTAMP},
-      next_policymaker_action = #{record.nextPolicymakerAction,jdbcType=VARCHAR},
-      next_req_action = #{record.nextReqAction,jdbcType=VARCHAR},
-      true_close_time = #{record.trueCloseTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=VARCHAR},
-      uploads = #{record.uploads,jdbcType=VARCHAR},
-      assign = #{record.assign,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
-    update sale_main_data
-    <set >
-      <if test="cusName != null" >
-        cus_name = #{cusName,jdbcType=VARCHAR},
-      </if>
-      <if test="beginDate != null" >
-        begin_date = #{beginDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null" >
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="seenPolicymaker != null" >
-        seen_policymaker = #{seenPolicymaker,jdbcType=VARCHAR},
-      </if>
-      <if test="policymakerPosition != null" >
-        policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
-      </if>
-      <if test="donePolicymaker != null" >
-        done_policymaker = #{donePolicymaker,jdbcType=VARCHAR},
-      </if>
-      <if test="donePolicymakerPosition != null" >
-        done_policymaker_position = #{donePolicymakerPosition,jdbcType=VARCHAR},
-      </if>
-      <if test="isReal != null" >
-        is_real = #{isReal,jdbcType=VARCHAR},
-      </if>
-      <if test="isRealComment != null" >
-        is_real_comment = #{isRealComment,jdbcType=VARCHAR},
-      </if>
-      <if test="fiveUserUp != null" >
-        five_user_up = #{fiveUserUp,jdbcType=VARCHAR},
-      </if>
-      <if test="fiveUserUpComment != null" >
-        five_user_up_comment = #{fiveUserUpComment,jdbcType=VARCHAR},
-      </if>
-      <if test="contactName != null" >
-        contact_name = #{contactName,jdbcType=VARCHAR},
-      </if>
-      <if test="contactPhone != null" >
-        contact_phone = #{contactPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="contactEmail != null" >
-        contact_email = #{contactEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="cusEmpNum != null" >
-        cus_emp_num = #{cusEmpNum,jdbcType=INTEGER},
-      </if>
-      <if test="cusCity != null" >
-        cus_city = #{cusCity,jdbcType=VARCHAR},
-      </if>
-      <if test="launchTime != null" >
-        launch_time = #{launchTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="closeTime != null" >
-        close_time = #{closeTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="nextPolicymakerAction != null" >
-        next_policymaker_action = #{nextPolicymakerAction,jdbcType=VARCHAR},
-      </if>
-      <if test="nextReqAction != null" >
-        next_req_action = #{nextReqAction,jdbcType=VARCHAR},
-      </if>
-      <if test="trueCloseTime != null" >
-        true_close_time = #{trueCloseTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="uploads != null" >
-        uploads = #{uploads,jdbcType=VARCHAR},
-      </if>
-      <if test="assign != null" >
-        assign = #{assign,jdbcType=VARCHAR},
-      </if>
-      <if test="importantReq != null" >
-        important_req = #{importantReq,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="logInfo != null" >
-        log_info = #{logInfo,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.biz.domain.SaleMainDataWithBLOBs" >
-    update sale_main_data
-    set cus_name = #{cusName,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      seen_policymaker = #{seenPolicymaker,jdbcType=VARCHAR},
-      policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
-      done_policymaker = #{donePolicymaker,jdbcType=VARCHAR},
-      done_policymaker_position = #{donePolicymakerPosition,jdbcType=VARCHAR},
-      is_real = #{isReal,jdbcType=VARCHAR},
-      is_real_comment = #{isRealComment,jdbcType=VARCHAR},
-      five_user_up = #{fiveUserUp,jdbcType=VARCHAR},
-      five_user_up_comment = #{fiveUserUpComment,jdbcType=VARCHAR},
-      contact_name = #{contactName,jdbcType=VARCHAR},
-      contact_phone = #{contactPhone,jdbcType=VARCHAR},
-      contact_email = #{contactEmail,jdbcType=VARCHAR},
-      cus_emp_num = #{cusEmpNum,jdbcType=INTEGER},
-      cus_city = #{cusCity,jdbcType=VARCHAR},
-      launch_time = #{launchTime,jdbcType=TIMESTAMP},
-      close_time = #{closeTime,jdbcType=TIMESTAMP},
-      next_policymaker_action = #{nextPolicymakerAction,jdbcType=VARCHAR},
-      next_req_action = #{nextReqAction,jdbcType=VARCHAR},
-      true_close_time = #{trueCloseTime,jdbcType=TIMESTAMP},
-      uploads = #{uploads,jdbcType=VARCHAR},
-      assign = #{assign,jdbcType=VARCHAR},
-      important_req = #{importantReq,jdbcType=LONGVARCHAR},
-      log_info = #{logInfo,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.biz.domain.SaleMainData" >
-    update sale_main_data
-    set cus_name = #{cusName,jdbcType=VARCHAR},
-      begin_date = #{beginDate,jdbcType=TIMESTAMP},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      seen_policymaker = #{seenPolicymaker,jdbcType=VARCHAR},
-      policymaker_position = #{policymakerPosition,jdbcType=VARCHAR},
-      done_policymaker = #{donePolicymaker,jdbcType=VARCHAR},
-      done_policymaker_position = #{donePolicymakerPosition,jdbcType=VARCHAR},
-      is_real = #{isReal,jdbcType=VARCHAR},
-      is_real_comment = #{isRealComment,jdbcType=VARCHAR},
-      five_user_up = #{fiveUserUp,jdbcType=VARCHAR},
-      five_user_up_comment = #{fiveUserUpComment,jdbcType=VARCHAR},
-      contact_name = #{contactName,jdbcType=VARCHAR},
-      contact_phone = #{contactPhone,jdbcType=VARCHAR},
-      contact_email = #{contactEmail,jdbcType=VARCHAR},
-      cus_emp_num = #{cusEmpNum,jdbcType=INTEGER},
-      cus_city = #{cusCity,jdbcType=VARCHAR},
-      launch_time = #{launchTime,jdbcType=TIMESTAMP},
-      close_time = #{closeTime,jdbcType=TIMESTAMP},
-      next_policymaker_action = #{nextPolicymakerAction,jdbcType=VARCHAR},
-      next_req_action = #{nextReqAction,jdbcType=VARCHAR},
-      true_close_time = #{trueCloseTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=VARCHAR},
-      uploads = #{uploads,jdbcType=VARCHAR},
-      assign = #{assign,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+        <if test="beginDate != null" >
+            AND begin_date = #{beginDate}
+        </if>
+        <if test="updateDate != null" >
+            AND update_date = #{updateDate}
+        </if>
+        <if test="seenPolicymaker != null" >
+            AND seen_policymaker = #{seenPolicymaker}
+        </if>
+        <if test="policymakerPosition != null" >
+            AND policymaker_position = #{policymakerPosition}
+        </if>
+        <if test="donePolicymaker != null" >
+            AND done_policymaker = #{donePolicymaker}
+        </if>
+        <if test="donePolicymakerPosition != null" >
+            AND done_policymaker_position = #{donePolicymakerPosition}
+        </if>
+        <if test="isReal != null" >
+            AND is_real = #{isReal}
+        </if>
+        <if test="isRealComment != null" >
+            AND is_real_comment = #{isRealComment}
+        </if>
+        <if test="fiveUserUp != null" >
+            AND five_user_up = #{fiveUserUp}
+        </if>
+        <if test="fiveUserUpComment != null" >
+            AND five_user_up_comment = #{fiveUserUpComment}
+        </if>
+        <if test="contactName != null" >
+            AND contact_name = #{contactName}
+        </if>
+        <if test="contactPhone != null" >
+            AND contact_phone = #{contactPhone}
+        </if>
+        <if test="contactEmail != null" >
+            AND contact_email = #{contactEmail}
+        </if>
+        <if test="cusEmpNum != null" >
+            AND cus_emp_num = #{cusEmpNum}
+        </if>
+        <if test="cusCity != null" >
+            AND cus_city = #{cusCity}
+        </if>
+        <if test="launchTime != null" >
+            AND launch_time = #{launchTime}
+        </if>
+        <if test="closeTime != null" >
+            AND close_time = #{closeTime}
+        </if>
+        <if test="nextPolicymakerAction != null" >
+            AND next_policymaker_action = #{nextPolicymakerAction}
+        </if>
+        <if test="nextReqAction != null" >
+            AND next_req_action = #{nextReqAction}
+        </if>
+        <if test="trueCloseTime != null" >
+            AND true_close_time = #{trueCloseTime}
+        </if>
+        <if test="status != null" >
+            AND status = #{status}
+        </if>
+        <if test="uploads != null" >
+            AND uploads = #{uploads}
+        </if>
+        <if test="assign != null" >
+            AND assign = #{assign}
+        </if>
+        <if test="importantReq != null" >
+            AND important_req = #{importantReq}
+        </if>
+        <if test="logInfo != null" >
+            AND log_info = #{logInfo}
+        </if>
+        <if test="priorityLevel != null" >
+            AND priority_level = #{priorityLevel}
+        </if>
+    </sql>
 
-  <select id="selectAll" resultMap="ResultMapWithBLOBs">
-    select
-        m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
-        m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
-        m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
-        m.contact_name,m.contact_phone,m.contact_email,m.important_req,
-        m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
-        m.next_req_action,m.true_close_time,m.status,m.log_info, u.name as uploads , u2.name as assign
-    from
-        sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id order by m.begin_date desc
-  </select>
+    <!-- 新增数据 -->
+    <insert id="save" parameterType="saleMainData" useGeneratedKeys="true" keyProperty="id">
+        insert into sale_main_data
+            (id, cus_name, begin_date, update_date, seen_policymaker, policymaker_position, done_policymaker,
+            done_policymaker_position, is_real, is_real_comment, five_user_up, five_user_up_comment,
+            contact_name, contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time,
+            next_policymaker_action, next_req_action, true_close_time, status, uploads, assign, important_req,
+            log_info, priority_level)
+        values
+            (#{id}, #{cusName}, #{beginDate}, #{updateDate}, #{seenPolicymaker}, #{policymakerPosition},
+            #{donePolicymaker}, #{donePolicymakerPosition}, #{isReal}, #{isRealComment}, #{fiveUserUp},
+            #{fiveUserUpComment}, #{contactName}, #{contactPhone}, #{contactEmail}, #{cusEmpNum}, #{cusCity},
+            #{launchTime}, #{closeTime}, #{nextPolicymakerAction}, #{nextReqAction}, #{trueCloseTime}, #{status},
+            #{uploads}, #{assign}, #{importantReq}, #{logInfo}, #{priorityLevel})
+    </insert>
 
-  <update id="resetSaleMainDataStatusById" parameterType="java.lang.String">
-    UPDATE sale_main_data SET status=#{1} WHERE id=#{0}
-  </update>
+    <!-- 查询用户表中的所有数据 -->
+    <select id="selectAll" resultMap="BaseMainDataResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            sale_main_data
+        order by
+            begin_date desc
+    </select>
 
-  <!--多条件查询-->
-  <select id="findUserBySelective" resultType="saleMainDataWithBlOBs" resultMap="ResultMapWithBLOBs">
-      SELECT
-          <include refid="Base_Column_List"/>
-          ,
-          <include refid="Blob_Column_List"/>
-      FROM
-          sale_main_data
-      <where>
-          <if test="id != null" >
-              id = #{id}
-          </if>
-          <if test="cusName != null" >
-              AND cus_name = #{cusName}
-          </if>
-          <if test="beginDate != null" >
-              AND begin_date = #{beginDate}
-          </if>
-          <if test="updateDate != null" >
-              AND update_date = #{updateDate}
-          </if>
-          <if test="seenPolicymaker != null" >
-              AND seen_policymaker = #{seenPolicymaker}
-          </if>
-          <if test="policymakerPosition != null" >
-              AND policymaker_position = #{policymakerPosition}
-          </if>
-          <if test="donePolicymaker != null" >
-              AND done_policymaker = #{donePolicymaker}
-          </if>
-          <if test="donePolicymakerPosition != null" >
-              AND done_policymaker_position = #{donePolicymakerPosition}
-          </if>
-          <if test="isReal != null" >
-              AND is_real = #{isReal}
-          </if>
-          <if test="isRealComment != null" >
-              AND is_real_comment = #{isRealComment}
-          </if>
-          <if test="fiveUserUp != null" >
-              AND five_user_up = #{fiveUserUp}
-          </if>
-          <if test="fiveUserUpComment != null" >
-              AND five_user_up_comment = #{fiveUserUpComment}
-          </if>
-          <if test="contactName != null" >
-              AND contact_name = #{contactName}
-          </if>
-          <if test="contactPhone != null" >
-              AND contact_phone = #{contactPhone}
-          </if>
-          <if test="contactEmail != null" >
-              AND contact_email = #{contactEmail}
-          </if>
-          <if test="cusEmpNum != null" >
-              AND cus_emp_num = #{cusEmpNum}
-          </if>
-          <if test="cusCity != null" >
-              AND cus_city = #{cusCity}
-          </if>
-          <if test="launchTime != null" >
-              AND launch_time = #{launchTime}
-          </if>
-          <if test="closeTime != null" >
-              AND close_time = #{closeTime}
-          </if>
-          <if test="nextPolicymakerAction != null" >
-              AND next_policymaker_action = #{nextPolicymakerAction}
-          </if>
-          <if test="nextReqAction != null" >
-              AND next_req_action = #{nextReqAction}
-          </if>
-          <if test="trueCloseTime != null" >
-              AND true_close_time = #{trueCloseTime}
-          </if>
-          <if test="status != null" >
-              AND status = #{status}
-          </if>
-          <if test="uploads != null" >
-              AND uploads = #{uploads}
-          </if>
-          <if test="assign != null" >
-              AND assign = #{assign}
-          </if>
-          <if test="importantReq != null" >
-              AND important_req = #{importantReq}
-          </if>
-          <if test="logInfo != null" >
-              AND log_info = #{logInfo}
-          </if>
-      </where>
-  </select>
+    <!-- 关联查询用户表中的所有数据 -->
+    <select id="associativeSelectAll" resultMap="BaseMainDataResultMap">
+        select
+            m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
+            m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
+            m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
+            m.contact_name,m.contact_phone,m.contact_email,m.important_req,
+            m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
+            m.next_req_action,m.true_close_time,m.status,m.log_info,m.priority_level, u.name as uploads , u2.name as assign
+        from
+            sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id order by m.begin_date desc
+    </select>
+
+    <!-- 多条件查询 -->
+    <select id="findSaleMainDataBySelective" resultType="saleMainData" resultMap="BaseMainDataResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            sale_main_data
+        <where>
+            <include refid="Base_query_criteria"/>
+        </where>
+    </select>
+
+    <!-- 根据id查询 -->
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseMainDataResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from
+            sale_main_data
+        where
+            id = #{id}
+    </select>
+
+    <!-- 多条件统计查询 -->
+    <select id="countBySelective" parameterType="saleMainData" resultType="java.lang.Integer" >
+        select count(*) from sale_main_data
+        <where>
+            <include refid="Base_query_criteria" />
+        </where>
+    </select>
+
+
+    <!--统计状态 status不等于close-->
+    <select id="countStatusIsNotCloseNum" resultType="int">
+        SELECT COUNT(*) FROM sale_main_data WHERE status !='CLOSE'
+    </select>
+    <!--统计seen_policy_maker状态是已经见到决策人,并且status!=cloes的数据-->
+    <select id="countSeenPolicymakerNum" resultType="int">
+        SELECT COUNT(*) FROM sale_main_data WHERE status !='CLOSE' AND seen_policymaker='Y'
+    </select>
+    <!--统计is_real字段状态不是null并且status!=cloes的数据-->
+    <select id="countIsRealNum" resultType="int">
+        SELECT COUNT(*) FROM sale_main_data WHERE status !='CLOSE' AND is_real IS NOT NULL AND is_real!='NO'
+    </select>
+    <!--统计five_user_up字段状态不是null并且status!=cloes的数据-->
+    <select id="countFiveUserupIsRealNum" resultType="int">
+        SELECT COUNT(*) FROM sale_main_data WHERE status !='CLOSE' AND five_user_up IS NOT NULL AND five_user_up!='NO'
+    </select>
+
+
+    <!-- 根据ID修改数据 -->
+    <update id="updateById" parameterType="saleMainData" >
+        update
+            sale_main_data
+        set
+            cus_name = #{cusName},
+            begin_date = #{beginDate},
+            update_date = #{updateDate},
+            seen_policymaker = #{seenPolicymaker},
+            policymaker_position = #{policymakerPosition},
+            done_policymaker = #{donePolicymaker},
+            done_policymaker_position = #{donePolicymakerPosition},
+            is_real = #{isReal},
+            is_real_comment = #{isRealComment},
+            five_user_up = #{fiveUserUp},
+            five_user_up_comment = #{fiveUserUpComment},
+            contact_name = #{contactName},
+            contact_phone = #{contactPhone},
+            contact_email = #{contactEmail},
+            cus_emp_num = #{cusEmpNum},
+            cus_city = #{cusCity},
+            launch_time = #{launchTime},
+            close_time = #{closeTime},
+            next_policymaker_action = #{nextPolicymakerAction},
+            next_req_action = #{nextReqAction},
+            true_close_time = #{trueCloseTime},
+            status = #{status},
+            uploads = #{uploads},
+            assign = #{assign},
+            priority_level = #{priorityLevel}
+        where
+            id = #{id}
+    </update>
+
+    <!-- 根据ID动态修改数据 -->
+    <update id="updateByIdSelective" parameterType="saleMainData" >
+        update
+            sale_main_data
+        <set >
+            <if test="cusName != null" >
+                cus_name = #{cusName},
+            </if>
+            <if test="beginDate != null" >
+                begin_date = #{beginDate},
+            </if>
+            <if test="updateDate != null" >
+                update_date = #{updateDate},
+            </if>
+            <if test="seenPolicymaker != null" >
+                seen_policymaker = #{seenPolicymaker},
+            </if>
+            <if test="policymakerPosition != null" >
+                policymaker_position = #{policymakerPosition},
+            </if>
+            <if test="donePolicymaker != null" >
+                done_policymaker = #{donePolicymaker},
+            </if>
+            <if test="donePolicymakerPosition != null" >
+                done_policymaker_position = #{donePolicymakerPosition},
+            </if>
+            <if test="isReal != null" >
+                is_real = #{isReal},
+            </if>
+            <if test="isRealComment != null" >
+                is_real_comment = #{isRealComment},
+            </if>
+            <if test="fiveUserUp != null" >
+                five_user_up = #{fiveUserUp},
+            </if>
+            <if test="fiveUserUpComment != null" >
+                five_user_up_comment = #{fiveUserUpComment},
+            </if>
+            <if test="contactName != null" >
+                contact_name = #{contactName},
+            </if>
+            <if test="contactPhone != null" >
+                contact_phone = #{contactPhone},
+            </if>
+            <if test="contactEmail != null" >
+                contact_email = #{contactEmail},
+            </if>
+            <if test="cusEmpNum != null" >
+                cus_emp_num = #{cusEmpNum},
+            </if>
+            <if test="cusCity != null" >
+                cus_city = #{cusCity},
+            </if>
+            <if test="launchTime != null" >
+                launch_time = #{launchTime},
+            </if>
+            <if test="closeTime != null" >
+                close_time = #{closeTime},
+            </if>
+            <if test="nextPolicymakerAction != null" >
+                next_policymaker_action = #{nextPolicymakerAction},
+            </if>
+            <if test="nextReqAction != null" >
+                next_req_action = #{nextReqAction},
+            </if>
+            <if test="trueCloseTime != null" >
+                true_close_time = #{trueCloseTime},
+            </if>
+            <if test="status != null" >
+                status = #{status},
+            </if>
+            <if test="uploads != null" >
+                uploads = #{uploads},
+            </if>
+            <if test="assign != null" >
+                assign = #{assign},
+            </if>
+            <if test="importantReq != null" >
+                important_req = #{importantReq},
+            </if>
+            <if test="logInfo != null" >
+                log_info = #{logInfo},
+            </if>
+            <if test="priorityLevel != null" >
+                priority_level = #{priorityLevel},
+            </if>
+        </set>
+        where
+            id = #{id}
+    </update>
+
+    <!-- 根据ID删除数据 -->
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from sale_main_data where id = #{id}
+    </delete>
+
+    <!-- 删除所有数据 -->
+    <delete id="deleteAll" parameterType="java.lang.String" >
+        delete from sale_main_data
+    </delete>
+
+    <!-- 关闭/重新打开status状态 -->
+    <update id="resetSaleMainDataStatusById" parameterType="java.lang.String">
+        UPDATE sale_main_data SET status=#{1} WHERE id=#{0}
+    </update>
 </mapper>
