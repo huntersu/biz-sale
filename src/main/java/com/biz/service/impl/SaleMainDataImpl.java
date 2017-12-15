@@ -4,8 +4,12 @@ import com.biz.common.IDUtils;
 import com.biz.common.JsonUtil;
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
+import com.biz.constant.FiveUserupResult;
+import com.biz.constant.IsReal;
 import com.biz.constant.SaleMainStatus;
+import com.biz.constant.SeenPolicymaker;
 import com.biz.domain.SaleMainData;
+import com.biz.domain.SaleMainDataExample;
 import com.biz.mapper.SaleMainDataMapper;
 import com.biz.service.ISaleMainDataClient;
 import com.github.pagehelper.PageHelper;
@@ -145,7 +149,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
     /**
      * 多条件查询
      * 参数：SaleMainDataWithBLOBs对象
-     * 返回值：List<SaleMainDataWithBLOBs>
+     * 返回值：List<SaleMainData>
      */
     public ResultDTO<List<SaleMainData>> findUserBySelective(SaleMainData saleMainData) {
         log.info("impl - 多条件查询sale_main_data表中数据 - 方法入参：" + JsonUtil.toJson(saleMainData));
@@ -197,32 +201,53 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
         int fiveUserupIsRealNum = 0;
 
         try {
+            SaleMainDataExample example = new SaleMainDataExample();
+            SaleMainDataExample.Criteria criteria = example.or();
+            criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+
             //统计状态不是关闭的数据
-            StatusNum = saleMainDataMapper.countStatusIsNotCloseNum();
+            StatusNum = saleMainDataMapper.countByExample(example);
 
         } catch (Exception e) {
             log.error("统计状态不是关闭的数据(异常)", e);
         }
 
         try {
+            SaleMainDataExample example = new SaleMainDataExample();
+            SaleMainDataExample.Criteria criteria = example.or();
+            criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+            criteria.andSeenPolicymakerEqualTo(SeenPolicymaker.YES.getValue());
+
             //统计seen_policy_maker状态是已经见到决策人,并且status!=cloes的数据
-            seenPolicymakerNum = saleMainDataMapper.countSeenPolicymakerNum();
+            seenPolicymakerNum = saleMainDataMapper.countByExample(example);
 
         } catch (Exception e) {
             log.error("统计seen_policy_maker状态是已经见到决策人(异常)", e);
         }
 
         try {
+            SaleMainDataExample example = new SaleMainDataExample();
+            SaleMainDataExample.Criteria criteria = example.or();
+            criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+            criteria.andIsRealIsNotNull();
+            criteria.andIsRealNotEqualTo(IsReal.NO.getValue());
+
             //统计is_real字段状态不是null并且status!=cloes的数据
-            isRealNum = saleMainDataMapper.countIsRealNum();
+            isRealNum = saleMainDataMapper.countByExample(example);
 
         } catch (Exception e) {
             log.error("统计is_real字段状态不是null(异常)", e);
         }
 
         try {
+            SaleMainDataExample example = new SaleMainDataExample();
+            SaleMainDataExample.Criteria criteria = example.or();
+            criteria.andStatusNotEqualTo(SaleMainStatus.CLOSE.getValue());
+            criteria.andFiveUserUpIsNotNull();
+            criteria.andFiveUserUpNotEqualTo(FiveUserupResult.NO.getValue());
+
             //统计five_user_up字段状态不是null并且status!=cloes的数据
-            fiveUserupIsRealNum = saleMainDataMapper.countFiveUserupIsRealNum();
+            fiveUserupIsRealNum = saleMainDataMapper.countByExample(example);
 
         } catch (Exception e) {
             log.error("统计five_user_up字段状态不是null(异常)", e);

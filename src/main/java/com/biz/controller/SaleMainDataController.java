@@ -6,7 +6,6 @@ import com.biz.common.ResultDTOBuilder;
 import com.biz.component.UserComponent;
 import com.biz.constant.*;
 import com.biz.domain.SaleMainData;
-import com.biz.domain.SaleMainDataWithBLOBs;
 import com.biz.service.ISaleMainDataClient;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -44,9 +43,9 @@ public class SaleMainDataController {
      * 新增
      */
     @GetMapping("insert")
-    public Object insert(SaleMainDataWithBLOBs saleMainDataWith, HttpServletRequest httpServletRequest){
-        saleMainDataWith.setUploads(userComponent.checkUser(httpServletRequest).getId());
-        ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainDataWith);
+    public Object insert(SaleMainData saleMainData, HttpServletRequest httpServletRequest){
+        saleMainData.setUploads(userComponent.checkUser(httpServletRequest).getId());
+        ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainData);
 
         return result;
     }
@@ -97,10 +96,10 @@ public class SaleMainDataController {
      * 根据id修改数据
      */
     @GetMapping("updataById")
-    public Object updataById(SaleMainDataWithBLOBs saleMainDataWith, HttpServletRequest httpServletRequest){
+    public Object updataById(SaleMainData saleMainData, HttpServletRequest httpServletRequest){
 
-        saleMainDataWith.setUploads(userComponent.checkUser(httpServletRequest).getId());
-        ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainDataWith);
+        saleMainData.setUploads(userComponent.checkUser(httpServletRequest).getId());
+        ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainData);
 
         return updataResult;
     }

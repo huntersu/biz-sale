@@ -1,6 +1,8 @@
 package com.biz.mapper;
 
 import com.biz.domain.SaleMainData;
+import com.biz.domain.SaleMainDataExample;
+
 import java.util.List;
 
 public interface SaleMainDataMapper {
@@ -44,28 +46,15 @@ public interface SaleMainDataMapper {
      */
     int countBySelective(SaleMainData saleMainData);
 
+    /**
+     * 根据Example动态查询
+     */
+    List<SaleMainData> selectByExample(SaleMainDataExample example);
 
     /**
-     * 统计状态 status不等于close
-     * @return
+     * 根据Example统计查询
      */
-    int countStatusIsNotCloseNum();
-    /**
-     * 统计seen_policy_maker状态是已经见到决策人,并且status!=cloes的数据
-     * @return
-     */
-    int countSeenPolicymakerNum();
-    /**
-     * 统计is_real字段状态不是null并且status!=cloes的数据
-     * @return
-     */
-    int countIsRealNum();
-    /**
-     * 统计five_user_up字段状态不是null并且status!=cloes的数据
-     * @return
-     */
-    int countFiveUserupIsRealNum();
-
+    int countByExample(SaleMainDataExample example);
 
     /**
      * 根据ID修改数据

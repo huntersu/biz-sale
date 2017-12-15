@@ -1,8 +1,6 @@
 package com.biz.util;
 
-import com.biz.domain.SaleLoginUserExample;
 import com.biz.domain.SaleMainData;
-import com.biz.domain.SaleMainDataExample;
 import com.biz.mapper.SaleMainDataMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

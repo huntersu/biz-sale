@@ -188,6 +188,61 @@
             id = #{id}
     </select>
 
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <!-- 根据Example统计查询 -->
+    <select id="countByExample" parameterType="com.biz.domain.SaleMainDataExample" resultType="java.lang.Integer" >
+        select count(*) from sale_main_data
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <!-- 根据Example动态查询 -->
+    <select id="selectByExample" parameterType="saleMainDataExample" resultMap="BaseMainDataResultMap">
+        select
+            <if test="distinct" >
+                distinct
+            </if>
+            <include refid="Base_Column_List" />
+        from
+            sale_main_data
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
     <!-- 多条件统计查询 -->
     <select id="countBySelective" parameterType="saleMainData" resultType="java.lang.Integer" >
         select count(*) from sale_main_data
@@ -195,25 +250,6 @@
             <include refid="Base_query_criteria" />
         </where>
     </select>
-
-
-    <!--统计状态 status不等于close-->
-    <select id="countStatusIsNotCloseNum" resultType="int">
-        SELECT COUNT(*) FROM sale_main_data WHERE status !='CLOSE'
-    </select>
-    <!--统计seen_policy_maker状态是已经见到决策人,并且status!=cloes的数据-->
-    <select id="countSeenPolicymakerNum" resultType="int">
-        SELECT COUNT(*) FROM sale_main_data WHERE status !='CLOSE' AND seen_policymaker='Y'
-    </select>
-    <!--统计is_real字段状态不是null并且status!=cloes的数据-->
-    <select id="countIsRealNum" resultType="int">
-        SELECT COUNT(*) FROM sale_main_data WHERE status !='CLOSE' AND is_real IS NOT NULL AND is_real!='NO'
-    </select>
-    <!--统计five_user_up字段状态不是null并且status!=cloes的数据-->
-    <select id="countFiveUserupIsRealNum" resultType="int">
-        SELECT COUNT(*) FROM sale_main_data WHERE status !='CLOSE' AND five_user_up IS NOT NULL AND five_user_up!='NO'
-    </select>
-
 
     <!-- 根据ID修改数据 -->
     <update id="updateById" parameterType="saleMainData" >
