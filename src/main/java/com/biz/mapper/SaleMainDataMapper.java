@@ -89,6 +89,11 @@ public interface SaleMainDataMapper {
     int deleteById(String userId);
 
     /**
+     * 批量删除(根据多个id)
+     */
+    int deleteByIds(List<String> ids);
+
+    /**
      * 删除所有数据
      * @return
      */

@@ -345,6 +345,18 @@
         delete from sale_main_data where id = #{id}
     </delete>
 
+    <!--根据ID批量删除数据-->
+    <delete id="deleteByIds" parameterType="list">
+        delete from sale_main_data
+        <where>
+            <!-- id in 写在这里可以，也可以写在open中也行 -->
+            id in
+            <foreach collection="list" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+
     <!-- 删除所有数据 -->
     <delete id="deleteAll" parameterType="java.lang.String" >
         delete from sale_main_data

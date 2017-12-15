@@ -79,6 +79,27 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
     }
 
     /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    public ResultDTO<Boolean> deleteByIds(List<String> ids) {
+
+        try {
+            int deleteResult = saleMainDataMapper.deleteByIds(ids);
+
+            if (deleteResult < 1) {
+                return ResultDTOBuilder.failure("10010", "批量删除失败，请稍后重试");
+            }
+
+            return ResultDTOBuilder.success(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultDTOBuilder.failure("10007", "服务异常，请稍后重试");
+        }
+    }
+
+    /**
      * 修改
      * @param saleMainData
      * @return

@@ -2,12 +2,14 @@ package com.biz.controller;
 
 import com.biz.common.BeanUtil;
 import com.biz.common.ResultDTO;
+import com.biz.common.ResultDTOBuilder;
 import com.biz.component.UserComponent;
 import com.biz.constant.*;
 import com.biz.domain.SaleMainData;
 import com.biz.domain.SaleMainDataWithBLOBs;
 import com.biz.service.ISaleMainDataClient;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +64,35 @@ public class SaleMainDataController {
     }
 
     /**
+     * 批量删除数据
+     * /api/saleMainData/deleteByIds/
+     * @param ids 以字符串形式传参 以逗号(,)分割
+     * @return
+     */
+    @GetMapping("deleteByIds/{ids}")
+    public Object deleteByIds(@PathVariable String ids){
+
+        if (StringUtils.isBlank(ids)) {
+            return ResultDTOBuilder.failure("10011", "请选择要删除的数据");
+        }
+
+        List<String> idList = new ArrayList<String>();
+
+        if (ids.indexOf(",") != -1) {
+            String[] split = ids.split(",");
+            for (String id : split) {
+                idList.add(id);
+            }
+        } else {
+            idList.add(ids);
+        }
+
+        ResultDTO<Boolean> deleteResult = saleMainDataClient.deleteByIds(idList);
+
+        return deleteResult;
+    }
+
+    /**
      * /api/saleMainData/updataById
      * 根据id修改数据
      */
@@ -69,7 +101,6 @@ public class SaleMainDataController {
 
         saleMainDataWith.setUploads(userComponent.checkUser(httpServletRequest).getId());
         ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainDataWith);
-
 
         return updataResult;
     }

@@ -19,6 +19,13 @@ public interface ISaleMainDataClient {
     ResultDTO<Boolean> deleteById(String id);
 
     /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    ResultDTO<Boolean> deleteByIds(List<String> ids);
+
+    /**
      * 根据id修改数据
      */
     ResultDTO<Boolean> updata(SaleMainData saleMainData);
