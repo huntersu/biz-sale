@@ -37,6 +37,13 @@ public interface ISaleMainDataClient {
     ResultDTO<Boolean> updata(SaleMainData saleMainData);
 
     /**
+     * 根据id动态修改数据
+     * @param saleMainData
+     * @return
+     */
+    ResultDTO<Boolean> updateByIdSelective(SaleMainData saleMainData);
+
+    /**
      * 根据id查询
      * @param id
      * @return

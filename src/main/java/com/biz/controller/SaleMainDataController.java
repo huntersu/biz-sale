@@ -105,6 +105,18 @@ public class SaleMainDataController {
     }
 
     /**
+     * 根据id动态修改数据
+     * /api/saleMainData/updateByIdSelective
+     */
+    @GetMapping("updateByIdSelective")
+    public Object updateByIdSelective(SaleMainData saleMainData) {
+
+        ResultDTO<Boolean> updateResult = saleMainDataClient.updateByIdSelective(saleMainData);
+
+        return updateResult;
+    }
+
+    /**
      * /api/saleMainData/findById/{id}
      * 根据id查询单个
      * @param id
@@ -166,13 +178,7 @@ public class SaleMainDataController {
 
         ResultDTO seenPolicymakerResult = saleMainDataClient.countQuery();
 
-        Map<String, Object> map = new HashMap<String, Object>();
-
-        BeanUtil.copyProperties(seenPolicymakerResult, map);
-
-        map.put("wwwwww", "ceshi shuju");
-
-        return map;
+        return seenPolicymakerResult;
     }
 
     //将对应的枚举类型的value值转成对应的描述
@@ -253,14 +259,14 @@ public class SaleMainDataController {
                 saleMainData.setSeenPolicymaker(seenPolicymaker.getDesc());
             }
         }
-
-
     }
 
     /**
+     * 此调用可以使用上面的根据id动态修改数据 updateByIdSelective
      * /api/saleMainData/resetSaleMainDataStatus/021eda0a82b346e9bda511aac47d2d53/CLOSE
      * 重置(关闭/重新打开)status状态
      */
+    @Deprecated
     @GetMapping("resetSaleMainDataStatus/{id}/{status}")
     public Object resetSaleMainDataStatus(@PathVariable String id, @PathVariable String status) {
 

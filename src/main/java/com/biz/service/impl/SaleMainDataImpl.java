@@ -147,6 +147,27 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
     }
 
     /**
+     * 根据id动态修改数据
+     * @param saleMainData
+     * @return
+     */
+    public ResultDTO<Boolean> updateByIdSelective(SaleMainData saleMainData) {
+
+        try {
+            int updateResult = saleMainDataMapper.updateByIdSelective(saleMainData);
+
+            if (updateResult<1) {
+                return ResultDTOBuilder.failure("10012", "修改失败,请稍后重试");
+            }
+
+            return ResultDTOBuilder.success(true);
+        } catch (Exception e) {
+            log.error("impl - 根据id动态修改数据(异常)：", e);
+            return ResultDTOBuilder.failure("10007", "服务异常，请稍后重试");
+        }
+    }
+
+    /**
      * 多条件查询
      * 参数：SaleMainDataWithBLOBs对象
      * 返回值：List<SaleMainData>
