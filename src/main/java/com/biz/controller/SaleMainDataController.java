@@ -2,12 +2,13 @@ package com.biz.controller;
 
 import com.biz.common.BeanUtil;
 import com.biz.common.ResultDTO;
+import com.biz.common.ResultDTOBuilder;
 import com.biz.component.UserComponent;
 import com.biz.constant.*;
 import com.biz.domain.SaleMainData;
-import com.biz.domain.SaleMainDataWithBLOBs;
 import com.biz.service.ISaleMainDataClient;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,9 +43,9 @@ public class SaleMainDataController {
      * 新增
      */
     @GetMapping("insert")
-    public Object insert(SaleMainDataWithBLOBs saleMainDataWith, HttpServletRequest httpServletRequest){
-        saleMainDataWith.setUploads(userComponent.checkUser(httpServletRequest).getId());
-        ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainDataWith);
+    public Object insert(SaleMainData saleMainData, HttpServletRequest httpServletRequest){
+        saleMainData.setUploads(userComponent.checkUser(httpServletRequest).getId());
+        ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainData);
 
         return result;
     }
@@ -62,17 +63,57 @@ public class SaleMainDataController {
     }
 
     /**
+     * 批量删除数据
+     * /api/saleMainData/deleteByIds/
+     * @param ids 以字符串形式传参 以逗号(,)分割
+     * @return
+     */
+    @GetMapping("deleteByIds/{ids}")
+    public Object deleteByIds(@PathVariable String ids){
+
+        if (StringUtils.isBlank(ids)) {
+            return ResultDTOBuilder.failure("10011", "请选择要删除的数据");
+        }
+
+        List<String> idList = new ArrayList<String>();
+
+        if (ids.indexOf(",") != -1) {
+            String[] split = ids.split(",");
+            for (String id : split) {
+                idList.add(id);
+            }
+        } else {
+            idList.add(ids);
+        }
+
+        ResultDTO<Boolean> deleteResult = saleMainDataClient.deleteByIds(idList);
+
+        return deleteResult;
+    }
+
+    /**
      * /api/saleMainData/updataById
      * 根据id修改数据
      */
     @GetMapping("updataById")
-    public Object updataById(SaleMainDataWithBLOBs saleMainDataWith, HttpServletRequest httpServletRequest){
+    public Object updataById(SaleMainData saleMainData, HttpServletRequest httpServletRequest){
 
-        saleMainDataWith.setUploads(userComponent.checkUser(httpServletRequest).getId());
-        ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainDataWith);
-
+        saleMainData.setUploads(userComponent.checkUser(httpServletRequest).getId());
+        ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainData);
 
         return updataResult;
+    }
+
+    /**
+     * 根据id动态修改数据
+     * /api/saleMainData/updateByIdSelective
+     */
+    @GetMapping("updateByIdSelective")
+    public Object updateByIdSelective(SaleMainData saleMainData) {
+
+        ResultDTO<Boolean> updateResult = saleMainDataClient.updateByIdSelective(saleMainData);
+
+        return updateResult;
     }
 
     /**
@@ -84,7 +125,7 @@ public class SaleMainDataController {
     @GetMapping("findById/{id}")
     public Object findById(@PathVariable String id){
 
-        ResultDTO<SaleMainDataWithBLOBs> findResult = saleMainDataClient.findById(id);
+        ResultDTO<SaleMainData> findResult = saleMainDataClient.findById(id);
 
         return findResult;
     }
@@ -92,15 +133,15 @@ public class SaleMainDataController {
     /**
      * 多条件查询
      * /api/saleMainData/findUserBySelective
-     * 参数：SaleMainDataWithBLOBs对象
-     * 返回值：List<SaleMainDataWithBLOBs>
+     * 参数：SaleMainData对象
+     * 返回值：List<SaleMainData>
      */
     @GetMapping("findUserBySelective")
-    public Object findUserBySelective(SaleMainDataWithBLOBs saleMainDataWith){
+    public Object findUserBySelective(SaleMainData saleMainData){
 
-        ResultDTO<List<SaleMainDataWithBLOBs>> saleMainDatas = saleMainDataClient.findUserBySelective(saleMainDataWith);
+        ResultDTO<List<SaleMainData>> saleMainDatas = saleMainDataClient.findUserBySelective(saleMainData);
         if (saleMainDatas.getSuccess() && saleMainDatas.getData() != null && saleMainDatas.getData().size() > 0) {
-            for (SaleMainDataWithBLOBs saleMainData : saleMainDatas.getData()) {
+            for (SaleMainData mainData : saleMainDatas.getData()) {
                 //将对应value值转成对应的描述
                 this.transfer(saleMainData);
             }
@@ -117,7 +158,7 @@ public class SaleMainDataController {
     @GetMapping("findAll")
     public Object findAll(@RequestParam int page, @RequestParam int rows){
 
-        ResultDTO<PageInfo<SaleMainData>> resultDTO = saleMainDataClient.findAll(page ,rows);
+        ResultDTO<PageInfo<SaleMainData>> resultDTO = saleMainDataClient.associativeSelectAll(page ,rows);
 
         if (resultDTO.getSuccess() && resultDTO.getData() != null && resultDTO.getData().getList() != null && resultDTO.getData().getList().size() > 0) {
             for (SaleMainData saleMainData : resultDTO.getData().getList()) {
@@ -137,13 +178,7 @@ public class SaleMainDataController {
 
         ResultDTO seenPolicymakerResult = saleMainDataClient.countQuery();
 
-        Map<String, Object> map = new HashMap<String, Object>();
-
-        BeanUtil.copyProperties(seenPolicymakerResult, map);
-
-        map.put("wwwwww", "ceshi shuju");
-
-        return map;
+        return seenPolicymakerResult;
     }
 
     //将对应的枚举类型的value值转成对应的描述
@@ -224,14 +259,14 @@ public class SaleMainDataController {
                 saleMainData.setSeenPolicymaker(seenPolicymaker.getDesc());
             }
         }
-
-
     }
 
     /**
+     * 此调用可以使用上面的根据id动态修改数据 updateByIdSelective
      * /api/saleMainData/resetSaleMainDataStatus/021eda0a82b346e9bda511aac47d2d53/CLOSE
      * 重置(关闭/重新打开)status状态
      */
+    @Deprecated
     @GetMapping("resetSaleMainDataStatus/{id}/{status}")
     public Object resetSaleMainDataStatus(@PathVariable String id, @PathVariable String status) {
 

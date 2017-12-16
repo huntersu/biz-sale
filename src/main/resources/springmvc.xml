@@ -26,10 +26,6 @@
 
 	<context:component-scan base-package="com.biz"/>
 
-
-
-
-
 	<!-- 注解驱动：默认加载 RequestMappingHandlerMapping，RequestMappingHandlerAdapter-->
 	<mvc:annotation-driven/>
 
@@ -74,7 +70,7 @@
 			</list>
 		</property>
 	</bean>
-	<!--读取meaages.properties-->
+	<!--读取messages.properties-->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="defaultEncoding" value ="UTF-8" />
         <property name="basenames">

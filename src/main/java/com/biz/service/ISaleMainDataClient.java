@@ -2,7 +2,6 @@ package com.biz.service;
 
 import com.biz.common.ResultDTO;
 import com.biz.domain.SaleMainData;
-import com.biz.domain.SaleMainDataWithBLOBs;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -11,41 +10,72 @@ public interface ISaleMainDataClient {
 
     /**
      * 新增
+     * @param saleMainData
+     * @return
      */
-    ResultDTO<Boolean> insert(SaleMainDataWithBLOBs saleMainDataWit);
+    ResultDTO<Boolean> insert(SaleMainData saleMainData);
 
     /**
      * 根据id删除数据
+     * @param id
+     * @return
      */
     ResultDTO<Boolean> deleteById(String id);
 
     /**
-     * 根据id修改数据
+     * 批量删除
+     * @param ids
+     * @return
      */
-    ResultDTO<Boolean> updata(SaleMainDataWithBLOBs saleMainDataWith);
+    ResultDTO<Boolean> deleteByIds(List<String> ids);
+
+    /**
+     * 根据id修改数据
+     * @param saleMainData
+     * @return
+     */
+    ResultDTO<Boolean> updata(SaleMainData saleMainData);
+
+    /**
+     * 根据id动态修改数据
+     * @param saleMainData
+     * @return
+     */
+    ResultDTO<Boolean> updateByIdSelective(SaleMainData saleMainData);
 
     /**
      * 根据id查询
+     * @param id
+     * @return
      */
-    ResultDTO<SaleMainDataWithBLOBs> findById(String id);
+    ResultDTO<SaleMainData> findById(String id);
 
     /**
      * 多条件查询
+     * @param saleMainData
+     * @return
      */
-    ResultDTO<List<SaleMainDataWithBLOBs>> findUserBySelective(SaleMainDataWithBLOBs saleMainDataWith);
+    ResultDTO<List<SaleMainData>> findUserBySelective(SaleMainData saleMainData);
 
     /**
      * 查询所有
+     * @param page
+     * @param rows
+     * @return
      */
-    ResultDTO<PageInfo<SaleMainData>> findAll(int page, int rows);
+    ResultDTO<PageInfo<SaleMainData>> associativeSelectAll(int page, int rows);
 
     /**
      * 统计查询
+     * @return
      */
     ResultDTO countQuery();
 
     /**
      * 关闭/重新打开status状态
+     * @param id
+     * @param status
+     * @return
      */
     ResultDTO resetStatusById(String id, String status);
 }

@@ -1,11 +1,10 @@
 package com.biz.service.impl;
 
+import com.biz.common.IDUtils;
 import com.biz.common.JsonUtil;
 import com.biz.common.ResultDTO;
 import com.biz.common.ResultDTOBuilder;
-import com.biz.common.UUIDUtils;
 import com.biz.domain.SaleLoginUser;
-import com.biz.domain.SaleLoginUserExample;
 import com.biz.util.AES;
 import org.apache.commons.lang3.StringUtils;
 import com.biz.mapper.SaleLoginUserMapper;
@@ -34,7 +33,7 @@ public class UserImpl implements IUserClient {
     public ResultDTO userRegister(SaleLoginUser saleLoginUser) {
 
         //手动设置id
-        saleLoginUser.setId(UUIDUtils.genratorCode());
+        saleLoginUser.setId(IDUtils.currentTimeMillis());
 
         log.info("impl - 用户注册法入参：" + JsonUtil.toJson(saleLoginUser));
         if (StringUtils.isBlank(saleLoginUser.getLoginname())) {
@@ -58,10 +57,10 @@ public class UserImpl implements IUserClient {
         }
 
         try {
-            int insertNum = saleLoginUserMapper.insert(saleLoginUser);
+            int insertNum = saleLoginUserMapper.save(saleLoginUser);
             log.info("impl - 用户注册返回结果：***" + insertNum + "***");
 
-            if (insertNum != 1){
+            if (insertNum == 0){
                 return ResultDTOBuilder.failure("10003", "注册失败，请稍后重试");
             }
 
@@ -78,20 +77,12 @@ public class UserImpl implements IUserClient {
      * @return
      */
     public ResultDTO<SaleLoginUser> findUserInfoByUserName(String loginName) {
-
-        SaleLoginUserExample example = new SaleLoginUserExample();
-        example.createCriteria().andLoginnameEqualTo(loginName);
-
         try {
             //查询用户信息
-            List<SaleLoginUser> saleLoginUsers = saleLoginUserMapper.selectByExample(example);
+            SaleLoginUser saleLoginUsers = saleLoginUserMapper.findUserByLoginName(loginName);
             log.info("impl - 根据用户名查询用户信息返回结果：" + JsonUtil.toJson(saleLoginUsers));
 
-            if (saleLoginUsers.size() > 1){
-                return ResultDTOBuilder.failure("10005", "用户信息重复，请联系管理员");
-            }
-
-            return ResultDTOBuilder.success(saleLoginUsers.size() < 1 ? null:saleLoginUsers.get(0));
+            return ResultDTOBuilder.success(saleLoginUsers);
         } catch (Exception e) {
             log.error("impl - 根据用户名查询过用户信息(异常)：", e);
             return ResultDTOBuilder.failure("10003", "服务异常，请稍后重试");
@@ -142,7 +133,7 @@ public class UserImpl implements IUserClient {
     public ResultDTO<List<SaleLoginUser>> findAllUser() {
 
         try {
-            List<SaleLoginUser> userList = saleLoginUserMapper.findAllUser();
+            List<SaleLoginUser> userList = saleLoginUserMapper.selectAll();
             log.info("查询所有用户信息：" + JsonUtil.toJson(userList));
 
             return ResultDTOBuilder.success(userList);
