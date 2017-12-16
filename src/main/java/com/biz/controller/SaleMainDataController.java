@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * sale_main_data表的对应操作
@@ -43,8 +40,10 @@ public class SaleMainDataController {
      * 新增
      */
     @GetMapping("insert")
-    public Object insert(SaleMainData saleMainData, HttpServletRequest httpServletRequest){
+    public Object insert(SaleMainData saleMainData, HttpServletRequest httpServletRequest) {
         saleMainData.setUploads(userComponent.checkUser(httpServletRequest).getId());
+        saleMainData.setBeginDate(new Date());
+        saleMainData.setStatus("OPEN");
         ResultDTO<Boolean> result = saleMainDataClient.insert(saleMainData);
 
         return result;
@@ -55,7 +54,7 @@ public class SaleMainDataController {
      * 根据id删除数据
      */
     @GetMapping("deleteById/{id}")
-    public Object deleteById(@PathVariable String id){
+    public Object deleteById(@PathVariable String id) {
 
         ResultDTO<Boolean> deleteResult = saleMainDataClient.deleteById(id);
 
@@ -65,11 +64,12 @@ public class SaleMainDataController {
     /**
      * 批量删除数据
      * /api/saleMainData/deleteByIds/
+     *
      * @param ids 以字符串形式传参 以逗号(,)分割
      * @return
      */
     @GetMapping("deleteByIds/{ids}")
-    public Object deleteByIds(@PathVariable String ids){
+    public Object deleteByIds(@PathVariable String ids) {
 
         if (StringUtils.isBlank(ids)) {
             return ResultDTOBuilder.failure("10011", "请选择要删除的数据");
@@ -96,7 +96,7 @@ public class SaleMainDataController {
      * 根据id修改数据
      */
     @GetMapping("updataById")
-    public Object updataById(SaleMainData saleMainData, HttpServletRequest httpServletRequest){
+    public Object updataById(SaleMainData saleMainData, HttpServletRequest httpServletRequest) {
 
         saleMainData.setUploads(userComponent.checkUser(httpServletRequest).getId());
         ResultDTO<Boolean> updataResult = saleMainDataClient.updata(saleMainData);
@@ -119,11 +119,12 @@ public class SaleMainDataController {
     /**
      * /api/saleMainData/findById/{id}
      * 根据id查询单个
+     *
      * @param id
      * @return
      */
     @GetMapping("findById/{id}")
-    public Object findById(@PathVariable String id){
+    public Object findById(@PathVariable String id) {
 
         ResultDTO<SaleMainData> findResult = saleMainDataClient.findById(id);
 
@@ -137,7 +138,7 @@ public class SaleMainDataController {
      * 返回值：List<SaleMainData>
      */
     @GetMapping("findUserBySelective")
-    public Object findUserBySelective(SaleMainData saleMainData){
+    public Object findUserBySelective(SaleMainData saleMainData) {
 
         ResultDTO<List<SaleMainData>> saleMainDatas = saleMainDataClient.findUserBySelective(saleMainData);
         if (saleMainDatas.getSuccess() && saleMainDatas.getData() != null && saleMainDatas.getData().size() > 0) {
@@ -156,9 +157,22 @@ public class SaleMainDataController {
      * 查询所有
      */
     @GetMapping("findAll")
-    public Object findAll(@RequestParam int page, @RequestParam int rows){
+    public Object findAll(@RequestParam int page, @RequestParam int rows,
+                          @RequestParam(required = false, defaultValue = "none") String filterCol) {
 
-        ResultDTO<PageInfo<SaleMainData>> resultDTO = saleMainDataClient.associativeSelectAll(page ,rows);
+        ResultDTO<PageInfo<SaleMainData>> resultDTO = null;
+
+
+        if (filterCol.equals("none")) {
+            resultDTO = saleMainDataClient.associativeSelectAll(page, rows);
+
+        } else if (filterCol.equals("isReal")) {
+            resultDTO = saleMainDataClient.associativeSelectAllWithIsReal(page, rows);
+        } else if (filterCol.equals("fiveUserUp")) {
+            resultDTO = saleMainDataClient.associativeSelectAllWithFiveUp(page, rows);
+        } else if (filterCol.equals("seenPolicymaker")) {
+            resultDTO = saleMainDataClient.associativeSelectAllWithSeenPol(page, rows);
+        }
 
         if (resultDTO.getSuccess() && resultDTO.getData() != null && resultDTO.getData().getList() != null && resultDTO.getData().getList().size() > 0) {
             for (SaleMainData saleMainData : resultDTO.getData().getList()) {
@@ -174,7 +188,7 @@ public class SaleMainDataController {
      * 统计查询
      */
     @GetMapping("countQuery")
-    public Object countQuery(){
+    public Object countQuery() {
 
         ResultDTO seenPolicymakerResult = saleMainDataClient.countQuery();
 
@@ -273,5 +287,19 @@ public class SaleMainDataController {
         ResultDTO resultDTO = saleMainDataClient.resetStatusById(id, status);
 
         return resultDTO;
+    }
+
+    /**
+     * /api/saleMainData/deleteById/123456789
+     * 根据id删除数据
+     */
+    @GetMapping("updatePriById")
+    public Object updatePriById(SaleMainData saleMainData,HttpServletRequest httpServletRequest) {
+
+        saleMainData.setUploads(userComponent.checkUser(httpServletRequest).getId());
+
+        ResultDTO<Boolean> deleteResult = saleMainDataClient.updatePriById(saleMainData);
+
+        return deleteResult;
     }
 }

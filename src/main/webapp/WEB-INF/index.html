@@ -53,6 +53,14 @@
         }
     </style>
 
+    <style>
+
+        .filterSelected {
+            background: #dedede;
+        }
+
+    </style>
+
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css">
 </head>
@@ -344,7 +352,7 @@
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo"/>
-                        <span  class="user-info">
+                        <span class="user-info">
 									<small id="userWelcomeEle">Welcome,</small>
 
 								</span>
@@ -579,10 +587,10 @@
                                         <div class="infobox-content">待关单总数</div>
                                     </div>
 
-                                    <div class="stat stat-success">--</div>
+                                    <!--<div class="stat stat-success">&#45;&#45;</div>-->
                                 </div>
 
-                                <div class="infobox infobox-blue">
+                                <div user-data="isReal" class="infobox infobox-blue">
                                     <div class="infobox-icon">
                                         <i class="ace-icon fa fa-twitter"></i>
                                     </div>
@@ -592,13 +600,13 @@
                                         <div class="infobox-content">确有其事总数量</div>
                                     </div>
 
-                                    <div class="badge badge-success">
-                                        --
+                                    <!--<div class="badge badge-success">
+                                        &#45;&#45;
                                         <i class="ace-icon fa fa-arrow-up"></i>
-                                    </div>
+                                    </div>-->
                                 </div>
 
-                                <div class="infobox infobox-pink">
+                                <div user-data="seenPolicymaker" class="infobox infobox-pink">
                                     <div class="infobox-icon">
                                         <i class="ace-icon fa fa-shopping-cart"></i>
                                     </div>
@@ -607,10 +615,10 @@
                                         <span class="infobox-data-number" id="seenPolNumELe">--</span>
                                         <div class="infobox-content">见到决策人总数量</div>
                                     </div>
-                                    <div class="stat stat-important">--</div>
+                                    <!--<div class="stat stat-important">&#45;&#45;</div>-->
                                 </div>
 
-                                <div class="infobox infobox-red">
+                                <div user-data="fiveUserUp" class="infobox infobox-red">
                                     <div class="infobox-icon">
                                         <i class="ace-icon fa fa-flask"></i>
                                     </div>
@@ -631,10 +639,10 @@
                                         <div class="infobox-content">Pipeline</div>
                                     </div>
 
-                                    <div class="badge badge-success">
-                                        --
+                                    <!--<div class="badge badge-success">
+                                        &#45;&#45;
                                         <i class="ace-icon fa fa-arrow-up"></i>
-                                    </div>
+                                    </div>-->
                                 </div>
 
                                 <div class="infobox infobox-blue2">
@@ -721,6 +729,9 @@
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
+
+    var dataGetUrl = "/api/saleMainData/findAll";
+
     jQuery(function ($) {
         $('.easy-pie-chart.percentage').each(function () {
             var $box = $(this).closest('.infobox');
@@ -930,7 +941,7 @@
     jQuery("#list2").jqGrid({
         url: '/api/saleMainData/findAll',
         datatype: "json",
-        colNames: ['操作', 'ID', '客户名称', '开始推进日期', '更新信息日期',
+        colNames: ['操作', '优先级', 'ID', '客户名称', '开始推进日期', '更新信息日期',
             '是否见到决策人', '决策人职位', '是否搞定决策人',
             '搞定的决策人职位', '确有其事', '不确有其事',
             '没有5人以上试用', '有5人以上试用', '姓名',
@@ -940,7 +951,7 @@
         colModel: [
             {
                 name: 'Edit', width: 90, index: 'Edit', formatter: function (value, grid, rows, state) {
-                return "<button class=\"btn btn-danger btn-sm\" onclick=\"deleteData('" + rows.id + "')\">"
+                return "<button class=\"btn btn-danger btn-sm\" onclick=\"deleteData('" + rows.id + "','" + rows.cusName + "')\">"
                     + "<i class=\"ace-icon fa fa-trash-o icon-only\"></i>"
                     + "</button>&nbsp;"
                     + "<button class=\"btn btn-info btn-sm\" onclick=\"openData('" + rows.id + "')\">"
@@ -948,9 +959,22 @@
                     + "</button>";
             }
             },
+            {
+                name: 'priorityLevel',
+                width: 60,
+                index: 'priorityLevel', align: 'center',
+                formatter: function (value, grid, rows, state) {
+
+
+                    return "<button class=\"btn btn-success btn-sm\" onclick=\"editPri('" + rows.id + "','" + rows.cusName + "','" + value + "')\">"
+                        + value
+                        + "</button>";
+
+                }
+            },
             {name: 'id', index: 'id', hidden: true},
             {name: 'cusName', index: 'cusName'},
-            {name: 'beginDate', index: 'beginDate',sorttype:"date"},
+            {name: 'beginDate', index: 'beginDate', sorttype: "date"},
             {name: 'updateDate', index: 'updateDate'},
             {name: 'seenPolicymaker', index: 'seenPolicymaker'},
             {name: 'policymakerPosition', index: 'policymakerPosition'},
@@ -963,7 +987,7 @@
             {name: 'contactName', index: 'contactName'},
             {name: 'contactPhone', index: 'contactPhone'},
             {name: 'contactEmail', index: 'contactEmail'},
-            {name: 'importantReq', index: 'importantReq'},
+            {name: 'importantReq', index: 'importantReq',width:200},
             {name: 'cusEmpNum', index: 'cusEmpNum'},
             {name: 'cusCity', index: 'cusCity'},
             {name: 'launchTime', index: 'launchTime'},
@@ -972,14 +996,17 @@
             {name: 'nextReqAction', index: 'nextReqAction'},
             {name: 'uploads', index: 'uploads'},
             {name: 'assign', index: 'assign'},
-            {name: 'logInfo', index: 'logInfo'}
+            {name: 'logInfo', index: 'logInfo',width:200}
 
         ],
         rowNum: 10,
-        rowList: [10, 20, 30,50,100],
+        rowList: [10, 20, 30, 50, 100],
         pager: '#pager',
-        sortable:false,
-        sortorder:'asc',
+        sortable: false,
+        onSelectRow: function (id) {
+            openData(id);
+        },
+        sortorder: 'asc',
         viewrecords: true,
         caption: "客户情况跟踪",
         jsonReader: {
@@ -991,7 +1018,7 @@
         },
         autoScroll: true,
         height: 'auto',
-        width:'auto',
+        width: 'auto',
         loadComplete: function () {
             var table = this;
             setTimeout(function () {
@@ -1007,7 +1034,7 @@
 
     });
 
-    function loadCountData(){
+    function loadCountData() {
         $.ajax({
             type: 'GET',
             url: 'api/saleMainData/countQuery',
@@ -1031,8 +1058,6 @@
 
 
     $(document).ready(function () {
-
-
 
 
         loadCountData();
@@ -1070,10 +1095,12 @@
     });
 
 
-    function deleteData(id) {
+    function deleteData(id, cusName) {
+
+        event.stopPropagation();
 
         BootstrapDialog.show({
-            message: '确定要删除此数据吗?',
+            message: '确定要删除"' + cusName + '"的数据吗?',
             title: '警告!',
             buttons: [{
                 label: '取消',
@@ -1087,7 +1114,7 @@
                 action: function (dialogItself) {
                     $.ajax({
                         type: 'GET',
-                        url: '/api/saleMainData/deleteById/'+id,
+                        url: '/api/saleMainData/deleteById/' + id,
                         cache: false,
                         dataType: 'json',
                         success: function (datas) {
@@ -1112,7 +1139,7 @@
 
                             } else {
                                 BootstrapDialog.show({
-                                    message: '删除失败:'+datas.errMsg,
+                                    message: '删除失败:' + datas.errMsg,
                                     title: '提示',
                                     buttons: [{
                                         label: '确定',
@@ -1134,6 +1161,86 @@
         location.href = "datadetail.html?dataid=" + id;
 
     }
+
+    function editPri(id, cusName, pri) {
+
+        event.stopPropagation();
+
+        var $textAndPic = $('<div class="input-group input-group-sm"><span class="input-group-addon">当前优先级</span><input id="priInput" type="text" class="form-control" placeholder="' + pri + '"></div>');
+
+
+        BootstrapDialog.show({
+            title: '输入优先级',
+            message: $textAndPic,
+            buttons: [{
+                label: '取消',
+                action: function (dialogItself) {
+                    dialogItself.close();
+                }
+            }, {
+                label: '修改',
+                cssClass: 'btn btn-danger',
+                action: function (dialogItself) {
+
+                    postData = new Object();
+
+                    postData.id = id;
+                    postData.priorityLevel = $("#priInput").val();
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/saleMainData/updatePriById',
+                        cache: false,
+                        dataType: 'json',
+                        data: postData,
+                        success: function (datas) {
+                            if (datas.success == true) {
+
+                                $("#list2").setGridParam({}).trigger("reloadGrid");
+                                dialogItself.close();
+                            } else {
+                                console.log(datas.errMsg);
+                            }
+                        }
+                    });
+                }
+            }]
+        });
+    }
+
+
+    $(".infobox").click(function () {
+
+
+        var isCancelFilter = false;
+
+        if ($(this).hasClass('filterSelected')) {
+
+            $(".infobox").removeClass('filterSelected');
+            isCancelFilter = true;
+
+        } else {
+            $(".infobox").removeClass('filterSelected');
+            $(this).addClass('filterSelected');
+        }
+
+        var filterTag = $(this).attr("user-data");
+
+        if (isCancelFilter || (filterTag == undefined)) {
+
+            $("#list2").jqGrid('setGridParam', {
+                postData: {'filterCol': 'none'}, //发送数据
+                page: 1
+            }).trigger("reloadGrid"); //重新载入
+
+        } else {
+
+            $("#list2").jqGrid('setGridParam', {
+                postData: {'filterCol': filterTag}, //发送数据
+                page: 1
+            }).trigger("reloadGrid"); //重新载入
+        }
+    });
 
 </script>
 </body>

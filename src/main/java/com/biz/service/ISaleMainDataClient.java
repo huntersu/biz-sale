@@ -36,6 +36,8 @@ public interface ISaleMainDataClient {
      */
     ResultDTO<Boolean> updata(SaleMainData saleMainData);
 
+    ResultDTO<Boolean> updatePriById(SaleMainData saleMainData);
+
     /**
      * 根据id动态修改数据
      * @param saleMainData
@@ -64,6 +66,12 @@ public interface ISaleMainDataClient {
      * @return
      */
     ResultDTO<PageInfo<SaleMainData>> associativeSelectAll(int page, int rows);
+
+    ResultDTO<PageInfo<SaleMainData>> associativeSelectAllWithIsReal(int page, int rows);
+
+    ResultDTO<PageInfo<SaleMainData>> associativeSelectAllWithSeenPol(int page, int rows);
+
+    ResultDTO<PageInfo<SaleMainData>> associativeSelectAllWithFiveUp(int page, int rows);
 
     /**
      * 统计查询

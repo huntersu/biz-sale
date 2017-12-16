@@ -164,7 +164,46 @@
             m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
             m.next_req_action,m.true_close_time,m.status,m.log_info,m.priority_level, u.name as uploads , u2.name as assign
         from
-            sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id order by m.begin_date desc
+            sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id order by m.priority_level asc , m.begin_date desc
+    </select>
+
+    <!-- 关联查询用户表中的所有数据过滤ISReal字段 -->
+    <select id="associativeSelectAllWithIsReal" resultMap="BaseMainDataResultMap">
+        select
+        m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
+        m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
+        m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
+        m.contact_name,m.contact_phone,m.contact_email,m.important_req,
+        m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
+        m.next_req_action,m.true_close_time,m.status,m.log_info,m.priority_level, u.name as uploads , u2.name as assign
+        from
+        sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id where m.is_real <![CDATA[<>]]> 'NO' order by m.priority_level asc , m.begin_date desc
+    </select>
+
+    <!-- 关联查询用户表中的所有数据过滤ISReal字段 -->
+    <select id="associativeSelectAllWithSeenPol" resultMap="BaseMainDataResultMap">
+        select
+        m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
+        m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
+        m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
+        m.contact_name,m.contact_phone,m.contact_email,m.important_req,
+        m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
+        m.next_req_action,m.true_close_time,m.status,m.log_info,m.priority_level, u.name as uploads , u2.name as assign
+        from
+        sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id where m.seen_policymaker <![CDATA[<>]]> 'N' order by m.priority_level asc , m.begin_date desc
+    </select>
+
+    <!-- 关联查询用户表中的所有数据过滤ISReal字段 -->
+    <select id="associativeSelectAllWithFiveUp" resultMap="BaseMainDataResultMap">
+        select
+        m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
+        m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
+        m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
+        m.contact_name,m.contact_phone,m.contact_email,m.important_req,
+        m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
+        m.next_req_action,m.true_close_time,m.status,m.log_info,m.priority_level, u.name as uploads , u2.name as assign
+        from
+        sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id where m.five_user_up <![CDATA[<>]]> 'NO' order by m.priority_level asc , m.begin_date desc
     </select>
 
     <!-- 多条件查询 -->
@@ -251,13 +290,25 @@
         </where>
     </select>
 
+
+    <!-- 根据ID修改优先级 -->
+    <update id="updatePriById" parameterType="saleMainData" >
+        update
+        sale_main_data
+        set
+        update_date = #{updateDate},
+        uploads = #{uploads},
+        priority_level = #{priorityLevel}
+        where
+        id = #{id}
+    </update>
+
     <!-- 根据ID修改数据 -->
     <update id="updateById" parameterType="saleMainData" >
         update
             sale_main_data
         set
             cus_name = #{cusName},
-            begin_date = #{beginDate},
             update_date = #{updateDate},
             seen_policymaker = #{seenPolicymaker},
             policymaker_position = #{policymakerPosition},
@@ -277,7 +328,6 @@
             next_policymaker_action = #{nextPolicymakerAction},
             next_req_action = #{nextReqAction},
             true_close_time = #{trueCloseTime},
-            status = #{status},
             uploads = #{uploads},
             assign = #{assign},
             priority_level = #{priorityLevel}

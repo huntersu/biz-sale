@@ -26,6 +26,24 @@ public interface SaleMainDataMapper {
     List<SaleMainData> associativeSelectAll();
 
     /**
+     * 关联查询用户表中的所有数据
+     * @return
+     */
+    List<SaleMainData> associativeSelectAllWithIsReal();
+
+    /**
+     * 关联查询用户表中的所有数据
+     * @return
+     */
+    List<SaleMainData> associativeSelectAllWithSeenPol();
+
+    /**
+     * 关联查询用户表中的所有数据
+     * @return
+     */
+    List<SaleMainData> associativeSelectAllWithFiveUp();
+
+    /**
      * 多条件查询
      * @param saleMainData
      * @return
@@ -62,6 +80,8 @@ public interface SaleMainDataMapper {
      * @return
      */
     int updateById(SaleMainData saleMainData);
+
+    int updatePriById(SaleMainData saleMainData);
 
     /**
      * 根据ID动态修改数据

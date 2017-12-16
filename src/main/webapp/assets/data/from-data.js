@@ -223,6 +223,7 @@ function from_btns() {//提交表单
             newMainData.importantReq = $("#importantReq").val();
             newMainData.assign = $("#assign").val();
             newMainData.logInfo = $("#logInfo").val();
+            newMainData.priorityLevel = $("#priorityLevel").val();
 
 
             var loadingDialog = BootstrapDialog.show({
@@ -400,6 +401,8 @@ function updateform(id) {
                 $('#launchTime').datepicker("setDate", datas.data.launchTime);
 
                 $('#closeTime').datepicker("setDate", datas.data.closeTime);
+                $('#priorityLevel').val(datas.data.priorityLevel);
+
 
             }
 
