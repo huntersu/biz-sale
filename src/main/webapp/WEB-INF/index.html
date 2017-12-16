@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta charset="utf-8"/>
-    <title>sy Admin</title>
+    <title>兜行CRM</title>
 
     <meta name="description" content="overview &amp; stats"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -74,7 +74,7 @@
             <a href="index.html" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-                    sy Admin
+                    兜行CRM
                 </small>
             </a>
         </div>
@@ -344,16 +344,16 @@
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo"/>
-                        <span class="user-info">
-									<small>Welcome,</small>
-									Jason
+                        <span  class="user-info">
+									<small id="userWelcomeEle">Welcome,</small>
+
 								</span>
 
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <li>
+                        <!--<li>
                             <a href="#">
                                 <i class="ace-icon fa fa-cog"></i>
                                 Settings
@@ -367,10 +367,10 @@
                             </a>
                         </li>
 
-                        <li class="divider"></li>
+                        <li class="divider"></li>-->
 
                         <li>
-                            <a href="#">
+                            <a id="logoutButton" href="javascript:void(0)">
                                 <i class="ace-icon fa fa-power-off"></i>
                                 Logout
                             </a>
@@ -663,6 +663,8 @@
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
+
+
                 <row>
                     <div class="col-sm-12" style="overflow-x:auto;overflow-y: hidden">
                         <table id="list2"></table>
@@ -708,7 +710,7 @@
 <script src="assets/js/jquery.flot.resize.min.js"></script>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
-
+<script src="assets/data/dx.js?v=20171214"></script>
 
 <!-- ace scripts -->
 <script src="assets/js/ace-elements.min.js"></script>
@@ -948,7 +950,7 @@
             },
             {name: 'id', index: 'id', hidden: true},
             {name: 'cusName', index: 'cusName'},
-            {name: 'beginDate', index: 'beginDate'},
+            {name: 'beginDate', index: 'beginDate',sorttype:"date"},
             {name: 'updateDate', index: 'updateDate'},
             {name: 'seenPolicymaker', index: 'seenPolicymaker'},
             {name: 'policymakerPosition', index: 'policymakerPosition'},
@@ -976,9 +978,9 @@
         rowNum: 10,
         rowList: [10, 20, 30,50,100],
         pager: '#pager',
-        sortname: 'id',
+        sortable:false,
+        sortorder:'asc',
         viewrecords: true,
-        sortorder: "desc",
         caption: "客户情况跟踪",
         jsonReader: {
             root: "data.list",    // json中代表实际模型数据的入口
@@ -1029,6 +1031,8 @@
 
 
     $(document).ready(function () {
+
+
 
 
         loadCountData();

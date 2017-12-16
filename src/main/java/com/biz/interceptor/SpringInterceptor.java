@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,12 +21,16 @@ public class SpringInterceptor implements HandlerInterceptor {
 
         SaleLoginUser user = userComponent.checkUser(httpServletRequest);
 
-        if(user==null)
-        {
+        if (user == null) {
             httpServletResponse.sendRedirect("/login.html");
 
             return false;
         }
+
+        String name = java.net.URLEncoder.encode(user.getName(),"UTF-8");
+
+        Cookie nameCookie = new Cookie("user_name",name );
+        httpServletResponse.addCookie(nameCookie);
 
 
         return true;
