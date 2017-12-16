@@ -987,7 +987,7 @@
             {name: 'contactName', index: 'contactName'},
             {name: 'contactPhone', index: 'contactPhone'},
             {name: 'contactEmail', index: 'contactEmail'},
-            {name: 'importantReq', index: 'importantReq',width:200},
+            {name: 'importantReq', index: 'importantReq',width:500},
             {name: 'cusEmpNum', index: 'cusEmpNum'},
             {name: 'cusCity', index: 'cusCity'},
             {name: 'launchTime', index: 'launchTime'},
@@ -996,7 +996,7 @@
             {name: 'nextReqAction', index: 'nextReqAction'},
             {name: 'uploads', index: 'uploads'},
             {name: 'assign', index: 'assign'},
-            {name: 'logInfo', index: 'logInfo',width:200}
+            {name: 'logInfo', index: 'logInfo',width:500}
 
         ],
         rowNum: 10,
@@ -1004,7 +1004,7 @@
         pager: '#pager',
         sortable: false,
         onSelectRow: function (id) {
-            openData(id);
+            //openData(id);
         },
         sortorder: 'asc',
         viewrecords: true,
@@ -1030,6 +1030,21 @@
 
 
             }, 0);
+        },ondblClickRow: function (rowid,iRow,iCol,e){
+
+
+
+
+            BootstrapDialog.show({
+                title: $("#list2").jqGrid('getGridParam','colNames')[iCol],
+                message:$("#list2").jqGrid("getCell",rowid,iCol),
+                buttons: [{
+                    label: '关闭',
+                    action: function (dialogItself) {
+                        dialogItself.close();
+                    }
+                }]
+            });
         }
 
     });
