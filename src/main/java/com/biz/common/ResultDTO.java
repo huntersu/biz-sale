@@ -19,7 +19,7 @@ public class ResultDTO<T> implements Serializable{
     }
 
     public void setSuccess(Boolean success) {
-        success = success;
+        this.success = success;
     }
 
     public String getErrCode() {

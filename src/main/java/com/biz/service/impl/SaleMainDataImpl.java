@@ -241,11 +241,11 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
             PageHelper.startPage(page, rows);
 
             List<SaleMainData> saleMainDatas = saleMainDataMapper.associativeSelectAllWithIsReal();
-            log.error("impl - 分页查询全部(sale_main_data表)的查询结果：", JsonUtil.toJson(saleMainDatas));
+            log.info("impl - 分页查询全部(sale_main_data表)的查询结果：", JsonUtil.toJson(saleMainDatas));
 
             //创建PageInfo对象
             PageInfo<SaleMainData> pageInfo = new PageInfo<SaleMainData>(saleMainDatas);
-            log.error("impl - 分页查询全部(sale_main_data表)的查询结果 - 分页以后的结果：", JsonUtil.toJson(pageInfo));
+            log.info("impl - 分页查询全部(sale_main_data表)的查询结果 - 分页以后的结果：", JsonUtil.toJson(pageInfo));
 
             return ResultDTOBuilder.success(pageInfo);
         } catch (Exception e) {
