@@ -81,7 +81,7 @@
     </bean>
 
 	<!-- Spring 统一日志处理   LogInterceptor拦截器 配置　-->
-	<bean id="logLnterceptor" class="com.biz.exception.LogInterceptor"/>
+	<bean id="logLnterceptor" class="com.biz.interceptor.LogInterceptor"/>
 
 	<!-- Bean自动代理处理器 配置-->
 	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator" >
