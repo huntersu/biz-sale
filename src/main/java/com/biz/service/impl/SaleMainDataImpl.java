@@ -43,11 +43,8 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
         saleMainData.setUpdateDate(new Date());
         saleMainData.setStatus(SaleMainStatus.OPEN.getValue());
 
-        log.info("impl — 保存sale_main_data对象数据内容：" + JsonUtil.toJson(saleMainData));
         try {
             int insert = saleMainDataMapper.save(saleMainData);
-
-            log.info("保存sale_main_data对象数据 - 结果：******" + insert + "******");
 
             if (insert != 1) {
                 return ResultDTOBuilder.failure("10007", "数据添加失败，请稍后重试");
@@ -66,10 +63,8 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @return
      */
     public ResultDTO<Boolean> deleteById(String id) {
-        log.info("impl - 根据ID删除sale_main_data表中数据时的ID：***" + id + "***");
         try {
             int isDetlete = saleMainDataMapper.deleteById(id);
-            log.info("impl - 根据ID删除sale_main_data表中数据时的结果：***" + isDetlete + "***");
 
             if (isDetlete != 1) {
                 return ResultDTOBuilder.failure("10007", "数据添加失败，请稍后重试");
@@ -109,12 +104,9 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @return
      */
     public ResultDTO<Boolean> updata(SaleMainData saleMainData) {
-        log.info("impl - 根据ID修改sale_main_data表中数据时的参数：" + JsonUtil.toJson(saleMainData));
         try {
             saleMainData.setUpdateDate(new Date());
             int isUpdata = saleMainDataMapper.updatePriById(saleMainData);
-
-            log.info("impl - 根据ID修改sale_main_data表中数据时的返回结果：***" + isUpdata + "***");
 
             if (isUpdata != 1) {
                 return ResultDTOBuilder.failure("10007", "修改失败，请稍后重试");
@@ -129,12 +121,9 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
 
 
     public ResultDTO<Boolean> updatePriById(SaleMainData saleMainData){
-        log.info("impl - 根据ID修改sale_main_data表中Pri时的参数：" + JsonUtil.toJson(saleMainData));
         try {
             saleMainData.setUpdateDate(new Date());
             int isUpdata = saleMainDataMapper.updatePriById(saleMainData);
-
-            log.info("impl - 根据ID修改sale_main_data表中Pri时的返回结果：***" + isUpdata + "***");
 
             if (isUpdata != 1) {
                 return ResultDTOBuilder.failure("10007", "修改失败，请稍后重试");
@@ -153,11 +142,8 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @return
      */
     public ResultDTO<SaleMainData> findById(String id) {
-        log.info("impl - 根据ID查询sale_main_data表中单个数据时的方法入参ID：***" + id + "***");
         try {
             SaleMainData saleMainData = saleMainDataMapper.selectById(id);
-
-            log.info("impl - 根据ID查询sale_main_data表中单个数据的查询结果：" + JsonUtil.toJson(saleMainData));
 
             return ResultDTOBuilder.success(saleMainData);
         } catch (Exception e) {
@@ -193,11 +179,9 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * 返回值：List<SaleMainData>
      */
     public ResultDTO<List<SaleMainData>> findUserBySelective(SaleMainData saleMainData) {
-        log.info("impl - 多条件查询sale_main_data表中数据 - 方法入参：" + JsonUtil.toJson(saleMainData));
 
         try {
             List<SaleMainData> saleMainDatas = saleMainDataMapper.findSaleMainDataBySelective(saleMainData);
-            log.info("impl - 多条件查询sale_main_data表中数据结果：" + JsonUtil.toJson(saleMainDatas));
 
             return ResultDTOBuilder.success(saleMainDatas);
         } catch (Exception ex) {
@@ -211,17 +195,14 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @return
      */
     public ResultDTO<PageInfo<SaleMainData>> associativeSelectAll(int page, int rows) {
-        log.error("impl - 分页查询全部(sale_main_data表)的查询方法入参：page = " + page + "、rows = " + rows);
         try {
             //查询前设置分页信息
             PageHelper.startPage(page, rows);
 
             List<SaleMainData> saleMainDatas = saleMainDataMapper.associativeSelectAll();
-            log.error("impl - 分页查询全部(sale_main_data表)的查询结果：", JsonUtil.toJson(saleMainDatas));
 
             //创建PageInfo对象
             PageInfo<SaleMainData> pageInfo = new PageInfo<SaleMainData>(saleMainDatas);
-            log.error("impl - 分页查询全部(sale_main_data表)的查询结果 - 分页以后的结果：", JsonUtil.toJson(pageInfo));
 
             return ResultDTOBuilder.success(pageInfo);
         } catch (Exception e) {
@@ -235,17 +216,14 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @return
      */
     public ResultDTO<PageInfo<SaleMainData>> associativeSelectAllWithIsReal(int page, int rows) {
-        log.error("impl - 分页查询全部(sale_main_data表)的查询方法入参：page = " + page + "、rows = " + rows);
         try {
             //查询前设置分页信息
             PageHelper.startPage(page, rows);
 
             List<SaleMainData> saleMainDatas = saleMainDataMapper.associativeSelectAllWithIsReal();
-            log.info("impl - 分页查询全部(sale_main_data表)的查询结果：", JsonUtil.toJson(saleMainDatas));
 
             //创建PageInfo对象
             PageInfo<SaleMainData> pageInfo = new PageInfo<SaleMainData>(saleMainDatas);
-            log.info("impl - 分页查询全部(sale_main_data表)的查询结果 - 分页以后的结果：", JsonUtil.toJson(pageInfo));
 
             return ResultDTOBuilder.success(pageInfo);
         } catch (Exception e) {
@@ -259,17 +237,14 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @return
      */
     public ResultDTO<PageInfo<SaleMainData>> associativeSelectAllWithSeenPol(int page, int rows) {
-        log.error("impl - 分页查询全部(sale_main_data表)的查询方法入参：page = " + page + "、rows = " + rows);
         try {
             //查询前设置分页信息
             PageHelper.startPage(page, rows);
 
             List<SaleMainData> saleMainDatas = saleMainDataMapper.associativeSelectAllWithSeenPol();
-            log.error("impl - 分页查询全部(sale_main_data表)的查询结果：", JsonUtil.toJson(saleMainDatas));
 
             //创建PageInfo对象
             PageInfo<SaleMainData> pageInfo = new PageInfo<SaleMainData>(saleMainDatas);
-            log.error("impl - 分页查询全部(sale_main_data表)的查询结果 - 分页以后的结果：", JsonUtil.toJson(pageInfo));
 
             return ResultDTOBuilder.success(pageInfo);
         } catch (Exception e) {
@@ -283,17 +258,14 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * @return
      */
     public ResultDTO<PageInfo<SaleMainData>> associativeSelectAllWithFiveUp(int page, int rows) {
-        log.error("impl - 分页查询全部(sale_main_data表)的查询方法入参：page = " + page + "、rows = " + rows);
         try {
             //查询前设置分页信息
             PageHelper.startPage(page, rows);
 
             List<SaleMainData> saleMainDatas = saleMainDataMapper.associativeSelectAllWithFiveUp();
-            log.error("impl - 分页查询全部(sale_main_data表)的查询结果：", JsonUtil.toJson(saleMainDatas));
 
             //创建PageInfo对象
             PageInfo<SaleMainData> pageInfo = new PageInfo<SaleMainData>(saleMainDatas);
-            log.error("impl - 分页查询全部(sale_main_data表)的查询结果 - 分页以后的结果：", JsonUtil.toJson(pageInfo));
 
             return ResultDTOBuilder.success(pageInfo);
         } catch (Exception e) {
@@ -372,8 +344,6 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
         finalMap.put("isRealNum", isRealNum);
         finalMap.put("fiveUserupNum", fiveUserupIsRealNum);
 
-        log.info("统计查询sale_main_data表的最终结果：", JsonUtil.toJson(finalMap));
-
         return ResultDTOBuilder.success(finalMap);
     }
 
@@ -381,11 +351,9 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
      * 关闭/重新打开status状态
      */
     public ResultDTO resetStatusById(String id, String status) {
-        log.info("impl - 重置状态方法入参：id = " + id + "、status = " + status);
 
         try {
             int closeResult = saleMainDataMapper.resetSaleMainDataStatusById(id, status);
-            log.info("impl - 重置状态结果：***" + closeResult + "***");
 
             if (closeResult != 1) {
                 return ResultDTOBuilder.failure("10007", status.equalsIgnoreCase("close")? "关闭":"打开" + "失败，请稍后重试");

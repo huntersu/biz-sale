@@ -34,7 +34,7 @@ public class LogInterceptor implements MethodInterceptor {
         Object obj = invocation.proceed();// 执行方法后返回的结果
         loger.info("执行完当前的方法后返回的结果 **** " + JsonUtil.toJson(obj));
 
-        loger.info("方法****【" + methodName + "】****执行完毕**** end ****");// 方法后的操作
+        loger.info("方法 ****【" + methodName + "】**** 执行完毕 **** end ****");// 方法后的操作
 
         return obj;
     }
