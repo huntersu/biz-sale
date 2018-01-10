@@ -16,20 +16,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Component
 public class UserComponent {
-
-
     @Resource
     private IUserClient userClient;
 
-
-
     public SaleLoginUser checkUser(HttpServletRequest request){
-
-
         try {
-
             String userSign = CookieUtils.getCookieValue(request, "USN", true);
-
 
             if (StringUtils.isBlank(userSign)) {
                 return null;
@@ -43,16 +35,12 @@ public class UserComponent {
 
             //登录成功后将用户信息存入cookie中
             if (selectResult.getSuccess() && selectResult.getData() != null) {
-
                 return selectResult.getData();
-
             }
         }catch(Exception e) {
 
         }
 
         return null;
-
     }
-
 }

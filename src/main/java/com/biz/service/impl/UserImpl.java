@@ -35,7 +35,6 @@ public class UserImpl implements IUserClient {
         //手动设置id
         saleLoginUser.setId(IDUtils.currentTimeMillis());
 
-        log.info("impl - 用户注册法入参：" + JsonUtil.toJson(saleLoginUser));
         if (StringUtils.isBlank(saleLoginUser.getLoginname())) {
             return ResultDTOBuilder.failure("10002", "用户名不能为空");
         }
@@ -58,7 +57,6 @@ public class UserImpl implements IUserClient {
 
         try {
             int insertNum = saleLoginUserMapper.save(saleLoginUser);
-            log.info("impl - 用户注册返回结果：***" + insertNum + "***");
 
             if (insertNum == 0){
                 return ResultDTOBuilder.failure("10003", "注册失败，请稍后重试");
@@ -80,7 +78,6 @@ public class UserImpl implements IUserClient {
         try {
             //查询用户信息
             SaleLoginUser saleLoginUsers = saleLoginUserMapper.findUserByLoginName(loginName);
-            log.info("impl - 根据用户名查询用户信息返回结果：" + JsonUtil.toJson(saleLoginUsers));
 
             return ResultDTOBuilder.success(saleLoginUsers);
         } catch (Exception e) {
@@ -96,8 +93,6 @@ public class UserImpl implements IUserClient {
      * @return
      */
     public ResultDTO<SaleLoginUser> userLogin(String loginName, String password) {
-
-        log.info("impl - 用户登录时的方法入参：loginName = " + loginName + "、password = " + password);
 
         ResultDTO<SaleLoginUser> saleLoginUsers = this.findUserInfoByUserName(loginName);
 
@@ -134,7 +129,6 @@ public class UserImpl implements IUserClient {
 
         try {
             List<SaleLoginUser> userList = saleLoginUserMapper.selectAll();
-            log.info("查询所有用户信息：" + JsonUtil.toJson(userList));
 
             return ResultDTOBuilder.success(userList);
         } catch (Exception e) {

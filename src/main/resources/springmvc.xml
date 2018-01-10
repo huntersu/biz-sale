@@ -36,7 +36,6 @@
 			<mvc:exclude-mapping path="/login.html"/>
 			<mvc:exclude-mapping path="/assets/**"/>
 			<mvc:exclude-mapping path="/api/user/login/**"/>
-
 			<bean class="com.biz.interceptor.SpringInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
@@ -70,6 +69,7 @@
 			</list>
 		</property>
 	</bean>
+
 	<!--读取messages.properties-->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="defaultEncoding" value ="UTF-8" />
@@ -80,6 +80,27 @@
         </property>
     </bean>
 
+	<!-- Spring 统一日志处理   LogInterceptor拦截器 配置　-->
+	<bean id="logLnterceptor" class="com.biz.interceptor.LogInterceptor"/>
+
+	<!-- Bean自动代理处理器 配置-->
+	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator" >
+		<property name="interceptorNames">
+			<list>
+				<value>logLnterceptor</value>
+			</list>
+		</property>
+		<property name="beanNames">
+			<!-- 配置需要进行日志记录的Service和Dao -->
+			<list>
+				<!--
+                    配置所有Service结尾命名的Bean，即所有Service层的类都要经过exceptionHandler异常处理类
+                    Service层的Bean ID 命名要以Service结尾
+                -->
+				<value>*Impl</value>
+			</list>
+		</property>
+	</bean>
 
 	<!-- 第三步：注册处理器映射器/处理器适配器 ，添加conversion-service属性-->
 	<mvc:annotation-driven conversion-service="conversionService"/>
