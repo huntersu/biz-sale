@@ -15,10 +15,11 @@
         <result column="department" property="department"/>
         <!-- 用户头像 -->
         <result column="displayImage" property="displayimage"/>
+        <result column="role" property="role"/>
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, name, password, department, loginname, displayImage
+        id, name, password, department, loginname, displayImage, role
     </sql>
 
     <!-- 动态查询条件sql片段 -->
@@ -41,6 +42,7 @@
         <if test="displayimage != null" >
             AND displayImage = #{displayimage}
         </if>
+
     </sql>
 
     <select id="findAllUser" resultType="saleLoginUser">

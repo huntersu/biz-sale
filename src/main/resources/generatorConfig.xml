@@ -53,6 +53,7 @@
 
 		<table schema="SaleDB" tableName="sale_login_user" domainObjectName="SaleLoginUser"/>
 		<table schema="SaleDB" tableName="sale_main_data" domainObjectName="SaleMainData"/>
+		<table schema="SaleDB" tableName="sale_track" domainObjectName="SaleTrack"/>
 
 		<!--<table tableName="tb_user" domainObjectName="User"
 			   enableCountByExample="false" enableUpdateByExample="false"
