@@ -145,6 +145,8 @@ public class SaleMainData implements Serializable{
      */
     private int priorityLevel;
 
+    private int track;
+
     public String getId() {
         return id;
     }
@@ -372,5 +374,13 @@ public class SaleMainData implements Serializable{
 
     public void setPriorityLevel(int priorityLevel) {
         this.priorityLevel = priorityLevel;
+    }
+
+    public int getTrack() {
+        return track;
+    }
+
+    public void setTrack(int track) {
+        this.track = track;
     }
 }

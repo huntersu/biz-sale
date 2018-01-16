@@ -7,7 +7,9 @@ import com.biz.component.UserComponent;
 import com.biz.constant.*;
 import com.biz.domain.SaleMainData;
 import com.biz.service.ISaleMainDataClient;
+import com.biz.service.ITrackClient;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,9 @@ public class SaleMainDataController {
 
     @Resource
     private ISaleMainDataClient saleMainDataClient;
+
+    @Resource
+    private ITrackClient trackClient;
 
     /**
      * /api/saleMainData/insert
@@ -180,6 +185,9 @@ public class SaleMainDataController {
                 this.transfer(saleMainData);
             }
         }
+
+
+
         return resultDTO;
     }
 

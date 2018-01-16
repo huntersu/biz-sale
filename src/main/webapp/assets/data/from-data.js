@@ -398,9 +398,9 @@ function updateform(id) {
                 $("#assign").val(datas.data.assign).trigger("change");
                 $("#logInfo").val(datas.data.logInfo);
 
-                $('#launchTime').datepicker("setDate", datas.data.launchTime);
+                $('#launchTime').datepicker("update", new Date(Date.parse(datas.data.launchTime.replace(/-/g, "/"))));
 
-                $('#closeTime').datepicker("setDate", datas.data.closeTime);
+                $('#closeTime').datepicker("update", new Date(Date.parse(datas.data.closeTime.replace(/-/g, "/"))));
                 $('#priorityLevel').val(datas.data.priorityLevel);
 
 

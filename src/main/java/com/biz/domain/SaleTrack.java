@@ -1,5 +1,8 @@
 package com.biz.domain;
 
+import com.biz.util.JsonDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +17,8 @@ public class SaleTrack implements Serializable {
     private String updateUser;
     private int deleted;
     private String flowParent;
+    private String userName;
+    private String cusName;
 
     public String getId() {
         return id;
@@ -31,6 +36,7 @@ public class SaleTrack implements Serializable {
         this.cusId = cusId;
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class)
     public Date getCreatedOn() {
         return createdOn;
     }
@@ -39,6 +45,7 @@ public class SaleTrack implements Serializable {
         this.createdOn = createdOn;
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class)
     public Date getHappendOn() {
         return happendOn;
     }
@@ -85,5 +92,21 @@ public class SaleTrack implements Serializable {
 
     public void setFlowParent(String flowParent) {
         this.flowParent = flowParent;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getCusName() {
+        return cusName;
+    }
+
+    public void setCusName(String cusName) {
+        this.cusName = cusName;
     }
 }

@@ -2,9 +2,11 @@ package com.biz.mapper;
 
 import com.biz.domain.SaleMainData;
 import com.biz.domain.SaleMainDataExample;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface SaleMainDataMapper {
     /**
      * 新增数据

@@ -106,7 +106,7 @@ public class SaleMainDataImpl implements ISaleMainDataClient{
     public ResultDTO<Boolean> updata(SaleMainData saleMainData) {
         try {
             saleMainData.setUpdateDate(new Date());
-            int isUpdata = saleMainDataMapper.updatePriById(saleMainData);
+            int isUpdata = saleMainDataMapper.updateById(saleMainData);
 
             if (isUpdata != 1) {
                 return ResultDTOBuilder.failure("10007", "修改失败，请稍后重试");

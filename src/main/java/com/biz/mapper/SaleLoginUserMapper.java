@@ -4,7 +4,9 @@ import com.biz.domain.SaleLoginUser;
 import com.biz.domain.SaleLoginUserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface SaleLoginUserMapper {
     /**
      * 新增数据

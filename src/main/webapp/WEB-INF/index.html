@@ -455,6 +455,7 @@
 
                 <b class="arrow"></b>
             </li>
+
         </ul><!-- /.nav-list -->
 
         <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -941,7 +942,7 @@
     jQuery("#list2").jqGrid({
         url: '/api/saleMainData/findAll',
         datatype: "json",
-        colNames: ['操作', '优先级', 'ID', '客户名称', '开始推进日期', '更新信息日期',
+        colNames: ['操作', '优先级', '今日跟进', 'ID', '客户名称', '开始推进日期', '更新信息日期',
             '是否见到决策人', '决策人职位', '是否搞定决策人',
             '搞定的决策人职位', '确有其事', '不确有其事',
             '没有5人以上试用', '有5人以上试用', '姓名',
@@ -972,6 +973,26 @@
 
                 }
             },
+            {
+                name: 'track',
+                width: 65,
+                index: 'track', align: 'center',
+                align: 'center',
+                formatter: function (value, grid, rows, state) {
+
+
+                    if (value > 0) {
+                        return "<button class=\"btn btn-success btn-sm\" onclick=\"openCal('" + rows.id + "','" + rows.cusName + "','" + value + "')\">"
+                            + value
+                            + "</button>";
+                    } else {
+                        return "<button class=\"btn btn-danger btn-sm\" onclick=\"openCal('" + rows.id + "','" + rows.cusName + "','" + value + "')\">"
+                            + "0"
+                            + "</button>";
+                    }
+
+                }
+            },
             {name: 'id', index: 'id', hidden: true},
             {name: 'cusName', index: 'cusName'},
             {name: 'beginDate', index: 'beginDate', sorttype: "date"},
@@ -987,7 +1008,7 @@
             {name: 'contactName', index: 'contactName'},
             {name: 'contactPhone', index: 'contactPhone'},
             {name: 'contactEmail', index: 'contactEmail'},
-            {name: 'importantReq', index: 'importantReq',width:500},
+            {name: 'importantReq', index: 'importantReq', width: 500},
             {name: 'cusEmpNum', index: 'cusEmpNum'},
             {name: 'cusCity', index: 'cusCity'},
             {name: 'launchTime', index: 'launchTime'},
@@ -996,7 +1017,7 @@
             {name: 'nextReqAction', index: 'nextReqAction'},
             {name: 'uploads', index: 'uploads'},
             {name: 'assign', index: 'assign'},
-            {name: 'logInfo', index: 'logInfo',width:500}
+            {name: 'logInfo', index: 'logInfo', width: 500}
 
         ],
         rowNum: 10,
@@ -1030,14 +1051,12 @@
 
 
             }, 0);
-        },ondblClickRow: function (rowid,iRow,iCol,e){
-
-
+        }, ondblClickRow: function (rowid, iRow, iCol, e) {
 
 
             BootstrapDialog.show({
-                title: $("#list2").jqGrid('getGridParam','colNames')[iCol],
-                message:$("#list2").jqGrid("getCell",rowid,iCol),
+                title: $("#list2").jqGrid('getGridParam', 'colNames')[iCol],
+                message: $("#list2").jqGrid("getCell", rowid, iCol),
                 buttons: [{
                     label: '关闭',
                     action: function (dialogItself) {
@@ -1175,6 +1194,12 @@
 
         location.href = "datadetail.html?dataid=" + id;
 
+    }
+
+    function openCal(id, cusName, cusid) {
+        event.stopPropagation();
+
+        location.href = "cal.html?id=" + id;
     }
 
     function editPri(id, cusName, pri) {
