@@ -32,7 +32,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class AES {
 
-private static String KEY = "DouXing2017";
+private static String KEY = "YiBaiFen2019";
 
     /**
      * 将byte[]转为各种进制的字符串 

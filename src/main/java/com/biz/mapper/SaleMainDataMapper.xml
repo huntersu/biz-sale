@@ -183,6 +183,7 @@
         from
         sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id
         left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) group by cusid) temp_track on m.id=temp_track.cusid
+        left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) and type=1 group by cusid) temp_track2 on m.id=temp_track2.cusid
         where m.is_real <![CDATA[<>]]> 'NO' order by m.priority_level asc , m.begin_date desc
     </select>
 
@@ -198,6 +199,7 @@
         from
         sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id
         left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) group by cusid) temp_track on m.id=temp_track.cusid
+        left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) and type=1 group by cusid) temp_track2 on m.id=temp_track2.cusid
         where m.seen_policymaker <![CDATA[<>]]> 'N' order by m.priority_level asc , m.begin_date desc
     </select>
 
@@ -213,6 +215,7 @@
         from
         sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id
         left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) group by cusid) temp_track on m.id=temp_track.cusid
+        left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) and type=1 group by cusid) temp_track2 on m.id=temp_track2.cusid
         where m.five_user_up <![CDATA[<>]]> 'NO' order by m.priority_level asc , m.begin_date desc
     </select>
 

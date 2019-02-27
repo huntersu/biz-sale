@@ -37,7 +37,7 @@ var queyouqishixqObj = {
     "BID": "竞标",
     "NFG": "竞争性谈判",
     "PRE_BID": "筹备竞标中",
-    "MONOPOLY": "就和兜行一家谈判",
+    "MONOPOLY": "就和亿百分一家谈判",
     "INFO_COLLECTION": "供应商信息收集中",
     "PROPOSAL": "给决策者制作方案中"
 };

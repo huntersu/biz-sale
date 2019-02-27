@@ -11,10 +11,10 @@ import static org.junit.Assert.*;
 public class AESTest {
     @Test
     public void aesEncrypt() throws Exception {
-        String content = "DouXing2017";
+        String content = "123456";
         System.out.println("加密前：" + content);
 
-        String key = "123456";
+        String key = "YiBaiFen2019";
         System.out.println("加密密钥和解密密钥：" + key);
 
         String encrypt = AES.aesEncrypt(content, key);
@@ -28,10 +28,10 @@ public class AESTest {
     public void aesDecrypt() throws Exception {
 
 
-                String content = "qmlSyCRy9pqAr2ERkjSf8Q==";
+                String content = "Mc2Jn2KgBa5hKWt4GlgCEQ==";
         System.out.println("解密前：" + content);
 
-        String key = "123456";
+        String key = "YiBaiFen2019";
         System.out.println("加密密钥和解密密钥：" + key);
 
 

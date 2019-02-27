@@ -7,7 +7,7 @@ public enum IsReal {
     BID("1", "BID", "竞标"),
     NEG("2", "NEG", "竞争性谈判"),
     PRE_BID("3", "PRE_BID", "筹备竞标中"),
-    MONOPOLY("4", "MONOPOLY", "就和兜行一家谈判"),
+    MONOPOLY("4", "MONOPOLY", "就和亿百分一家谈判"),
     INFO_COLLECTION("5", "INFO_COLLECTION", "供应商信息收集中"),
     PROPOSAL("6", "PROPOSAL", "给决策者制作方案中"),
     NO("7", "NO", "否");
